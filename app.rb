@@ -1,16 +1,18 @@
 # encoding: utf-8
+require 'rubygems'
+require 'bundler'
 require 'sinatra'
-require 'sinatra_boilerplate'
 
-set :js_assets, %w[underscore.js]
 
-configure :development do
-  set :logging, false
-end
+class ConCensus < Sinatra::Base
 
-class SinatraBootstrap < Sinatra::Base
+	configure :development do
+  	set :logging, false
+	end
 
 	get "/" do
 	  haml :index
 	end
+
+	run! if app_file == $0
 end
