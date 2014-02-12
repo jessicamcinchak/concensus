@@ -2,13 +2,16 @@ source 'https://rubygems.org'
 
 gem 'sinatra'
 gem 'activesupport'
+gem 'activerecord'
+gem 'sinatra-activerecord'
+gem 'sinatra-flash'
+gem 'rake'
+# gem 'sinatra-redirect-with-flash'
 gem 'i18n' # stupid activesupport dependency
 
 group :development do
-  gem 'shotgun'
-  gem 'thin'
-  gem 'ruby-debug', :platforms => :mri_18
-  gem 'debugger', :platforms => :mri_19
+  gem 'sqlite3'
+  gem 'tux'
 end
 
 gem 'haml'
