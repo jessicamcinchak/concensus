@@ -10,7 +10,7 @@ namespace :css do
 
     task :clear do
       puts "*** Clearing CSS ***"
-      system "rm -Rfv vendor/stylesheets/*"
+      system "rm -Rfv assets/stylesheets/*"
     end
 
     task :default => :clear do
