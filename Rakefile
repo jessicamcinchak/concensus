@@ -1,3 +1,4 @@
+require "sinatra/activerecord/rake"
 require 'rubygems'
 require 'bundler'
 require 'rake'
