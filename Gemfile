@@ -12,6 +12,11 @@ gem 'i18n' # stupid activesupport dependency
 group :development do
   gem 'sqlite3'
   gem 'tux'
+  gem 'debugger'
+end
+
+group :test do
+	gem 'minitest'
 end
 
 gem 'haml'
@@ -19,3 +24,4 @@ gem 'sass'
 gem 'compass'
 gem 'therubyracer', :group => :production
 gem 'uglifier'
+gem 'bootstrap-sass'
