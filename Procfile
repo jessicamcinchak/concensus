@@ -1,1 +1,1 @@
-web: bundle exec rake s
+web: bundle exec rackup -p $PORT
