@@ -9,6 +9,6 @@ gem 'sinatra-flash'
 gem 'shotgun'
 gem 'haml'
 
-# Sass & Compass
 gem 'sass'
 gem 'compass'
+gem 'bootstrap-sass'

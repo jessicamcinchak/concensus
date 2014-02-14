@@ -1,5 +1,7 @@
 require './app'
 
+require 'bootstrap-sass'
+
 # Configuration to use when running within Sinatra
 project_path          = Sinatra::Application.root
 
