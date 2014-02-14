@@ -2,15 +2,34 @@
 @import "variables";
 @import "bootstrap";
 
+/********
+ *
+ * Index
+ *
+ ********/
+
 #masthead {
-	background-color: #BF6FA0;
+	background-color: $concensus-pink;
 
 	h1 {
-		color: #7F0030;
+		color: $concensus-red;
 		font-size: 32px;
+	}
+
+	#banner {
+		padding: 150px 0 150px 0;
 	}
 }
 
+#cool-stuff {
+	padding-top: 50px;
+}
+
+/********
+ *
+ * Map page
+ *
+ ********/
 
 #map {
 	margin-top: -20px;
@@ -18,3 +37,19 @@
 	height: 500px;
 }
 
+.base-layer-select-box {
+	padding-top: $padding-base-vertical;
+	padding-bottom: $padding-base-vertical;
+	padding-left: $padding-base-horizontal;
+	padding-right: $padding-base-horizontal;
+	background-color: lighten($concensus-blue, 20%);
+}
+
+.point-layer-select-box {
+	padding-top: $padding-base-vertical;
+	padding-bottom: $padding-base-vertical;
+	padding-left: $padding-base-horizontal;
+	padding-right: $padding-base-horizontal;
+	background-color: lighten($concensus-pink, 20%);
+
+}
