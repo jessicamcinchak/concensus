@@ -19,11 +19,10 @@
             %span{class: "icon-bar"}
             %span{class: "icon-bar"}
             %span{class: "icon-bar"}
-          %a{href: "#", class: "navbar-brand"}ConCENSUS
+          %a{href: url('/'), class: "navbar-brand"}ConCENSUS
         %nav{class: "collapse navbar-collapse bs-navbar-collapse", role: "navigation"}
           %ul{class: "nav navbar-nav"}
             %li<
-              %a{:href => url('/map')}Map
-    %main{class: "masthead"}
-      .container
+              %a{href: url('/map')}Map
+    %main
       =yield
