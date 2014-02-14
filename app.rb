@@ -2,8 +2,7 @@ require 'rubygems'
 require 'sinatra/base'
 require 'haml'
 
-class SinatraBootstrap < Sinatra::Base
-  require './helpers/render_partial'
+class ConCensus < Sinatra::Base
 
   get '/' do
     haml :index
