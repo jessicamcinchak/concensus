@@ -15,6 +15,7 @@ This is a [Sinatra](http://www.sinatrarb.com/) app; make sure you have Ruby and 
 ### Get things working
 
 Using your terminal, in the ConCENSUS folder, do the following:
+
     bundle install  #install required gems
     bundle exec compass install bootstrap #install bootstrap as a Compass extension
 
