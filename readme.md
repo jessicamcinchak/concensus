@@ -1,22 +1,24 @@
-# ConCensus
+# ConCENSUS
 
-## Making data visual
+## Data Driven Detroit’s Community Driven Data Portal
 
+The ConCENSUS project is being undertaken by Data Driven Detroit (D3) to provide the Detroit community with information about key indicators in the city. The project will include a web app to guide users to data visualizations that answer questions, both D3-created and community-created. The ConCENSUS app will also be a source of community-created data, by enabling users to input data in the web app.
 
+[Read more](http://www.knightfoundation.org/grants/201347656/)
 
 ## Run Yourself
 
-### Download ConCensus
+### Download ConCENSUS
 
 This is a [Sinatra](http://www.sinatrarb.com/) app; make sure you have Ruby and rvm on your computer. Either download this project (and unzip) or `git clone` into the folder of your choice.
 
 ### Get things working
 
-Using your terminal, in the ConCensus folder, do the following:
+Using your terminal, in the ConCENSUS folder, do the following:
     bundle install  #install required gems
     bundle exec compass install bootstrap #install bootstrap as a Compass extension
 
-### Starting ConCensus locally
+### Starting ConCENSUS locally
 
 Start the app by running:
 
