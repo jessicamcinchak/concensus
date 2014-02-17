@@ -1,15 +1,48 @@
 .row
-	.col-md-9
-		#map
-	.col-md-2.legend
-		.row
-			.col-md-12
-				.base-layer-select-box Base Layers
-				.point-layer-select-box Point Layers
+  .col-md-9
+    #map
+  .col-md-2.legend
+    .row
+      .col-md-12
+        .panel-group#accordion
+          .panel.panel-default.base-layer-select-box
+            .panel-heading
+              %h4.panel-title
+                %a{ href: "#baselayer1", data: {toggle: "collapse", parent: "#accordion"} } BaseLayer1
+            #baselayer1.panel-collapse.collapse.in
+              .panel-body
+                %form(role="form")
+                  .form-group
+                    .radio
+                      %label
+                        %input(type="radio" name="dataset" id="dataset1") Dataset1
+                    .radio
+                      %label
+                        %input(type="radio" name="dataset" id="dataset2") Dataset2
+                    .radio
+                      %label
+                        %input(type="radio" name="dataset" id="dataset3") Dataset3
+          .panel.panel-default
+            .panel-heading
+              %h4.panel-title
+                %a{ href: "#baselayer2", data: {toggle: "collapse", parent: "#accordion"} } BaseLayer2
+            #baselayer2.panel-collapse.collapse.in
+              .panel-body
+                %form(role="form")
+                  .form-group
+                    .radio
+                      %label
+                        %input(type="radio" name="dataset" id="dataset1") Dataset1
+                    .radio
+                      %label
+                        %input(type="radio" name="dataset" id="dataset2") Dataset2
+                    .radio
+                      %label
+                        %input(type="radio" name="dataset" id="dataset3") Dataset3
 .row
-	.col-md-4 Hints on using this data
-	.col-md-5	How the community used this data
-	.col-md-3	tools
+  .col-md-4 Hints on using this data
+  .col-md-5 How the community used this data
+  .col-md-3 tools
 
 
-%script{type: "text/javascript", src: "/javascripts/application.js"}
+%script{type: "text/javascript", src: "/javascripts/mapping.js"}

@@ -5247,7 +5247,7 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:hover, a.list-g
 }
 
 .panel-body {
-  padding: 15px;
+  padding: 10px;
 }
 .panel-body:before, .panel-body:after {
   content: " ";
@@ -6346,18 +6346,6 @@ button.close {
   height: 500px;
 }
 
-.base-layer-select-box {
-  padding-top: 6px;
-  padding-bottom: 6px;
-  padding-left: 12px;
-  padding-right: 12px;
-  background-color: #d2d8f6;
-}
-
-.point-layer-select-box {
-  padding-top: 6px;
-  padding-bottom: 6px;
-  padding-left: 12px;
-  padding-right: 12px;
-  background-color: #deb6cf;
+.legend {
+  margin-top: -20px;
 }

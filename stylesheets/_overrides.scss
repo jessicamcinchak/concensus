@@ -1,0 +1,18 @@
+// Overriding panel styling
+
+.base-layer-select-box {
+  padding-top: $padding-base-vertical;
+  padding-bottom: $padding-base-vertical;
+  padding-left: $padding-base-horizontal;
+  padding-right: $padding-base-horizontal;
+  background-color: lighten($concensus-blue, 20%);
+}
+
+.point-layer-select-box {
+  padding-top: $padding-base-vertical;
+  padding-bottom: $padding-base-vertical;
+  padding-left: $padding-base-horizontal;
+  padding-right: $padding-base-horizontal;
+  background-color: lighten($concensus-pink, 20%);
+
+}
