@@ -9,7 +9,7 @@ class ConCensus < Sinatra::Base
   end
 
   get '/map' do
-  	haml :map
+  	haml :map, :layout => false
   end
 
   # start the server if ruby file executed directly
