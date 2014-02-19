@@ -1,18 +1,16 @@
 // Overriding panel styling
 
 .base-layer-select-box {
-  padding-top: $padding-base-vertical;
-  padding-bottom: $padding-base-vertical;
-  padding-left: $padding-base-horizontal;
-  padding-right: $padding-base-horizontal;
-  background-color: lighten($concensus-blue, 20%);
+  $panel-baselayer-heading-bg: lighten($concensus-blue, 20%);
+  $panel-baselayer-border: lighten($concensus-blue, 20%);
+
+  @include panel-variant($panel-default-border, $panel-default-text, $panel-baselayer-heading-bg, $panel-baselayer-border)
 }
 
 .point-layer-select-box {
-  padding-top: $padding-base-vertical;
-  padding-bottom: $padding-base-vertical;
-  padding-left: $padding-base-horizontal;
-  padding-right: $padding-base-horizontal;
-  background-color: lighten($concensus-pink, 20%);
+  $panel-pointlayer-heading-bg: lighten($concensus-pink, 20%);
+  $panel-pointlayer-border: lighten($concensus-pink, 20%);
+
+  @include panel-variant($panel-default-border, $panel-default-text, $panel-pointlayer-heading-bg, $panel-pointlayer-border)
 
 }

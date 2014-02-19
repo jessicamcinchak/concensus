@@ -6315,6 +6315,36 @@ button.close {
     display: none !important;
   }
 }
+.base-layer-select-box {
+  border-color: #dddddd;
+}
+.base-layer-select-box > .panel-heading {
+  color: #333333;
+  background-color: #d2d8f6;
+  border-color: #d2d8f6;
+}
+.base-layer-select-box > .panel-heading + .panel-collapse .panel-body {
+  border-top-color: #dddddd;
+}
+.base-layer-select-box > .panel-footer + .panel-collapse .panel-body {
+  border-bottom-color: #dddddd;
+}
+
+.point-layer-select-box {
+  border-color: #dddddd;
+}
+.point-layer-select-box > .panel-heading {
+  color: #333333;
+  background-color: #deb6cf;
+  border-color: #deb6cf;
+}
+.point-layer-select-box > .panel-heading + .panel-collapse .panel-body {
+  border-top-color: #dddddd;
+}
+.point-layer-select-box > .panel-footer + .panel-collapse .panel-body {
+  border-bottom-color: #dddddd;
+}
+
 /********
  *
  * Index
