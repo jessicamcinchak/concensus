@@ -6,6 +6,7 @@
     %meta{name: "viewport", content: "width=device-width, initial-scale=1"}
     %title ConCENSUS
     %script(src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js")
+    %script(src="//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.0.0/leaflet-omnivore.min.js")
     %link(rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css")
     %link{href: "/stylesheets/application.css", media: "screen", rel: "stylesheet", type: "text/css"}
     %link(href='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.css' rel='stylesheet')
@@ -20,13 +21,6 @@
 
         .row {
           height: 90%;
-        }
-
-        #footer {
-          position: absolute;
-          right: 0;
-          left: 0;
-          bottom: 0;
         }
 
 
@@ -84,9 +78,9 @@
                         .radio
                           %label
                             %input(type="radio" name="dataset" id="dataset3") Dataset3
-    #footer
-      .col-md-4 Hints on using this data
-      .col-md-5 How the community used this data
-      .col-md-3 tools
+    .map-footer
+      .map-footer-column-main Hints on using this data
+      .map-footer-column-main How the community used this data
+      .map-footer-column-tools tools
 
   %script{type: "text/javascript", src: "/javascripts/mapping.js"}
