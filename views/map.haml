@@ -7,10 +7,12 @@
     %title ConCENSUS
     %script(src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js")
     %script(src="//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.0.0/leaflet-omnivore.min.js")
+    %script(src="http://code.jquery.com/jquery-1.10.2.min.js")
     %link(rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css")
     %link{href: "/stylesheets/application.css", media: "screen", rel: "stylesheet", type: "text/css"}
     %link(href='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.css' rel='stylesheet')
-    %link{href: "/javascripts/application.js", rel: 'stylesheet'}
+    %link{rel: "blockgroups", href: '/data/blockgroups.json'}
+    %link{rel: "tracts", href: '/data/tracts.geojson'}
 
     :css
         html,body {
@@ -83,4 +85,4 @@
       .map-footer-column-main How the community used this data
       .map-footer-column-tools tools
 
-  %script{type: "text/javascript", src: "/javascripts/mapping.js"}
+  %script{src: "javascripts/mapping.js"}
