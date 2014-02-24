@@ -111,15 +111,25 @@ body {
   padding: 0;
 
   border-top: 1px solid $concensus-gray;
+
+  p {
+  	display: inline;
+  	float: left;
+  	margin: $padding-large-vertical auto !important;
+  }
 }
 
 .map-footer-column-main {
 	border-left: 1px solid $concensus-gray;
 	border-right: 1px solid $concensus-gray;
+	height: 100%;
+	padding-top: $padding-large-vertical;
 
 	@include make-footer-column(2)
 }
 
 .map-footer-column-tools {
+	height: 100%;
+	padding-top: $padding-large-vertical;
 	@include make-footer-column(1)
 }
