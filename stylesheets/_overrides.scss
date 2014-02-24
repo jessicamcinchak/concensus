@@ -1,21 +1,16 @@
-// Overriding panel styling
-
-.base-layer-select-box {
-  $panel-baselayer-heading-bg: lighten($concensus-blue, 20%);
-  $panel-baselayer-border: lighten($concensus-blue, 20%);
-
-  @include panel-variant($panel-default-border, $panel-default-text, $panel-baselayer-heading-bg, $panel-baselayer-border)
-}
-
-.point-layer-select-box {
-  $panel-pointlayer-heading-bg: lighten($concensus-pink, 20%);
-  $panel-pointlayer-border: lighten($concensus-pink, 20%);
-
-  @include panel-variant($panel-default-border, $panel-default-text, $panel-pointlayer-heading-bg, $panel-pointlayer-border)
-
-}
-
 @mixin make-portal-column($columns, $gutter: $grid-gutter-width) {
+  position: relative;
+  min-height: 1px;
+  padding-left:  ($gutter / 2);
+  padding-right: ($gutter / 2);
+
+  @media (min-width: $screen-md-min) {
+    float: left;
+    width: percentage(($columns / 5));
+  }
+}
+
+@mixin make-footer-column($columns, $gutter: 0) {
   position: relative;
   min-height: 1px;
   padding-left:  ($gutter / 2);

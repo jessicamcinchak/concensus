@@ -1,7 +1,14 @@
 // customize bootstrap variables here:
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
 @import "variables";
 @import "bootstrap";
 @import "overrides";
+
+
+body {
+	font-family: 'Open Sans', sans-serif;
+}
+
 
 /********
  *
@@ -11,6 +18,7 @@
 
 #masthead {
 	background-color: $pink-lightest;
+	margin-top: -20px;
 
 	h1 {
 		color: $concensus-red;
@@ -26,19 +34,11 @@
 	}
 
 	#placeholder {
-		@include make-portal-column(1);
+		@include make-portal-column(1, $gutter: $grid-gutter-width);
 	}
 	#portal-img {
 		@include make-portal-column(1, $gutter: $grid-gutter-width);
 	}
-
-	// img:first-child {
-	// 	margin-left: 0;
-	// }
-
-	// img {
-	// 	margin-left: 60px;
-	// }
 
 	p {
 		display: inline;
@@ -48,9 +48,17 @@
 	}
 }
 
-#cool-stuff {
+#recent-activity {
 	padding-top: 50px;
+
+	h1 {
+		color: $concensus-gray;
+	}
 }
+
+.recent-activity-panel {}
+
+
 
 /********
  *
@@ -65,7 +73,7 @@
 
 #map {
 	margin-top: -20px;
-	width: 80%;
+	width: 79%;
 	height: 90%;
 	float: left;
 }
@@ -74,6 +82,23 @@
 	margin-top: -20px;
 	float: left;
 	width: 15%;
+}
+
+// Overriding panel styling
+
+.base-layer-select-box {
+  $panel-baselayer-heading-bg: lighten($concensus-blue, 20%);
+  $panel-baselayer-border: lighten($concensus-blue, 20%);
+
+  @include panel-variant($panel-default-border, $panel-default-text, $panel-baselayer-heading-bg, $panel-baselayer-border)
+}
+
+.point-layer-select-box {
+  $panel-pointlayer-heading-bg: lighten($concensus-pink, 20%);
+  $panel-pointlayer-border: lighten($concensus-pink, 20%);
+
+  @include panel-variant($panel-default-border, $panel-default-text, $panel-pointlayer-heading-bg, $panel-pointlayer-border)
+
 }
 
 .map-footer {
@@ -85,22 +110,16 @@
   margin-top: 0;
   padding: 0;
 
-  border-top: 1px solid black;
+  border-top: 1px solid $concensus-gray;
 }
 
 .map-footer-column-main {
-	display: inline;
-	float: left;
-	width: (80%/2);
-	margin: 0;
-	padding: $padding-large-vertical $padding-large-horizontal;
-	border-left: 1px solid black;
-	border-right: 1px solid black;
+	border-left: 1px solid $concensus-gray;
+	border-right: 1px solid $concensus-gray;
+
+	@include make-footer-column(2)
 }
 
 .map-footer-column-tools {
-	display: inline;
-	float: left;
-
-	width: 20%;
+	@include make-footer-column(1)
 }
