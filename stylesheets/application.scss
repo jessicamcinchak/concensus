@@ -10,15 +10,41 @@
  ********/
 
 #masthead {
-	background-color: $concensus-pink;
+	background-color: $pink-lightest;
 
 	h1 {
 		color: $concensus-red;
-		font-size: 32px;
+		font-size: 84px;
 	}
 
 	#banner {
-		padding: 150px 0 150px 0;
+		padding: 40px 0;
+	}
+
+	#portals {
+		@include make-row($gutter: $grid-gutter-width);
+	}
+
+	#placeholder {
+		@include make-portal-column(1);
+	}
+	#portal-img {
+		@include make-portal-column(1, $gutter: $grid-gutter-width);
+	}
+
+	// img:first-child {
+	// 	margin-left: 0;
+	// }
+
+	// img {
+	// 	margin-left: 60px;
+	// }
+
+	p {
+		display: inline;
+		float: right;
+		color: $concensus-blue;
+		font-size: 24px;
 	}
 }
 

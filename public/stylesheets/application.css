@@ -6320,8 +6320,8 @@ button.close {
 }
 .base-layer-select-box > .panel-heading {
   color: #333333;
-  background-color: #d2d8f6;
-  border-color: #d2d8f6;
+  background-color: #56d0ff;
+  border-color: #56d0ff;
 }
 .base-layer-select-box > .panel-heading + .panel-collapse .panel-body {
   border-top-color: #dddddd;
@@ -6351,14 +6351,55 @@ button.close {
  *
  ********/
 #masthead {
-  background-color: #bf6fa0;
+  background-color: #f6d9db;
 }
 #masthead h1 {
-  color: #400018;
-  font-size: 32px;
+  color: #ed1c24;
+  font-size: 84px;
 }
 #masthead #banner {
-  padding: 150px 0 150px 0;
+  padding: 40px 0;
+}
+#masthead #portals {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+#masthead #portals:before, #masthead #portals:after {
+  content: " ";
+  display: table;
+}
+#masthead #portals:after {
+  clear: both;
+}
+#masthead #placeholder {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  #masthead #placeholder {
+    float: left;
+    width: 20%;
+  }
+}
+#masthead #portal-img {
+  position: relative;
+  min-height: 1px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  #masthead #portal-img {
+    float: left;
+    width: 20%;
+  }
+}
+#masthead p {
+  display: inline;
+  float: right;
+  color: #00adef;
+  font-size: 24px;
 }
 
 #cool-stuff {

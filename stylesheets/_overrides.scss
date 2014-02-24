@@ -14,3 +14,15 @@
   @include panel-variant($panel-default-border, $panel-default-text, $panel-pointlayer-heading-bg, $panel-pointlayer-border)
 
 }
+
+@mixin make-portal-column($columns, $gutter: $grid-gutter-width) {
+  position: relative;
+  min-height: 1px;
+  padding-left:  ($gutter / 2);
+  padding-right: ($gutter / 2);
+
+  @media (min-width: $screen-md-min) {
+    float: left;
+    width: percentage(($columns / 5));
+  }
+}

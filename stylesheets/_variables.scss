@@ -12,8 +12,14 @@
 // ## Concensus Colors
 
 $concensus-pink: #BF6FA0;
-$concensus-red: #400018;
-$concensus-blue: #7D8EE5;
+$concensus-red: #ED1C24;
+$concensus-blue: #00ADEF;
+$concensus-gray: #A7A9AB;
+
+$pink-lightest: #F6D9DB;
+$blue-lightest: #CAE9EF;
+$pink-medium: #EA929D;
+$blue-medium: #66C7F1;
 
 //## Gray and brand colors for use across Bootstrap.
 
@@ -293,7 +299,7 @@ $border-radius-small:       0px;
 //* Number of columns in the grid.
 //$grid-columns:              12;
 //* Padding between columns. Gets divided in half for the left and right.
-//$grid-gutter-width:         30px;
+$grid-gutter-width:         30px;
 // Navbar collapse
 //* Point at which the navbar becomes uncollapsed.
 //$grid-float-breakpoint:     $screen-sm-min;
