@@ -47,37 +47,28 @@
               .panel.base-layer-select-box
                 .panel-heading
                   %h4.panel-title
-                    %a{ href: "#baselayer1", data: {toggle: "collapse", parent: "#accordion"} } BaseLayer1
+                    %a{ href: "#shapelayers", data: {toggle: "collapse", parent: "#accordion"} } Shape Layers
                 #baselayer1.panel-collapse.collapse.in
                   .panel-body
                     %form(role="form")
                       .form-group
-                        .radio
+                        .radio(data-file="DetroitBG_qgis.geojson" data-name="Census Block Groups (2010)")
                           %label
-                            %input(type="radio" name="dataset" id="dataset1") Dataset1
-                        .radio
+                            %input(type="radio" name="Census Block Groups" id="BG2010") Census Block Groups (2010)
+                        .radio(data-file="DetroitTract2010.geojson" data-name="Census Tracts (2010)")
                           %label
-                            %input(type="radio" name="dataset" id="dataset2") Dataset2
-                        .radio
-                          %label
-                            %input(type="radio" name="dataset" id="dataset3") Dataset3
+                            %input(type="radio" name="Census Tracts (2010)" id="tracts2010") Census Tracts (2010)
               .panel.point-layer-select-box
                 .panel-heading
                   %h4.panel-title
-                    %a{ href: "#baselayer2", data: {toggle: "collapse", parent: "#accordion"} } BaseLayer2
+                    %a{ href: "#pointlayers", data: {toggle: "collapse", parent: "#accordion"} } Point Layers
                 #baselayer2.panel-collapse.collapse.in
                   .panel-body
                     %form(role="form")
                       .form-group
-                        .radio
+                        .radio(data-file="streetlights_test.geojson" data-name="Streetlights")
                           %label
-                            %input(type="radio" name="dataset" id="dataset1") Dataset1
-                        .radio
-                          %label
-                            %input(type="radio" name="dataset" id="dataset2") Dataset2
-                        .radio
-                          %label
-                            %input(type="radio" name="dataset" id="dataset3") Dataset3
+                            %input(type="radio" name="Streetlights" id="streetlights") Streetlights
     .map-footer
       .map-footer-column-main
         %p Hints on using this data
