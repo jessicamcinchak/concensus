@@ -1,4 +1,5 @@
-// // create map
+// Set up the page
+// ---------
 
 var map = L.map('map', {
 												center: [42.3540, -83.0523],
@@ -12,8 +13,6 @@ L.tileLayer('http://api.tiles.mapbox.com/v3/rcackerman.h6ofgio1/{z}/{x}/{y}.png'
 
 var toggler = L.control.layers().addTo(map);
 
-
-
 function style( feature ) {
   return {
     fillColor: '#BF6FA0',
@@ -25,7 +24,16 @@ function style( feature ) {
   };
 }
 
-// Getting data from geojson
+// Sidebar
+// ---------
+
+// TODO
+// data-attribute: name of file
+// call getData
+
+
+// Data Getting
+// ---------
 
 var processData = function( data, options ) {
 	console.log("callback");
@@ -35,7 +43,7 @@ var processData = function( data, options ) {
   toggler.addBaseLayer(geolayer, options.name);
 };
 
-var shapeData = function( geoURL, options ) {
+var getData = function( geoURL, options ) {
 	console.log(geoURL);
 	var req = $.getJSON( geoURL );
 	req.done( function(data) {
@@ -50,11 +58,11 @@ var shapeData = function( geoURL, options ) {
 console.log("Starting data...");
 
 
-shapeData("/data/DetroitBG_qgis.geojson", {name: "Block Group"});
+getData("/data/DetroitBG_qgis.geojson", {name: "Block Group"});
 
 
 // L.control.layers({
-// 		"Block Groups": getShapeData("/data/DetroitBG_qgis.geojson"),
-// 		"Tracts": getShapeData("/data/DetroitTract2010.geojson")
+// 		"Block Groups": getData("/data/DetroitBG_qgis.geojson"),
+// 		"Tracts": getData("/data/DetroitTract2010.geojson")
 // 	},
 // 	{}).addTo(map);
