@@ -11,7 +11,7 @@ L.tileLayer('http://api.tiles.mapbox.com/v3/rcackerman.h6ofgio1/{z}/{x}/{y}.png'
             attribution: 'Made pretty by Mapbox'
           }).addTo(map);
 
-var toggler = L.control.layers().addTo(map);
+// var toggler = L.control.layers().addTo(map);
 
 function style( feature ) {
   return {
