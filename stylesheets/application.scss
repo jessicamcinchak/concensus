@@ -7,8 +7,19 @@
 
 body {
 	font-family: 'Open Sans', sans-serif;
+	font-color: $gray-darker;
 }
 
+h4 {
+	color: $gray-darker;
+	font-size: ceil(($font-size-base * 1.25));
+}
+
+h6 a {
+	color: $gray-darker;
+	font-weight: bold;
+	font-size: ceil($font-size-base * 0.85)
+}
 
 /********
  *
@@ -52,7 +63,7 @@ body {
 	padding-top: 50px;
 
 	h1 {
-		color: $concensus-gray;
+		color: $gray;
 	}
 }
 
@@ -87,8 +98,8 @@ body {
 // Overriding panel styling
 
 .base-layer-select-box {
-  $panel-baselayer-heading-bg: lighten($concensus-blue, 20%);
-  $panel-baselayer-border: lighten($concensus-blue, 20%);
+  $panel-baselayer-heading-bg: $blue-lightest;
+  $panel-baselayer-border: $blue-lightest;
 
   @include panel-variant($panel-default-border, $panel-default-text, $panel-baselayer-heading-bg, $panel-baselayer-border)
 }
@@ -110,20 +121,18 @@ body {
   margin-top: 0;
   padding: 0;
 
-  border-top: 1px solid $concensus-gray;
+  border-top: 1px solid $gray;
 
   // Text should align center vertically and horizontally - maybe use gutter like Bootstrap does?
 
   p {
   	display: inline;
-  	float: left;
-  	margin: $padding-large-vertical auto !important;
   }
 }
 
 .map-footer-column-main {
-	border-left: 1px solid $concensus-gray;
-	border-right: 1px solid $concensus-gray;
+	border-left: 1px solid $gray;
+	border-right: 1px solid $gray;
 	height: 100%;
 	padding-top: $padding-large-vertical;
 

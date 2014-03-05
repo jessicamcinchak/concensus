@@ -16,7 +16,7 @@ L.tileLayer('http://api.tiles.mapbox.com/v3/rcackerman.h6ofgio1/{z}/{x}/{y}.png'
 
 function style( feature ) {
   return {
-    fillColor: '#BF6FA0',
+    fillColor: '#EA929D',
     weight: 2,
     opacity: 1,
     color: 'white',
@@ -62,7 +62,7 @@ $(".radio").click( function() {
   if (currentLayer) {
     removeData();
   }
-  
+
   $(this).addClass("checked");
   $(this).find("input").prop("checked", true);
 
