@@ -58,17 +58,6 @@
                         .radio(data-file="DetroitTract2010.geojson" data-name="Census Tracts (2010)")
                           %label
                             %input(type="radio" name="Census Tracts (2010)" id="tracts2010") Census Tracts (2010)
-              .panel.point-layer-select-box
-                .panel-heading
-                  %h4.panel-title
-                    %a{ href: "#pointlayers", data: {toggle: "collapse", parent: "#accordion"} } Point Layers
-                #baselayer2.panel-collapse.collapse.in
-                  .panel-body
-                    %form(role="form")
-                      .form-group
-                        .radio(data-file="streetlights_test.geojson" data-name="Streetlights")
-                          %label
-                            %input(type="radio" name="Streetlights" id="streetlights") Streetlights
     .map-footer
       .map-footer-column-main
         %p Hints on using this data
