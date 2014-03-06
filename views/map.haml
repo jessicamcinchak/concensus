@@ -59,12 +59,15 @@
                         .radio(data-file="DetroitTract2010.geojson" data-name="Census Tracts (2010)")
                           %label
                             %input(type="radio" name="Census Tracts (2010)" id="tracts2010") Census Tracts (2010)
-    .map-footer
-      .map-footer-column-main
-        %h4 Hints on using this data
-      .map-footer-column-main
+    .pop-up
+      .hints-panel
         %h4 How the community used this data
-      .map-footer-column-tools
+    .map-footer
+      .map-footer-column-main#hints
+        %h4 Hints on using this data
+      .map-footer-column-main#community
+        %h4 How the community used this data
+      .map-footer-column-tools#tools
         %h4
           %span(class="glyphicon glyphicon-arrow-down")
           %span(class="glyphicon glyphicon-chat")

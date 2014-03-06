@@ -98,18 +98,11 @@ h6 a {
 // Overriding panel styling
 
 .base-layer-select-box {
-  $panel-baselayer-heading-bg: $blue-lightest;
-  $panel-baselayer-border: $blue-lightest;
-
-  @include panel-variant($panel-default-border, $panel-default-text, $panel-baselayer-heading-bg, $panel-baselayer-border)
+  @include make-sidebar-panel($blue-lightest)
 }
 
 .point-layer-select-box {
-  $panel-pointlayer-heading-bg: lighten($concensus-pink, 20%);
-  $panel-pointlayer-border: lighten($concensus-pink, 20%);
-
-  @include panel-variant($panel-default-border, $panel-default-text, $panel-pointlayer-heading-bg, $panel-pointlayer-border)
-
+  @include make-sidebar-panel($pink-lightest)
 }
 
 .map-footer {
