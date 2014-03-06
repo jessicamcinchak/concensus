@@ -125,7 +125,7 @@ h6 a {
 
   // Text should align center vertically and horizontally - maybe use gutter like Bootstrap does?
 
-  p {
+  h4 {
   	display: inline;
   }
 }
@@ -134,13 +134,13 @@ h6 a {
 	border-left: 1px solid $gray;
 	border-right: 1px solid $gray;
 	height: 100%;
-	padding-top: $padding-large-vertical;
+	padding-top: 20px;
 
-	@include make-footer-column(2)
+	@include make-footer-column(2, $padding-large-horizontal);
 }
 
 .map-footer-column-tools {
 	height: 100%;
-	padding-top: $padding-large-vertical;
-	@include make-footer-column(1)
+	padding-top: 20px;
+	@include make-footer-column(1, $padding-large-horizontal);
 }

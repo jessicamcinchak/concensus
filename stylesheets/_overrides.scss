@@ -10,11 +10,10 @@
   }
 }
 
-@mixin make-footer-column($columns, $gutter: 0) {
+@mixin make-footer-column($columns, $padding-left) {
   position: relative;
   min-height: 1px;
-  padding-left:  ($gutter / 2);
-  padding-right: ($gutter / 2);
+  padding-left:  $padding-left;
 
   @media (min-width: $screen-md-min) {
     float: left;
