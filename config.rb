@@ -8,6 +8,7 @@ project_path          = Sinatra::Application.root
 # HTTP paths
 http_path             = '/'
 http_stylesheets_path = '/stylesheets'
+http_fonts_path				= '/stylesheets/fonts'
 http_images_path      = '/images'
 http_javascripts_path = '/javascripts'
 
