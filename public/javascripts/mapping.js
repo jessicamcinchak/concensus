@@ -31,11 +31,14 @@ function style( feature ) {
 
 var processData = function( data, options ) {
   var geolayer = L.geoJson(data, {
-  	style: style
+  	style: style,
+    onEachFeature: function (feature, layer) {
+     layer.bindPopup(feature.properties[options.property]);
+   }
   });
-  console.log(geolayer);
   map.addLayer(geolayer, options.name);
   currentLayer = geolayer;
+  console.log(geolayer);
 };
 
 var getData = function( geoURL, options ) {
@@ -55,6 +58,7 @@ var removeData = function() {
 $(".radio").click( function() {
   var file = '/data/' + $(this).data("file");
   var datasetname = $(this).data("name");
+  var infoOfImportance = $(this).data("property");
 
   var alreadyChecked = $(".checked");
   alreadyChecked.find("input").prop("checked", false);
@@ -67,5 +71,5 @@ $(".radio").click( function() {
   $(this).find("input").prop("checked", true);
 
 
-  getData( file, {name: datasetname} );
+  getData( file, {name: datasetname, property: infoOfImportance} );
 });
