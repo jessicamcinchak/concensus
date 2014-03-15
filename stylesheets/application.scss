@@ -2,7 +2,7 @@
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700);
 @import "variables";
 @import "bootstrap";
-@import "overrides";
+@import "mixins";
 
 
 body {
@@ -21,6 +21,16 @@ h6 a {
 	font-size: ceil($font-size-base * 0.85)
 }
 
+.hints-panel {
+	@include make-footer-column(4, 0)
+}
+
+.accordian-closed {
+	background-color: $blue-lightest;
+	padding: $padding-base-horizontal $padding-base-vertical;
+
+}
+
 /********
  *
  * Index
@@ -28,19 +38,17 @@ h6 a {
  ********/
 
 #masthead {
-	background-color: $pink-lightest;
-	margin-top: -20px;
-
 	h1 {
 		color: $concensus-red;
 		font-size: 84px;
 	}
+}
 
-	#banner {
-		padding: 40px 0;
-	}
+#portals {
+	padding: 40px 0;
+	background-color: $pink-lightest;
 
-	#portals {
+	.row {
 		@include make-row($gutter: $grid-gutter-width);
 	}
 
@@ -56,6 +64,54 @@ h6 a {
 		float: right;
 		color: $concensus-blue;
 		font-size: 24px;
+	}
+}
+
+#visualize {
+	width: 169px;
+	height: 169px;
+
+	display: block;
+	background: transparent url('/images/conCensus_Visualize2.png') center top no-repeat;
+
+	&:hover {
+		background-image: url('/images/MapData1.png');
+	}
+}
+
+#search {
+	width: 169px;
+	height: 169px;
+
+	display: block;
+	background: transparent url('/images/conCensus_SearchData.png') center top no-repeat;
+
+	&:hover {
+		background-image: url('/images/SearchData1.png');
+	}
+}
+
+#share {
+	width: 169px;
+	height: 169px;
+
+	display: block;
+	background: transparent url('/images/conCensus_ShareData.png') center top no-repeat;
+
+	&:hover {
+		background-image: url('/images/ShareData1.png');
+	}
+}
+
+#talk {
+	width: 169px;
+	height: 169px;
+
+	display: block;
+	background: transparent url('/images/conCensus_TalkData.png') center top no-repeat;
+
+	&:hover {
+		background-image: url('/images/TalkData1.png');
 	}
 }
 
@@ -94,8 +150,6 @@ h6 a {
 	float: left;
 	width: 15%;
 }
-
-// Overriding panel styling
 
 .base-layer-select-box {
   @include make-sidebar-panel($blue-lightest)

@@ -1,24 +1,27 @@
 %main#masthead
 	.container
 		.row
-			.col-md-10#banner
+			.col-md-10
 				%h1 conCensus
-				#portals
-					#placeholder &nbsp;
-					#portal-img
-						%img(src="/images/visualize.png")
-					#portal-img
-						%img(src="/images/visualize.png")
-					#portal-img
-						%img(src="/images/visualize.png")
-					#portal-img
-						%img(src="/images/visualize.png")
+#portals
+	.container
+		.row
+			.col-md-10
+				#placeholder &nbsp;
+				#portal-img
+					%a#visualize{:href => url('/map')}
+				#portal-img
+					%a#search{:href => url('/search')}
+				#portal-img
+					%a#share{:href => url('/upload')}
+				#portal-img
+					%a#talk{:href => url('/community')}
 				%div
 					%p Data Driven Detroit's Community Driven Data Portal
 #recent-activity
 	.container
 		.row
-			.col-md-8
+			.col-md-8.col-md-offset-2
 				%h1 Recent Activity
 				.recent-activity-panel.breadcrumb What ACS indicators are typically used for economic ...
 				.recent-activity-panel.breadcrumb What dataset does your organization need most ?

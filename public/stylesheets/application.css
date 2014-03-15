@@ -6332,62 +6332,117 @@ h6 a {
   font-size: 12px;
 }
 
+.hints-panel {
+  position: relative;
+  min-height: 1px;
+  padding-left: 0;
+}
+@media (min-width: 992px) {
+  .hints-panel {
+    float: left;
+    width: 80%;
+  }
+}
+
+.accordian-closed {
+  background-color: #cae9ef;
+  padding: 12px 6px;
+}
+
 /********
  *
  * Index
  *
  ********/
-#masthead {
-  background-color: #f6d9db;
-  margin-top: -20px;
-}
 #masthead h1 {
   color: #ed1c24;
   font-size: 84px;
 }
-#masthead #banner {
+
+#portals {
   padding: 40px 0;
+  background-color: #f6d9db;
 }
-#masthead #portals {
+#portals .row {
   margin-left: -15px;
   margin-right: -15px;
 }
-#masthead #portals:before, #masthead #portals:after {
+#portals .row:before, #portals .row:after {
   content: " ";
   display: table;
 }
-#masthead #portals:after {
+#portals .row:after {
   clear: both;
 }
-#masthead #placeholder {
+#portals #placeholder {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 @media (min-width: 992px) {
-  #masthead #placeholder {
+  #portals #placeholder {
     float: left;
     width: 20%;
   }
 }
-#masthead #portal-img {
+#portals #portal-img {
   position: relative;
   min-height: 1px;
   padding-left: 15px;
   padding-right: 15px;
 }
 @media (min-width: 992px) {
-  #masthead #portal-img {
+  #portals #portal-img {
     float: left;
     width: 20%;
   }
 }
-#masthead p {
+#portals p {
   display: inline;
   float: right;
   color: #00adef;
   font-size: 24px;
+}
+
+#visualize {
+  width: 169px;
+  height: 169px;
+  display: block;
+  background: transparent url("/images/conCensus_Visualize2.png") center top no-repeat;
+}
+#visualize:hover {
+  background-image: url("/images/MapData1.png");
+}
+
+#search {
+  width: 169px;
+  height: 169px;
+  display: block;
+  background: transparent url("/images/conCensus_SearchData.png") center top no-repeat;
+}
+#search:hover {
+  background-image: url("/images/SearchData1.png");
+}
+
+#share {
+  width: 169px;
+  height: 169px;
+  display: block;
+  background: transparent url("/images/conCensus_ShareData.png") center top no-repeat;
+}
+#share:hover {
+  background-image: url("/images/ShareData1.png");
+}
+
+#talk {
+  width: 169px;
+  height: 169px;
+  display: block;
+  background: transparent url("/images/conCensus_TalkData.png") center top no-repeat;
+}
+#talk:hover {
+  background-image: url("/images/TalkData1.png");
 }
 
 #recent-activity {
@@ -6421,33 +6476,25 @@ h6 a {
 }
 
 .base-layer-select-box {
-  border-color: #dddddd;
+  background-color: #cae9ef;
 }
 .base-layer-select-box > .panel-heading {
-  color: #8d8f92;
+  margin-bottom: 0;
   background-color: #cae9ef;
-  border-color: #cae9ef;
 }
-.base-layer-select-box > .panel-heading + .panel-collapse .panel-body {
-  border-top-color: #dddddd;
-}
-.base-layer-select-box > .panel-footer + .panel-collapse .panel-body {
-  border-bottom-color: #dddddd;
+.base-layer-select-box > .panel-heading + .panel-collapse > .panel-body {
+  background-color: #cae9ef;
 }
 
 .point-layer-select-box {
-  border-color: #dddddd;
+  background-color: #f6d9db;
 }
 .point-layer-select-box > .panel-heading {
-  color: #8d8f92;
-  background-color: #deb6cf;
-  border-color: #deb6cf;
+  margin-bottom: 0;
+  background-color: #f6d9db;
 }
-.point-layer-select-box > .panel-heading + .panel-collapse .panel-body {
-  border-top-color: #dddddd;
-}
-.point-layer-select-box > .panel-footer + .panel-collapse .panel-body {
-  border-bottom-color: #dddddd;
+.point-layer-select-box > .panel-heading + .panel-collapse > .panel-body {
+  background-color: #f6d9db;
 }
 
 .map-footer {
