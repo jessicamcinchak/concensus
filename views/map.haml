@@ -53,15 +53,19 @@
                   .panel-body
                     %form(role="form")
                       .form-group
-                        .radio(data-file="DetroitBG_qgis.geojson" data-name="Census Block Groups (2010)")
+                        .radio(data-file="DetroitBG_qgis.geojson" data-name="Census Block Groups (2010)" data-property="NAMELSAD10")
                           %label
                             %input(type="radio" name="Census Block Groups" id="BG2010") Census Block Groups (2010)
-                        .radio(data-file="DetroitTract2010.geojson" data-name="Census Tracts (2010)")
+                        .radio(data-file="DetroitTract2010.geojson" data-name="Census Tracts (2010)" data-property="NAMELSAD10")
                           %label
                             %input(type="radio" name="Census Tracts (2010)" id="tracts2010") Census Tracts (2010)
     .pop-up
       .hints-panel
         %h4 How the community used this data
+        .accordian-closed We just uploaded addtional crime data to our neigh
+        .accordian-closed Important to remember the way crime data is coded
+        .accordian-closed Crime data + vacancy data is eyeopening, but had a
+        .accordian-closed We used street light data + crime data to talk with
     .map-footer
       .map-footer-column-main#hints
         %h4 Hints on using this data

@@ -121,9 +121,21 @@ h6 a {
 	h1 {
 		color: $gray;
 	}
-}
 
-.recent-activity-panel {}
+	.recent-activity-header {
+		height: 20px;
+		width: auto;
+		background-color: $gray-lighter;
+		margin-bottom: 10px;
+
+	}
+
+	.recent-activity-content {
+		background-color: $gray-lighter;
+		color: $gray-darker;
+		display: none;
+	}
+}
 
 
 

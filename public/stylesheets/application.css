@@ -6451,6 +6451,17 @@ h6 a {
 #recent-activity h1 {
   color: #a7a9ab;
 }
+#recent-activity .recent-activity-header {
+  height: 20px;
+  width: auto;
+  background-color: #dbdcdd;
+  margin-bottom: 10px;
+}
+#recent-activity .recent-activity-content {
+  background-color: #dbdcdd;
+  color: #737679;
+  display: none;
+}
 
 /********
  *
