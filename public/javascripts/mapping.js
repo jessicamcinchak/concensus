@@ -56,6 +56,14 @@ var removeData = function() {
 // ---------
 
 $(".radio").click( function() {
+  if($(this).checked==true)
+  {
+    console.log("true");
+  }
+  if($(this).checked==false)
+  {
+    console.log("false");
+  }
   var file = '/data/' + $(this).data("file");
   console.log(file);
   var datasetname = $(this).data("name");
