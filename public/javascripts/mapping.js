@@ -63,7 +63,7 @@ $(".radio").click( function() {
   var infoOfImportance = $(this).data("property");
 
   var alreadyChecked = $(".checked");
-  console.log("already checked"+" "+alreadyChecked);
+  console.log(alreadyChecked);
   alreadyChecked.find("input").prop("checked", false);
   alreadyChecked.removeClass("checked");
   if (currentLayer) {
