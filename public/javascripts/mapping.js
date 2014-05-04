@@ -38,7 +38,7 @@ var processData = function( data, options ) {
   });
   map.addLayer(geolayer, options.name);
   currentLayer = geolayer;
-  console.log(geolayer);
+  console.log(+"geolayer"+" "+geolayer);
 };
 
 var getData = function( geoURL, options ) {
@@ -63,6 +63,7 @@ $(".radio").click( function() {
   var infoOfImportance = $(this).data("property");
 
   var alreadyChecked = $(".checked");
+  console.log("already checked"+" "+alreadyChecked);
   alreadyChecked.find("input").prop("checked", false);
   alreadyChecked.removeClass("checked");
   if (currentLayer) {
