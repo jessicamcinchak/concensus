@@ -57,7 +57,9 @@ var removeData = function() {
 
 $(".radio").click( function() {
   var file = '/data/' + $(this).data("file");
+  console.log(file);
   var datasetname = $(this).data("name");
+  console.log(datasetname);
   var infoOfImportance = $(this).data("property");
 
   var alreadyChecked = $(".checked");
