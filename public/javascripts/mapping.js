@@ -56,6 +56,7 @@ var removeData = function() {
 // ---------
 
 $(".radio").click( function() {
+  console.log($(this));
   if($(this).checked==true)
   {
     console.log("true");
