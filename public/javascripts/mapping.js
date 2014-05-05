@@ -44,6 +44,8 @@ var processData = function( data, options ) {
 var getData = function( geoURL, options ) {
 	var req = $.getJSON( geoURL );
 	req.done( function(data) {
+    console.log("in req");
+    console.log(data);
 		processData(data, options);
 	} );
 };
@@ -56,10 +58,6 @@ var removeData = function() {
 // ---------
 
 $(".radio").click( function() {
-  var el=$(this).find("input")
-  console.log("el");
-  console.log(el);
-
   var file = '/data/' + $(this).data("file");
   var datasetname = $(this).data("name");
   var infoOfImportance = $(this).data("property");
