@@ -52,7 +52,6 @@
                 #baselayer1.panel-collapse.collapse.in
                   .panel-body
                     %form(role="form")
-                      .form-group
                         .radio(data-file="DetroitBG_qgis.geojson" data-name="Census Block Groups (2010)" data-property="NAMELSAD10")
                           %label
                             %input(type="radio" name="layer_data" id="BG2010") Census Block Groups (2010)
@@ -64,7 +63,7 @@
                           .radio(data-file="tract_latino_json_2012.geojson" data-name="Tract Latino(2012)" data-property="NAMELSAD10")
                           %label
                             %input(type="radio" name="layer_data" id="tracts_latino_2012") Tract Latino(2012)
-                            
+
                           .radio(data-file="tract_race_2012.geojson" data-name="Tract Race (2012)" data-property="NAMELSAD10")
                           %label
                             %input(type="radio" name="layer_data" id="tract_Race_2012") Tract Race (2012)
