@@ -53,18 +53,15 @@
                   .panel-body
                     %form(role="form")
                       .form-group
-                        .radio(data-file="DetroitBG_qgis.geojson" data-name="Census Block Groups (2010)" data-property="NAMELSAD10")
-                          %label
-                            %input(type="radio" name="layer_data" id="BG2010") Census Block Groups (2010)
-                        .radio(data-file="DetroitTract2010.geojson" data-name="Census Tracts (2010)" data-property="NAMELSAD10")
+                        .radio(data-file="census_track.geojson" data-name="Census Tracts (2010)" data-property="NAMELSAD10")
                           %label
                             %input(type="radio" name="layer_data" id="tracts2010") Census Tracts (2010)
-                        .radio(data-file="tract_latino_json_2012.geojson" data-name="Tract Latino(2012)" data-property="NAMELSAD10")
+                        .radio(data-file="council_district.geojson" data-name="Council Districts" data-property="NAMELSAD10")
                           %label
-                            %input(type="radio" name="layer_data" id="tracts_latino_2012") Tract Latino(2012)
-                        .radio(data-file="tract_race_2012.geojson" data-name="Tract Race (2012)" data-property="NAMELSAD10")
+                            %input(type="radio" name="layer_data" id="council_districts")Council Districts
+                        .radio(data-file="parks_landmark.geojson" data-name="Parks Landmark" data-property="NAMELSAD10")
                           %label
-                            %input(type="radio" name="layer_data" id="tract_Race_2012") Tract Race (2012)
+                            %input(type="radio" name="layer_data" id="parks_landmarks") Parks Landmarks
     .pop-up
       .hints-panel
         %h4 How the community used this data
