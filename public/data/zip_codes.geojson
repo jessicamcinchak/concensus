@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>ArcGIS Open Data | 404 | the Data Driven Detroit Open Data Site (Beta)</title>
+
+    <meta name="description" content="Discover, explore, and download open data from ArcGIS Online." />
+
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+
+  <script src="/assets/placeholders-4a547c6b8d72f638058e0f852f07f6ee.js"></script>
+  <script src="/assets/modernizr-ac83d5c23b078c59ef02d214101c5e54.js"></script>
+  
+
+  <link rel="search" type="application/opensearchdescription+xml" title="ArcGIS Open Data" href="/opensearch.xml" />
+  <link type="text/css" rel="stylesheet" href="//fast.fonts.com/cssapi/4a60d16b-c9e4-404d-89d3-809adb97d65c.css"/>
+  <link rel="stylesheet" type="text/css" href="//js.arcgis.com/3.7/js/esri/css/esri.css">
+
+  <script>
+    //normalize/shim window.performance.now
+    //NOTE: this needs to be here because we make use of it immediately below
+    window.performance = window.performance || {};
+    window.performance.now =
+           performance.now           ||
+           performance.webkitNow     ||
+           performance.msNow         ||
+           performance.oNow          ||
+           performance.mozNow        ||
+           function() { return new Date().getTime(); };
+
+    window.composerTelemetryStart = window.performance.now();
+  </script>
+
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="/assets/application-bda112b172af2a7b6dc119821558a4ec.css" media="all" rel="stylesheet" />
+  <!--[if lte IE 8]>
+    <link href="/assets/screen-ie-233b42a0f057df06a38336a53de2a585.css" media="all" rel="stylesheet" />
+  <![endif]-->
+  <meta content="authenticity_token" name="csrf-param" />
+<meta content="e2FgKxK+l/vhcVL8H8kgLBxRPPRgRSIFIkna6IGmr+w=" name="csrf-token" />
+</head>
+
+<body class="page-exceptions action-page_not_found custom-site">
+  <header id="header">
+  <div class="container">
+    <div class="row">
+      <div id="home-link-region" >
+
+        <div class="inner-header">
+            <a href="http://d3.d3.opendata.arcgis.com/" id="home-link">
+              
+  <img class="header-image" src="http://datadrivendetroit.org/images/logo_opendata_beta3.png" alt="the Data Driven Detroit Open Data Site (Beta) logo" />
+
+<div class="site-brand"> 
+  <span class="site-logo">
+    the Data Driven Detroit Open Data Site (Beta) 
+  </span>
+</div>
+<style type='text/css'>#header{
+    background: rgb(60,60,60) !important;
+}
+
+/* Layout Classes */
+.floatLeft {
+    float: left
+}
+
+/* Layout Classes */
+.floatLeft {
+    float: left
+}
+
+.floatRight {
+    float: right
+}
+
+/* Text Classes */
+.whiteText {
+    color: #FFFFFF !important
+}</style>
+</a>        </div>
+
+      </div>
+      <div id="people-navigation-region">
+        <div id="user-select" class="profile">
+
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div id="login-modal-overlay" class="modal-overlay"></div>
+<div id="login-modal" class="modal">
+  <a href="#" id="close-login" class="icon-close"></a>
+  <div id="ago-form">
+    <h4>Sign In</h4>
+    <label>
+      Username
+      <input tabindex="1" id="user-username" type="text" name="username" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+    </label>
+    <label>
+      Password
+      <input tabindex="2" id="user-password" type="password" name="password">
+    </label>
+    <div class="signin-error">
+      Error signing in. Please try again.
+    </div>
+    <button class="btn primary" id="signin-button" name="button" type="submit">Sign In</button>
+    <div class="signin-loading"></div>
+  </div>
+</div>
+
+</header>
+
+  <div id="title-bar-region" class="row">
+  <div id="copier"></div>
+  <div class="container" id="title-wrap">
+    <div id="global-nav-region">
+        <span id="nav-search" class="link">
+          <span id="nav-search-inner">
+            Search
+          </span>
+          <div id="search-arrow" class="link-arrow"></div>
+        </span>
+        <span id="nav-share" class="link">
+          <span id="nav-share-inner">
+            Share
+          </span>
+          <div id="share-arrow" class="link-arrow"></div>
+        </span>
+        <!--span id="nav-home" class="link">
+          <span id="nav-home-inner" class="home-link">
+            Home
+          </span>
+          <div id="home-arrow" class="arrow-up link-arrow"></div>
+        </span-->
+        <div id="nav-share-popover">
+          <p>
+          </p>
+          <div id="share-input">
+            <input id="share-link" name="share-link" onclick="this.select()" readonly="readonly" type="text" value="" />
+            <span id="copy-share-link" data-clipboard-target="share-link" title="Click to copy this to your clipboard." class="btn">Copy</span>
+          </div>
+        </div>
+    </div>
+
+    <div id="title-bar-inner" class="">
+      <div id="search-region">
+        <a href="/datasets?q=*" data-pjax="true" id="search-all" class="btn light small">BROWSE ALL</a>
+        <div id="search-input-wrapper">
+          <form accept-charset="UTF-8" action="/datasets" method="get"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div>            <input id="gsearch" name="q" placeholder="Search for open data" size="75" type="search" value=" " />
+            <div id="click-to-search">search icon</div>
+</form>        </div>
+      </div>
+
+
+      <div id="refine-region">
+        <div class="container">
+          <span id="refine-title">Refine Search:</span>
+          <div id="tag-region">
+            
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+  <div id="map-bar-region" class="row">
+  <div id="overlay-region"></div>
+  <div id="controls-region"></div>
+  <div id="map-region">
+    <div id="info-window-container"></div>
+  </div>
+  <div id="locator-region"></div>
+  <div id="title-region" ></div>
+  <div id="progress-region" ></div>
+</div>
+
+  <div id="slide-region">
+  <div id="slide-me" class="layout">
+    <div id="page-content" class="container row">
+      <div>
+  <h1>The page you were looking for doesn&#39;t exist.</h1>
+  <p>You may have mistyped the address or the page may have moved.</p>
+</div>
+
+
+    </div>
+  </div>
+</div>
+
+  
+    <footer id="footer" class="footer">
+      <div class="container">
+        
+  <div class="row">
+    
+      <div class="column-24 last">
+        <p><td align="right" style="vertical-align: top;  padding: 0px"><a style="float:right" href="http://www.datadrivendetroit.org"><img src="http://datadrivendetroit.org/wp-content/themes/d3new/style/images/bg_logo.png"></a></td></p>
+<table style="width:100%;"><tr style="vertical-align: bottom !important"><td style="vertical-align: bottom !important; padding: 0px !important">Contact Us (Comments are appreciated as we continue to build our site)</td><td></td></tr><tr><td>A | 440 Burroughs # 330, Detroit, MI 48202<br>P | 313-883-9128<br>E | <a href="mailto:askd3@datadrivendetroit.org">askd3@datadrivendetroit.org</a></td><td align="right" style="vertical-align: bottom !important;  padding: 0px !important"><a style="float:right" href="http://www.mnaonline.org"><img src="http://datadrivendetroit.org/wp-content/themes/d3new/style/images/mna.png"></a></td></table>
+
+
+
+
+<style>
+.site-logo {
+    color: #FFFFFF !important
+} 
+#footer {
+    background-color: rgb(60,60,60) !important;
+    color: #FFFFFF !important
+}
+#footer a {
+    color: #5daddd !important
+}
+#table {
+     padding: 0px !important
+}
+</style>
+
+      </div>
+    
+  </div>
+
+<style type='text/css'></style>
+      </div>
+    </footer>
+
+<!--
+<footer id="sub-footer" >
+  <div class="container">
+    <div class="row" >
+      <div class="column-12">
+        <a href="">Powered by ArcGIS for Open Data</a>
+        | 9737991
+        | deploy 
+        | April 25th, 2014 20:33 
+      </div>
+    </div>
+  </div>
+</footer>
+ -->
+
+
+  <script src="/assets/application-34b513cf836ffbe78c4d4f1c820106e2.js"></script>
+
+  <script>
+    dojo.require('esri.map');
+    dojo.require('esri.layers.FeatureLayer');
+    dojo.require("esri.arcgis.utils");
+  </script>
+
+  <script type="text/javascript">
+    I18n.defaultLocale = "en";
+    I18n.locale = "en";
+  </script>
+
+    <script>
+    $(function() {
+      Composer.create({
+        environment: "production",
+        baseUrl: 'http://d3.d3.opendata.arcgis.com/',
+        contentUrl: 'https://arcgis.com',
+        mapLoadOptions: {
+          lazyLoad: true
+        },
+      });
+      
+      Composer.setCurrentPage('dataset:404');
+    });
+  </script>
+
+
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', "UA-47337822-2", 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+</body>
+</html>
