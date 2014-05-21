@@ -9,7 +9,8 @@
     %script(src="//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.0.0/leaflet-omnivore.min.js")
     %script(src="http://code.jquery.com/jquery-1.10.2.min.js")
     %script{src: "/javascripts/uri.js"}
-    %link{href: "/stylesheets/jquery-ui-1.10.4.custom.css", media: "screen", rel: "stylesheet", type: "text/css"}
+    %link{href: "/stylesheets/accordion.css", media: "screen", rel: "stylesheet", type: "text/css"}
+    %link{href: "/stylesheets/popup.css", media: "screen", rel: "stylesheet", type: "text/css"}
     %script{src: "/javascripts/jquery-1.11.1.js"}
     %script{src: "/javascripts/jquery-ui-1.10.4.custom.js"}
     %link(rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css")
@@ -106,7 +107,24 @@
               %div
                 %p
                   Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel,
-                                        
+    #dialog
+      %h4 Choose Display Options:
+      %table
+        %tr 
+          %th{class: "cornerTH"}
+          %th View as 
+          %th Date Type
+          %th Indicator Name
+        %tr
+          %th D3 Data 
+          %th  
+          %th 
+          %th Service Areas
+        %tr
+          %th User Data 
+          %th  
+          %th 
+          %th Question 1=yes                           
     .pop-up
       .hints-panel
         %h4 How the community used this data

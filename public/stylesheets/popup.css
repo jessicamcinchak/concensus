@@ -1,0 +1,23 @@
+
+.ui-dialog .ui-dialog-content {
+    border-width:2px;
+   	border-color:#000000;
+    background-color:#ffffff;
+    width:100em;
+    height:100em;
+}
+
+  table,th,td
+    {
+       border:1px solid black;
+    }
+
+    th
+    {
+       background-color:#C9C9C9;
+    }
+
+    .cornerTH
+    {
+        background-color:#808080;
+    }
