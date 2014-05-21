@@ -8,9 +8,13 @@
     %script(src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js")
     %script(src="//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.0.0/leaflet-omnivore.min.js")
     %script(src="http://code.jquery.com/jquery-1.10.2.min.js")
+    %script{src: "/javascripts/uri.js"}
+    %link{href: "/stylesheets/jquery-ui-1.10.4.custom.css", media: "screen", rel: "stylesheet", type: "text/css"}
+    %script{src: "/javascripts/jquery-1.11.1.js"}
+    %script{src: "/javascripts/jquery-ui-1.10.4.custom.js"}
     %link(rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css")
     %link{href: "/stylesheets/application.css", media: "screen", rel: "stylesheet", type: "text/css"}
-    %link(href='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.css' rel='stylesheet')
+    %link(rel="stylesheet" href='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.css' rel='stylesheet')
 
     :css
         html,body {
@@ -44,24 +48,65 @@
         .row
           .col-md-12
             %h4 Choose Base Layers
-            .panel-group#accordion
-              .panel.base-layer-select-box
-                .panel-heading
-                  %h6.panel-title
-                    %a{ href: "#shapelayers", data: {toggle: "collapse", parent: "#accordion"} } Shape Layers
-                #baselayer1.panel-collapse.collapse.in
-                  .panel-body
-                    %form(role="form")
-                      .form-group
-                        .radio(data-file="census_track.geojson" data-name="Census Tracts (2010)" data-property="NAMELSAD10")
-                          %label
-                            %input(type="radio" name="layer_data" id="tracts2010") Census Tracts (2010)
-                        .radio(data-file="council_district.geojson" data-name="Council Districts" data-property="NAMELSAD10")
-                          %label
-                            %input(type="radio" name="layer_data" id="council_districts")Council Districts
-                        .radio(data-file="parks_landmark.geojson" data-name="Parks Landmark" data-property="NAMELSAD10")
-                          %label
-                            %input(type="radio" name="layer_data" id="parks_landmarks") Parks Landmarks
+            #accordion  
+              %h3 Geographies
+              %div
+                %form(role="form")
+                  .form-group
+                    .radio(data-file="census_track.geojson" data name="Census Tracts (2010)" data-property="NAMELSAD10")
+                      %label
+                        %input(type="radio" name="layer_data" id="tracts2010") Census Tracts (2010)
+                    .radio(data-file="council_district.geojson" data-name="Council Districts" data-property="NAMELSAD10")
+                      %label
+                        %input(type="radio" name="layer_data" id="council_districts")Council Districts
+                    .radio(data-file="parks_landmark.geojson" data-name="Parks Landmark" data-property="NAMELSAD10")
+                      %label
+                        %input(type="radio" name="layer_data" id="parks_landmarks") Parks Landmarks 
+                    .radio(data-file="grocery_stores.geojson" data-name="Grocery Stores" data-property="NAMELSAD10")    
+                      %label
+                        %input(type="radio" name="layer_data" id="grocery_store") Grocery Stores
+                    .radio(data-file="housing.geojson" data-name="Housing" data-property="NAMELSAD10")
+                      %label
+                        %input(type="radio" name="layer_data" id="housing") Housing
+                    .radio(data-file="median_family.geojson" data-name="Median Family" data-property="NAMELSAD10")
+                      %label
+                        %input(type="radio" name="layer_data" id="median_family") Median Family
+                    .radio(data-file="minority_family.geojson" data-name="Minority Family" data-property="NAMELSAD10")
+                      %label
+                        %input(type="radio" name="layer_data" id="minority_family") Minority Family
+                    .radio(data-file="zip_codes.geojson" data-name="Zip Codes" data-property="NAMELSAD10")
+                      %label
+                        %input(type="radio" name="layer_data" id="minority_family") Zip Codes
+
+              %h3 Demographics
+              %div
+                %p
+                  Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel,
+              %h3 Housing
+              %div
+                %p
+                  Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel,
+              %h3 Crime
+              %div
+                %p
+                  Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel,
+              %h3 City Infrastructure
+              %div
+                %p
+                  Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel,
+              %h3 Health
+              %div
+                %p
+                  Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel,
+              %h3 Economy
+              %div
+                %p
+                  Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel,
+              %h3 Education
+              %div
+                %p
+                  Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel,
+                                        
     .pop-up
       .hints-panel
         %h4 How the community used this data
