@@ -1,3 +1,9 @@
+
+img{
+ width:285px;
+ height:50px;
+}
+
 .ui-accordion .ui-accordion-header {
   cursor: pointer;
   position: relative;
@@ -5,11 +11,16 @@
   zoom: 1;
   font-size: .8em;
   padding:.5em;
+}
+
+div.accordion_d3 .ui-accordion-header{
   background-color: #e4eef3;
 }
-.ui-accordion .ui-accordion-li-fix {
-  display: inline;
+
+div.accordion_user .ui-accordion-header{
+  background-color: #dde9c3;
 }
+
 .ui-accordion .ui-accordion-header-active {
   border-bottom: 0 !important;
 }

@@ -1,4 +1,3 @@
-!!! 5
 %html{html_attrs}
   %head
     %meta{:'http-equiv' => "Content-Type", content: "text/html; charset=utf-8"}
@@ -9,10 +8,11 @@
     %script(src="//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.0.0/leaflet-omnivore.min.js")
     %script(src="http://code.jquery.com/jquery-1.10.2.min.js")
     %script{src: "/javascripts/uri.js"}
-    %link{href: "/stylesheets/accordion.css", media: "screen", rel: "stylesheet", type: "text/css"}
     %link{href: "/stylesheets/popup.css", media: "screen", rel: "stylesheet", type: "text/css"}
     %script{src: "/javascripts/jquery-1.11.1.js"}
     %script{src: "/javascripts/jquery-ui-1.10.4.custom.js"}
+    %script{src: "/javascripts/accordion.js"}
+    %link{href: "/stylesheets/accordion.css", media: "screen", rel: "stylesheet", type: "text/css"}
     %link(rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css")
     %link{href: "/stylesheets/application.css", media: "screen", rel: "stylesheet", type: "text/css"}
     %link(rel="stylesheet" href='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.css' rel='stylesheet')
@@ -48,8 +48,10 @@
       .col-md-2.legend
         .row
           .col-md-12
-            %h4 Choose Base Layers
-            #accordion  
+            %img{src: "images/conCensus_LogoOpenSansSmall.png", alt: "concensus logo"}
+            %br
+            %h4 D3 Data Library:
+            %div{class:"accordion_d3"} 
               %h3 Geographies
               %div
                 %form(role="form")
@@ -107,6 +109,30 @@
               %div
                 %p
                   Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel,
+            %br
+            %br
+
+            %h4 User Data Library:
+            %div{class:"accordion_user"} 
+              %h3 Focus:Hope
+              %div
+                %p
+                  Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel,
+              %h3 Warren Connor CDC
+              %div
+                %p
+                  Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel,
+              %h3 Grandmont Rosedale CDC
+              %div
+                %p
+                  Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel,
+              %h3 Michigan Nonprofit Association
+              %div
+                %p
+                  Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel,
+              
+    %br
+    %br
     #dialog
       %h4 Choose Display Options:
       %table
