@@ -1,0 +1,62 @@
+#dialog1
+{
+   background-image:url('/images/tooltip.png');
+   background-repeat:no-repeat;
+   background-color:none; 
+}
+
+#dialog1 table
+{
+  position:relative; 
+  top:35px;
+  left:40px;
+}
+
+
+#dialog1 table,td,th
+{
+  border-style:none;
+}
+
+.rectangle1 {
+  width: 20px;
+  height: 20px;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  background-color:#da5027;
+}
+.rectangle2 {
+  width: 20px;
+  height: 20px;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  background:#f6a91c;
+}
+.rectangle3 {
+  width: 20px;
+  height: 20px;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  background:#216a8b;
+}
+.rectangle4 {
+  width: 20px;
+  height: 20px;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  background: #6596cf;
+}
+.rectangle5 {
+  width: 20px;
+  height: 20px;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  background: #87af3e;
+}
+.rectangle6 {
+  width: 20px;
+  height: 20px;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  background: #20592c;
+}

@@ -36,7 +36,31 @@ console.log(accordion_user);
         at: "left top", 
         of: window } 
 
+});
+
+$( "#dialog1" ).dialog({
+      autoOpen: false,
+      show: {
+        effect: "blind",
+        duration: 1000
+      },
+      hide: {
+        effect: "explode",
+        duration: 1000
+      }
     });
+
+    $('#dialog').click(function (evt) {
+      console.log("in begin");
+      $( "#dialog1" ).dialog( "open" )
+      .position({
+       my: 'left',
+       at: 'right',
+       of: '#dialog'
+      });
+    });
+
+
 
 
 function style( feature ) {
