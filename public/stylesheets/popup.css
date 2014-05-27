@@ -1,25 +1,51 @@
 
+.ui-dialog
+{
+  width:150em;
+  height:150em;
+  margin-left: 5em;
+}
+
 .ui-dialog .ui-dialog-content {
     border-width:2px;
    	border-color:#000000;
     background-color:#ffffff;
-    width:100em;
-    height:100em;
 }
 
-  table,th,td
+.ui-dialog-titlebar-close {
+  visibility: hidden;
+}
+
+#dialog
+{
+  background-color:#ffffff;
+}
+
+#dialog h5
+{
+  background-color:#ffffff;
+}
+
+
+#dialog table
+{
+  width:25em;
+  height: 13em;
+  background-color:#ffffff;
+}
+  #dialog table,th,td
     {
-       border:1px solid black;
+      border:1px solid #707070;
+      padding: 0;
+      margin: 0;
     }
 
-    th
+    #dialog th
     {
-       background-color:#C9C9C9;
-    }
-
-    .cornerTH
-    {
-        background-color:#808080;
+      background-color:#E3E3E3;
+      border:1px solid #707070;
+      padding: 0;
+      margin: 0;
     }
 
     .middleTD
@@ -27,17 +53,63 @@
         background-color:#ffffff;
     }
 
+    .top_header
+    {
+      font-size: small;
+      padding: 0;
+      margin: 0;
+    }
+
+    .row1
+    {
+      height:15%;
+    }
+
+    .row1 th
+    {
+      font-size: x-small;
+      padding:3px;
+      text-align: center;
+    }
+
+    .row2 th
+    {
+        text-align: center;
+    }
+
+    .row3 th
+    {
+      text-align: center;
+    }
+
+    .side_header
+    {
+      -moz-transform: rotate(270deg);
+      -moz-transform-origin: 50% 50%;
+      -webkit-transform: rotate(270deg);
+      -webkit-transform-origin: 50% 50%;
+      -o-transform: rotate(270deg);
+      -o-transform-origin: 50% 50%;
+      transform: rotate(270deg);
+      transform-origin: 50% 50%;
+      padding: 3px;
+      font-size: medium;
+    }
+
  .circle {
   width: 20px;
   height: 20px;
-  background: red;
+  background: #f6a91c;
   -moz-border-radius: 50px;
   -webkit-border-radius: 50px;
   border-radius: 50px;
+  margin-left: 10px;
+
 }
 
 .rectangle {
 	width: 20px;
 	height: 20px;
 	background: blue;
+  margin-left: 10px;
 }

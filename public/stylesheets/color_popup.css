@@ -18,6 +18,11 @@
   border-style:none;
 }
 
+.row1
+{
+  height:10%;
+}
+
 .rectangle1 {
   width: 20px;
   height: 20px;
@@ -59,4 +64,15 @@
   -moz-border-radius: 50px;
   -webkit-border-radius: 50px;
   background: #20592c;
+}
+
+.rotate{
+-moz-transform: rotate(270deg);
+  -moz-transform-origin: 50% 50%;
+  -webkit-transform: rotate(270deg);
+  -webkit-transform-origin: 50% 50%;
+  -o-transform: rotate(270deg);
+  -o-transform-origin: 50% 50%;
+  transform: rotate(270deg);
+  transform-origin: 50% 50%;
 }
