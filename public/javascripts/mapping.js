@@ -32,8 +32,8 @@ console.log(accordion_user);
         duration: 1000
       },
       position: { 
-        my: "left top", 
-        at: "left top", 
+        my: "top", 
+        at: "left", 
         of: window } 
 
 });
