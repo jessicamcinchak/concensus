@@ -63,56 +63,53 @@
                     .radio(data-file="council_district.geojson" data-name="Council Districts" data-property="NAMELSAD10")
                       %label
                         %input(type="radio" name="layer_data" id="council_districts")Council Districts
-                    .radio(data-file="parks_landmark.geojson" data-name="Parks Landmark" data-property="NAMELSAD10")
-                      %label
-                        %input(type="radio" name="layer_data" id="parks_landmarks") Parks Landmarks 
-                    .radio(data-file="grocery_stores.geojson" data-name="Grocery Stores" data-property="NAMELSAD10")    
-                      %label
-                        %input(type="radio" name="layer_data" id="grocery_store") Grocery Stores
-                    .radio(data-file="housing.geojson" data-name="Housing" data-property="NAMELSAD10")
-                      %label
-                        %input(type="radio" name="layer_data" id="housing") Housing
-                    .radio(data-file="median_family.geojson" data-name="Median Family" data-property="NAMELSAD10")
-                      %label
-                        %input(type="radio" name="layer_data" id="median_family") Median Family
-                    .radio(data-file="minority_family.geojson" data-name="Minority Family" data-property="NAMELSAD10")
-                      %label
-                        %input(type="radio" name="layer_data" id="minority_family") Minority Family
                     .radio(data-file="zip_codes.geojson" data-name="Zip Codes" data-property="NAMELSAD10")
                       %label
                         %input(type="radio" name="layer_data" id="minority_family") Zip Codes
-
               %h3 Demographics
               %div
-                %p
-                  Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel,
+                %form(role="form")
+                  .form-group
+                    .radio(data-file="median_family.geojson" data-name="Median Family" data-property="NAMELSAD10")
+                      %label
+                        %input(type="radio" name="layer_data" id="median_family") Median Family
+                    .radio(data-file="minority_family.geojson" data-name="inority_family_total_hh" data-property="NAMELSAD10")
+                      %label
+                        %input(type="radio" name="layer_data" id="minority_family_total_hh") Minority Family Total_HH
+                    .radio(data-file="minority_family.geojson" data-name="minority_family_total_minHH" data-property="NAMELSAD10")
+                      %label
+                        %input(type="radio" name="layer_data" id="minority_family_total_minHH") Minority Family Total_MinHH
               %h3 Housing
               %div
-                %p
-                  Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel,
-              %h3 Crime
+                %form(role="form")
+                  .form-group
+                    .radio(data-file="housing.geojson" data-name="Housing_Free" data-property="NAMELSAD10")
+                      %label
+                        %input(type="radio" name="layer_data" id="housing_free") Housing Tenure - OccHH_FreeandClear
+                    .radio(data-file="housing.geojson" data-name="Housing_Tenure" data-property="NAMELSAD10")
+                      %label
+                        %input(type="radio" name="layer_data" id="housing_tenure") Housing Tenure - RenterOccHH
+              %h3 City System
               %div
-                %p
-                  Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel,
-              %h3 City Infrastructure
-              %div
-                %p
-                  Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel,
-              %h3 Health
-              %div
-                %p
-                  Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel,
+                %form(role="form")
+                  .form-group
+                    .radio(data-file="parks_landmark.geojson" data-name="Parks Landmark" data-property="NAMELSAD10")
+                      %label
+                        %input(type="radio" name="layer_data" id="parks_landmarks") Parks Landmarks 
               %h3 Economy
               %div
-                %p
-                  Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel,
-              %h3 Education
-              %div
-                %p
-                  Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel,
+                %form(role="form")
+                  .form-group
+                    .radio(data-file="grocery_stores.geojson" data-name="Grocery Stores" data-property="NAMELSAD10")    
+                      %label
+                        %input(type="radio" name="layer_data" id="grocery_store") Grocery Stores
+                    .radio(data-file="employment_labor.geojson" data-name="employment_labor_total" data-property="NAMELSAD10")    
+                      %label
+                        %input(type="radio" name="layer_data" id="employment_labor_total") Employment Rate Total Labor
+                    .radio(data-file="employment_labor.geojson" data-name="employment_labor_unemployment" data-property="NAMELSAD10")  
+                      %label
+                        %input(type="radio" name="layer_data" id="employment_labor_unemployment") Employment Rate Unemployment
             %br
-            %br
-
             %h4 User Data Library:
             %div{class:"accordion_user"} 
               %h3 Focus:Hope
