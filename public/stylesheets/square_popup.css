@@ -1,0 +1,75 @@
+#square_table
+{
+   background-color:#ffffff; 
+}
+
+/*#square_table table
+{
+  position:relative; 
+  top:35px;
+  left:40px;
+}*/
+
+#square_table table,td,th
+{
+  border-style:none;
+}
+
+.pinkSquare {
+  width: 20px;
+  height: 20px;
+  background-color:#da5027;
+}
+.yellowSquare {
+  width: 20px;
+  height: 20px;
+  background:#f6a91c;
+}
+.darkBlueSquare {
+  width: 20px;
+  height: 20px;
+  background:#216a8b;
+}
+.lightBlueSquare {
+  width: 20px;
+  height: 20px;
+  background: #6596cf;
+}
+.lightGreenSquare{
+  width: 20px;
+  height: 20px;
+  background: #87af3e;
+}
+.darkGreenSquare{
+  width: 20px;
+  height: 20px;
+  background: #20592c;
+}
+
+.gradient1 {
+  width: 20px;
+  height: 20px;
+  background-color:#FF3A00;
+}
+.gradient2 {
+  width: 20px;
+  height: 20px;
+  background:#FF754C;
+}
+.gradient3 {
+  width: 20px;
+  height: 20px;
+  background:#FF9C7F;
+}
+.gradient4 {
+  width: 20px;
+  height: 20px;
+  background: #FFC4B2;
+}
+.gradient5 {
+  width: 20px;
+  height: 20px;
+  background: #FFEBE5;
+}
+
+

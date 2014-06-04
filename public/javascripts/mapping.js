@@ -18,7 +18,7 @@ var accordion_d3=$(".accordion_d3" ).accordion();
 
 var accordion_user=$(".accordion_user" ).accordion();
 
- $( "#dialog" ).dialog({
+ $( "#table_dialog" ).dialog({
       autoOpen: false,
       show: {
         effect: "blind",
@@ -32,10 +32,9 @@ var accordion_user=$(".accordion_user" ).accordion();
         my: "top", 
         at: "left", 
         of: window } 
-
 });
 
-$( "#dialog1" ).dialog({
+$( "#square_table" ).dialog({
       autoOpen: false,
       show: {
         effect: "blind",
@@ -47,13 +46,38 @@ $( "#dialog1" ).dialog({
       }
     });
 
-    $('#dialog').click(function (evt) {
-      $( "#dialog1" ).dialog( "open" )
+$( "#circle_table" ).dialog({
+      autoOpen: false,
+      show: {
+        effect: "blind",
+        duration: 1000
+      },
+      hide: {
+        effect: "explode",
+        duration: 1000
+      }
+    });
+
+    $('.circle').click(function (evt) {
+      
+     $( "#circle_table" ).dialog( "open" )
       .position({
        my: 'left',
        at: 'right',
-       of: '#dialog'
+       of: '#table_dialog'
       });
+
+    });
+
+     $('.rectangle').click(function (evt) {
+      
+      $( "#square_table" ).dialog( "open" )
+      .position({
+       my: 'left',
+       at: 'right',
+       of: '#table_dialog'
+      });
+      
     });
 
 
@@ -86,27 +110,27 @@ var features=currentData['features'];
   }).addTo(map);
 }
 
- $(".rectangle1").click(function() {  
+ $(".pinkCircle").click(function() {  
    resetColor('#da5027');
   });
 
- $(".rectangle2").click(function() {  
+ $(".yellowCircle").click(function() {  
    resetColor('#f6a91c');
   });
 
- $(".rectangle3").click(function() {  
+ $(".darkBlueCircle").click(function() {  
    resetColor('#216a8b');
   });
 
-  $(".rectangle4").click(function() {  
+  $(".lightBlueCircle").click(function() {  
    resetColor('#6596cf');
   });
 
-   $(".rectangle5").click(function() {  
+   $(".lightGreenCircle").click(function() {  
    resetColor('#87af3e');
   });
 
-   $(".rectangle6").click(function() { 
+   $(".darkGreenCircle").click(function() { 
    resetColor('#20592c');
   });
 
@@ -127,23 +151,23 @@ var processData = function( data, options ) {
   currentLayer = geolayer;
 };
 
+
 var getData = function( geoURL, options,fileName ) {
   var req = $.getJSON( geoURL );
 
   req.done( function(data) {
 
-    if(fileName=='median_family.geojson')
-  {
-    var newFeatures=queryData(data, 'City', 'Detroit');
-    data['features']=newFeatures;
-  }
+    rulesForFiles(fileName,data);
     processData(data, options);
-  } );
+
+  });
 };
 
 var removeData = function() {
   map.removeLayer(currentLayer);
 };
+
+
 
 var queryData=function(data, property, selectingProperty){
   var features=data['features'];
@@ -159,20 +183,89 @@ var queryData=function(data, property, selectingProperty){
     return newFeatures;
 };
 
+var rulesForFiles=function(fileName,data)
+{
+  if(fileName=='employment_labor_Total_LaborForce.geojson')
+  {
+    var property='City';
+    var selectingProperty='Detroit';
+    var newFeatures=queryData(data, property, selectingProperty);
+    data['features']=newFeatures;
 
+  }
+  else if(fileName=='employment_labor_Total_Unemployed.geojson')
+  {
+    var property='City';
+    var selectingProperty='Detroit';
+    var newFeatures=queryData(data, property, selectingProperty);
+    data['features']=newFeatures;
+
+  }
+  else if(fileName=='minority_family _Total_HH.geojson')
+  {
+    var property='City';
+    var selectingProperty='Detroit';
+    var newFeatures=queryData(data, property, selectingProperty);
+    data['features']=newFeatures;
+
+  }
+  else if(fileName=='minority_family_Total_MinHH.geojson')
+  {
+    var property='City';
+    var selectingProperty='Detroit';
+    var newFeatures=queryData(data, property, selectingProperty);
+    data['features']=newFeatures;
+
+  }
+   else if(fileName=='Housing_Tenure_OccHH_FreeandClear.geojson')
+  {
+    var property='City';
+    var selectingProperty='Detroit';
+    var newFeatures=queryData(data, property, selectingProperty);
+    data['features']=newFeatures;
+
+  }
+   else if(fileName=='Housing_Tenure_RenterOccHH.geojson')
+  {
+    var property='City';
+    var selectingProperty='Detroit';
+    var newFeatures=queryData(data, property, selectingProperty);
+    data['features']=newFeatures;
+
+  }
+   else if(fileName=='Housing_Tenure_RenterOccHH.geojson')
+  {
+    var property='City';
+    var selectingProperty='Detroit';
+    var newFeatures=queryData(data, property, selectingProperty);
+    data['features']=newFeatures;
+
+  }
+   else if(fileName=='median_family.geojson')
+  {
+    var property='City';
+    var selectingProperty='Detroit';
+    var newFeatures=queryData(data, property, selectingProperty);
+    data['features']=newFeatures;
+
+  }
+
+};
 
 // Sidebar
 // ---------
 
 $(".radio").click( function() {
 
- $( "#dialog" ).dialog( "open" );
+ $( "#table_dialog" ).dialog( "open" );
 
   var fileName=$(this).data("file");
+
   var file = '/data/' + fileName;
   var datasetname = $(this).data("name");
   var infoOfImportance = $(this).data("property");
   var alreadyChecked = $(".checked");
+
   alreadyChecked.find("input").prop("checked", false);
   alreadyChecked.removeClass("checked");
  
