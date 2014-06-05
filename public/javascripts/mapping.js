@@ -4,23 +4,37 @@
 var currentLayer;
 var currentData;
 var currentFileName;
+var radioLayerInput=new Array();
 
 var input = { 
     "pink": ["#F9E6E0","#F5D3C9","#ECA793", "#E37B5D", "#DA5027"],
     "yellow": ['#FFF5E5','#FFE3B2','#FFD17F','#FFBF4C','#FFA400'],
-    "darkBlue": ['#FFFFFF','#C7D9E2','#90B4C5','#588FA8','#216A8B'],
-    "lightBlue": ['#FFFFFF','#D8E4F3','#B2CAE7','#8BB0DB','#6596CF'],
-    "lightGreen": ['#FFFFFF','#E1EBCE', '#C3D79E','#A5C36E','#87AF3E'],
-    "darkGreen": ['#FFFFFF', '#C7D5CA','#8FAC95','#578260','#20592C']
+    "darkBlue": ['#DFE9EE','#C7D9E2','#90B4C5','#588FA8','#216A8B'],
+    "lightBlue": ['#EBF1F9','#D3E1F1','#B2CAE7','#8BB0DB','#6596CF'],
+    "lightGreen": ['#F0F5E6','#DCE8C7','#C3D79E','#A5C36E','#87AF3E'],
+    "darkGreen": ['#E3EAE4','#BFCFC2','#8FAC95','#578260','#20592C']
 }
 
-console.log(input);
+// function DataLayer()
+// {
+//   this.fileName="fileName";
+//   this.Hello="Hello";
+// }
+
+// var try=new DataLayer();
+// console.log(try);
+//try.fileName="a file Name";
+//try.Hello="hello";
+//console.log(try);
+
 var map = L.map('map', {
                         center: [42.3540, -83.0523],
                         zoom: 11,
                         layers: []
                         }
                 );
+
+var layerArray=new Array();
 
 var baseMap=L.tileLayer('http://api.tiles.mapbox.com/v3/rcackerman.h6ofgio1/{z}/{x}/{y}.png', {
             attribution: 'Made pretty by Mapbox'
@@ -64,6 +78,7 @@ function style( feature) {
 }
 
 
+
 var resetColor=function(newColor)
 {
   var newStyle = {
@@ -85,35 +100,41 @@ var min=100;
   }).addTo(map);
 }
 
- $(".pinkCircle").click(function() {  
-   resetColor('#da5027');
+ $(".pinkCircle").click(function() {
+  var color='#da5027';
+   rulesForLinePopUp(color,currentFileName);
   });
 
  $(".yellowCircle").click(function() {  
-   resetColor('#f6a91c');
+   var color='#f6a91c';
+   rulesForLinePopUp(color,currentFileName);
   });
 
  $(".darkBlueCircle").click(function() {  
-   resetColor('#216a8b');
+   var color='#216a8b';
+   rulesForLinePopUp(color,currentFileName);
   });
 
   $(".lightBlueCircle").click(function() {  
-   resetColor('#6596cf');
+    var color='#6596cf';
+   rulesForLinePopUp(color,currentFileName);
   });
 
    $(".lightGreenCircle").click(function() {  
-   resetColor('#87af3e');
+   var color='#87af3e';
+   rulesForLinePopUp(color,currentFileName);
   });
 
    $(".darkGreenCircle").click(function() { 
-   resetColor('#20592c');
+   var color='#20592c';
+   rulesForLinePopUp(color,currentFileName);
   });
 ///////////////////////////////////////////////////////////////
     $(".pinkSquare").click(function() { 
 
       var colorGradientArr=input.pink;
      changeColorGradient(colorGradientArr);
-     rulesForFilesPopUp(currentFileName,currentData,colorGradientArr);
+     rulesForSquarePopUp(currentFileName,currentData,colorGradientArr);
   
   });
 
@@ -121,7 +142,7 @@ var min=100;
     
      var colorGradientArr=input.yellow;
      changeColorGradient(colorGradientArr);
-     rulesForFilesPopUp(currentFileName,currentData,colorGradientArr);
+     rulesForSquarePopUp(currentFileName,currentData,colorGradientArr);
   
   });
 
@@ -129,7 +150,7 @@ var min=100;
   
    var colorGradientArr=input.darkBlue;
    changeColorGradient(colorGradientArr);
-   rulesForFilesPopUp(currentFileName,currentData,colorGradientArr);
+   rulesForSquarePopUp(currentFileName,currentData,colorGradientArr);
  
   });
 
@@ -137,7 +158,7 @@ var min=100;
    
    var colorGradientArr=input.lightBlue;
    changeColorGradient(colorGradientArr);
-   rulesForFilesPopUp(currentFileName,currentData,colorGradientArr);
+   rulesForSquarePopUp(currentFileName,currentData,colorGradientArr);
   
 
   });
@@ -146,7 +167,7 @@ var min=100;
    
    var colorGradientArr=input.lightGreen;
    changeColorGradient(colorGradientArr);
-   rulesForFilesPopUp(currentFileName,currentData,colorGradientArr);
+   rulesForSquarePopUp(currentFileName,currentData,colorGradientArr);
   
 
   });
@@ -155,7 +176,7 @@ var min=100;
    
    var colorGradientArr=input.darkGreen;
    changeColorGradient(colorGradientArr);
-   rulesForFilesPopUp(currentFileName,currentData,colorGradientArr);
+   rulesForSquarePopUp(currentFileName,currentData,colorGradientArr);
   
 
   });
@@ -166,18 +187,31 @@ var processLineData=function(data)
 
 var features=data['features'];
 
-  L.geoJson(features, {
+  var layer=L.geoJson(features, {
     style: style
       
     }).addTo(map);
 
+layerArray.push(layer);
   currentData=data;
   //currentLayer = geolayer;
 
 }
 
 
+// var addLayersToMap()
+// {
+//   for(int i=0;i<radioLayerInput.length;i++)
+//   {
+
+//   }
+// }
+
+
 var getData = function( geoURL, options,fileName ) {
+  console.log(layerArray.length);
+
+
   var req = $.getJSON( geoURL );
 
   req.done( function(data) {
@@ -189,10 +223,18 @@ var getData = function( geoURL, options,fileName ) {
   });
 };
 
-var removeData = function() {
-  map.removeLayer(currentLayer);
+var removeData = function(layer) {
+  map.removeLayer(layer);
 };
 
+var clearAllLayers=function()
+{
+  for (var i=0;i<layerArray.length;i++)
+  {
+    var layer=layerArray[i];
+    removeData(layer);
+  }
+}
 
 
 var queryData=function(data, property, selectingProperty){
@@ -275,7 +317,7 @@ var rulesForFiles=function(fileName,data)
     var colorGradientArr=input.lightBlue;
     gradientValues(mainMappingData,features,colorGradientArr);
   }
-  else if(fileName=='minority_family _Total_HH.geojson')
+  else if(fileName=='minority_family_Total_HH.geojson')
   {
     var property='City';
     var selectingProperty='Detroit';
@@ -357,15 +399,15 @@ var rulesForFiles=function(fileName,data)
   {
     processLineData(data);
   }
-  else if(fileName=='grocery_stores.geojson')
+  else if(fileName=='parks_landmark.geojson')
   {
-    processLineData(data);
+      processLineData(data);
   }
 
 };
 
 
-var rulesForFilesPopUp=function(fileName,data,colorGradientArr)
+var rulesForSquarePopUp=function(fileName,data,colorGradientArr,type)
 {
   //processLineData
     if(fileName=='employment_labor_Total_LaborForce.geojson')
@@ -381,7 +423,7 @@ var rulesForFilesPopUp=function(fileName,data,colorGradientArr)
       var mainMappingData='Total_Unemployed';
       gradientValues(mainMappingData,features,colorGradientArr);
     }
-    else if(fileName=='minority_family _Total_HH.geojson')
+    else if(fileName=='minority_family_Total_HH.geojson')
     {
       var features= data['features'];
       var mainMappingData='Tot_HH';
@@ -412,9 +454,27 @@ var rulesForFilesPopUp=function(fileName,data,colorGradientArr)
       var features= data['features'];
       gradientValues(mainMappingData,features,colorGradientArr);
     }
+  
 }
-
-
+var rulesForLinePopUp=function(color,fileName)
+{
+  if(fileName=='census_track.geojson')
+  {
+    resetColor(color);
+  }
+  else if(fileName=='council_district.geojson')
+  {
+    resetColor(color);
+  }
+  else if(fileName=='grocery_stores.geojson')
+  {
+    resetColor(color);
+  }
+  else if(fileName=='parks_landmark.geojson')
+  {
+      resetColor(color);
+  }
+}
 
 
 var gradientValues=function(mainMappingData,features,colorGradientArr)
@@ -440,7 +500,7 @@ var gradientValues=function(mainMappingData,features,colorGradientArr)
       //$("#minimum").text(min);
      // $("#maximum").text(max);
 
-    L.geoJson(features, {
+    var layer=L.geoJson(features, {
     style: function(feature)
     {
       var color;
@@ -485,6 +545,8 @@ var gradientValues=function(mainMappingData,features,colorGradientArr)
     
     }).addTo(map);
   
+  layerArray.push(layer);
+  
   currentData=data;
 
 }
@@ -508,19 +570,51 @@ $(".radio").click( function() {
   var datasetname = $(this).data("name");
   var infoOfImportance = $(this).data("property");
   var alreadyChecked = $(".checked");
+  var input=$(this);
 
-  alreadyChecked.find("input").prop("checked", false);
-  alreadyChecked.removeClass("checked");
- 
-  if (currentLayer) {
-    removeData();
+  var contains=false;
+  var index;
+   for(var i=0;i<radioLayerInput.length;i++)
+  {
+    var thisInput=radioLayerInput[i];
+    thisFileName=thisInput.data("file");
+    if(thisFileName==fileName)
+    {
+      contains=true;
+      index=i;
+    }
+
+    thisInput.addClass("checked");
+    thisInput.find("input").prop("checked", true);
+  }
+  
+  
+  if(contains==true)
+  {
+    thisInput.find("input").prop("checked", false);
+    thisInput.removeClass("checked");
+    radioLayerInput.splice(index,1);
+    console.log("in true");
+
+  }
+  else
+  {
+    radioLayerInput.push(input);
+    input.addClass("checked");
+    input.find("input").prop("checked", true);
   }
 
-  $(this).addClass("checked");
-  $(this).find("input").prop("checked", true);
+  clearAllLayers();
+ for(var i=0;i<radioLayerInput.length;i++)
+  {
+    var thisInput=radioLayerInput[i]
+    var fileName=thisInput.data("file");
+    var file = '/data/' + fileName;
+    var datasetname = thisInput.data("name");
+    var infoOfImportance = thisInput.data("property");
 
-  getData( file, {name: datasetname, property: infoOfImportance},fileName );
+      getData( file, {name: datasetname, property: infoOfImportance},fileName );
+  }
 });
-
 
 
