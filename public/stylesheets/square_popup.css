@@ -1,19 +1,43 @@
 #square_table
 {
    background-color:#ffffff; 
+   display: none;
+   position: absolute;
+  width: 150px;
+  height: 100px;
+  top: 240px;
+  left:380px;
+  border:1px solid #707070;
 }
 
-/*#square_table table
+#circle_table table
 {
-  position:relative; 
-  top:35px;
-  left:40px;
-}*/
-
-#square_table table,td,th
-{
-  border-style:none;
+ margin-top: 12px;
+ margin-left: 10px;
+width: 90%;
+  height: 50%;
 }
+
+table#gradientTable
+{
+	margin-top: 40px;
+	margin-left: 20px;
+}
+
+table#squareTable
+{
+	margin-top: 10px;
+	margin-left: 10px;
+
+}
+
+table#squareTable td
+{
+	
+	margin-left: 3px;
+	
+}
+
 
 .pinkSquare {
   width: 20px;
@@ -49,27 +73,27 @@
 .gradient1 {
   width: 20px;
   height: 20px;
-  background-color:#FF3A00;
+  background-color:#F9E6E0;
 }
 .gradient2 {
   width: 20px;
   height: 20px;
-  background:#FF754C;
+  background:#F5D3C9;
 }
 .gradient3 {
   width: 20px;
   height: 20px;
-  background:#FF9C7F;
+  background:#ECA793;
 }
 .gradient4 {
   width: 20px;
   height: 20px;
-  background: #FFC4B2;
+  background: #E37B5D;
 }
 .gradient5 {
   width: 20px;
   height: 20px;
-  background: #FFEBE5;
+  background:#DA5027;
 }
 
 

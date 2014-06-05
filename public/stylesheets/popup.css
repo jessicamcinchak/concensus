@@ -1,53 +1,51 @@
 
-.ui-dialog
+#main
 {
-  width:150em;
-  height:150em;
-  margin-left: 5em;
+  position: relative;
 }
-
-.ui-dialog .ui-dialog-content {
-    border-width:2px;
-   	border-color:#000000;
-    background-color:#ffffff;
-}
-
-.ui-dialog-titlebar-close {
-  visibility: hidden;
-}
-
-#dialog
+#table_dialog
 {
   background-color:#ffffff;
+  width:270px;
+  height:300px;
+  display: none;
+  position: absolute;
+  top: 50px;
+  left:100px;
+  border:1px solid #707070;
 }
 
-#dialog h5
+#table_dialog h5
 {
   background-color:#ffffff;
+  margin-left: 40px;
+  margin-top: 20px;
+  p
+}
+
+#table_dialog img{
+ width:80px;
+ height:40px;
+ position: absolute;
+top: -20;
 }
 
 
-#dialog table
+#table_dialog table
 {
-  width:25em;
-  height: 13em;
+  width:230px;
+  height: 255px;
   background-color:#ffffff;
+  border-left: 1px solid #707070;
+  border-top: 1px solid #707070;
+  margin-right: 0;
+  margin-bottom: 0;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
+
 }
-  #dialog table,th,td
-    {
-      border:1px solid #707070;
-      padding: 0;
-      margin: 0;
-    }
-
-    #dialog th
-    {
-      background-color:#E3E3E3;
-      border:1px solid #707070;
-      padding: 0;
-      margin: 0;
-    }
-
     .middleTD
     {
         background-color:#ffffff;
@@ -62,7 +60,7 @@
 
     .row1
     {
-      height:15%;
+      height:5%;
     }
 
     .row1 th
@@ -70,16 +68,26 @@
       font-size: x-small;
       padding:3px;
       text-align: center;
+      background-color:#E3E3E3;
+      border:1px solid #707070;
     }
 
     .row2 th
     {
-        text-align: center;
+
+      background-color:#E3E3E3;
+      border:1px solid #707070;
+      white-space:nowrap;
+      font-size:x-small;
     }
 
     .row3 th
     {
-      text-align: center;
+      background-color:#E3E3E3;
+      border:1px solid #707070;
+      width:1em;
+      white-space:nowrap;
+      font-size:x-small;
     }
 
     .side_header
@@ -92,8 +100,11 @@
       -o-transform-origin: 50% 50%;
       transform: rotate(270deg);
       transform-origin: 50% 50%;
-      padding: 3px;
-      font-size: medium;
+      font-size: small;
+      width:2em;
+      text-align: right;
+      padding: 0;
+      margin: 0;
     }
 
  .circle {

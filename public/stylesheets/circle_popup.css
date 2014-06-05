@@ -1,0 +1,72 @@
+#circle_table
+{
+   background-color:#ffffff; 
+   display: none;
+  position: absolute;
+  width: 150px;
+  height: 50px;
+  top: 150px;
+  left:380px;
+  border:1px solid #707070;
+
+}
+
+#circle_table table
+{
+ margin-top: 12px;
+ margin-left: 10px;
+width: 90%;
+  height: 50%;
+}
+
+#circle_table td
+{
+}
+#circle_table table,td,th
+{
+  border-style:none;
+}
+
+.pinkCircle {
+  width: 20px;
+  height: 20px;
+  margin-left: 3px;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  background-color:#da5027;
+}
+.yellowCircle {
+  width: 20px;
+  height: 20px;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  background:#f6a91c;
+}
+.darkBlueCircle {
+  width: 20px;
+  height: 20px;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  background:#216a8b;
+}
+.lightBlueCircle {
+  width: 20px;
+  height: 20px;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  background: #6596cf;
+}
+.lightGreenCircle{
+  width: 20px;
+  height: 20px;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  background: #87af3e;
+}
+.darkGreenCircle{
+  width: 20px;
+  height: 20px;
+  -moz-border-radius: 50px;
+  -webkit-border-radius: 50px;
+  background: #20592c;
+}
