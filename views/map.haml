@@ -46,7 +46,74 @@
             %li<
               %a{href: url('/map')}Map
     .row
-      #map
+      #main
+        #map
+        #table_dialog
+          %img{src:"images/conCensus_GlassesOnly.png", alt: "concensus logo"}
+          %h5 Choose Display Options:
+          %table
+            %tr{class: "row1"}
+              %th{class: "cornerTH"}
+              %th View as 
+              %th Date Type
+              %th Indicator Name
+            %tr{class: "row2"}
+              %th
+                .side_header D3 Data
+              %td  
+                .circle
+              %td 
+              %td Service Areas
+            %tr{class: "row3"}
+              %th
+                .side_header User Data
+              %td 
+                .rectangle
+              %td 
+              %td Question 1=yes
+        #circle_table
+          %table
+            %tr
+              %td
+                .pinkCircle
+              %td
+                .yellowCircle
+              %td
+                .darkBlueCircle
+              %td
+                .lightBlueCircle
+              %td
+                .lightGreenCircle
+              %td
+                .darkGreenCircle
+        #square_table
+          %table{id:"gradientTable"}
+            %tr
+              %td
+                .gradient1
+              %td
+                .gradient2
+              %td
+                .gradient3
+              %td
+                .gradient4
+              %td
+                .gradient5
+          %table{id:"squareTable"}
+            %tr
+              %td
+                .pinkSquare
+              %td
+                .yellowSquare
+              %td
+                .darkBlueSquare
+              %td
+                .lightBlueSquare
+              %td
+                .lightGreenSquare
+              %td
+                .darkGreenSquare  
+                  
       .col-md-2.legend
         .row
           .col-md-12
@@ -129,31 +196,6 @@
               %div
                 %p
                   Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel,
-              
-    %br
-    %br
-    #table_dialog
-      %h5 Choose Display Options:
-      %table
-        %tr{class: "row1"}
-          %th{class: "cornerTH"}
-          %th View as 
-          %th Date Type
-          %th Indicator Name
-        %tr{class: "row2"}
-          %th
-            .side_header D3 Data
-          %td  
-            .circle
-          %td 
-          %td Service Areas
-        %tr{class: "row3"}
-          %th
-            .side_header User Data
-          %td 
-            .rectangle
-          %td 
-          %td Question 1=yes  
 
     #circle_table
       %table
