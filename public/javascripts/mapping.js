@@ -5,6 +5,76 @@ var currentLayer;
 var currentData;
 var currentFileName;
 var radioLayerInput=new Array();
+var shape="shape";
+var line="line";
+var point="point";
+
+var dataPriortyRecorder={
+  shape:0,
+  line:0,
+  point:0
+}
+
+var dataPriorityChecker=function(fileName)
+{
+  var thisFileType=fileType[fileName];
+  var canAdd=false;
+  var numOfShape=dataPriortyRecorder[shape];
+  var numOfLine=dataPriortyRecorder[line];
+  var numOfPoint=dataPriortyRecorder[point];
+  if(thisFileType==shape)
+  {
+    if(numOfShape>0)
+    {
+      canAdd=false;
+      return canAdd;
+    }
+
+  }
+  else if(thisFileType==line)
+  {
+    if(numOfLine>0)
+    {
+      canAdd=false;
+      return canAdd;
+    }
+
+  }
+  else if(thisFileType==point)
+  {
+    if(numOfPoint>3)
+    {
+      canAdd=false;
+      return canAdd;
+    }
+  }
+  canAdd=true;
+  return canAdd;
+
+}
+
+var changeDataPriortyRecorder=function(fileName,checked)
+{
+  var thisFileType=fileType[fileName];
+  console.log("in change"+" "+thisFileType);
+  console.log("in change"+" "+checked);
+  if(checked==true)
+  {
+    if(dataPriortyRecorder[thisFileType]>=0)
+    {
+       console.log("in change"+" "+"--");
+       dataPriortyRecorder[thisFileType]--;
+    }
+  }
+  else if(checked==false)
+  {
+      console.log("in change"+" "+"++");
+      dataPriortyRecorder[thisFileType]++;
+    
+  }
+}
+
+
 
 var input = { 
     "pink": ["#F9E6E0","#F5D3C9","#ECA793", "#E37B5D", "#DA5027"],
@@ -15,17 +85,33 @@ var input = {
     "darkGreen": ['#E3EAE4','#BFCFC2','#8FAC95','#578260','#20592C']
 }
 
-// function DataLayer()
-// {
-//   this.fileName="fileName";
-//   this.Hello="Hello";
-// }
+var fileType={
+  "census_track.geojson":"line",
+  "council_district.geojson":"line",
+  "employment_labor_Total_Unemployed.geojson":"shape",
+  "employment_labor_Total_LaborForce.geojson":"shape",
+  "grocery_stores.geojson":"point",
+  "Housing_Tenure_OccHH_FreeandClear.geojson":"shape",
+  "Housing_Tenure_RenterOccHH.geojson":"shape",
+  "median_family.geojson":"shape",
+  "minority_family_Total_HH.geojson":"shape",
+  "minority_family_Total_MinHH.geojson":"shape",
+  "parks_landmark.geojson":"point",
+  "zipcodes.geojson":"line"
+}
 
-// var try=new DataLayer();
-// console.log(try);
-//try.fileName="a file Name";
-//try.Hello="hello";
-//console.log(try);
+var squareFileQueryParameter={
+
+  "employment_labor_Total_Unemployed.geojson":"Total_Unemployed",
+  "employment_labor_Total_LaborForce.geojson":"Total_LaborForce",
+  "Housing_Tenure_OccHH_FreeandClear.geojson":"OwnOccHU_FreeandClear",
+  "Housing_Tenure_RenterOccHH.geojson":"RenterOccHU",
+  "median_family.geojson":"MedHHInc_2011Adj",
+  "minority_family_Total_HH.geojson":"Tot_HH",
+  "minority_family_Total_MinHH.geojson":"Tot_MinHH",
+}
+
+
 
 var map = L.map('map', {
                         center: [42.3540, -83.0523],
@@ -68,26 +154,25 @@ var accordion_user=$(".accordion_user" ).accordion();
 
 function style( feature) {
   return {
-    fillColor: '#000000',
+    fillColor:"#000000",
     weight: 2,
     opacity: 1,
-    color: 'white',
+    color: 'red',
     dashArray: '3',
-    fillOpacity: 0.7
+    fillOpacity: 0
   };
 }
 
 
 
-var resetColor=function(newColor)
+var resetLineColor=function(newColor)
 {
   var newStyle = {
-    "fillColor": newColor,
     "weight": 2,
     "opacity": 1,
-    "color": 'white',
+    "color": newColor,
     "dashArray": '3',
-    "fillOpacity": 0.7
+    "fillOpacity": 0
   }
 
 var features=currentData['features'];
@@ -159,8 +244,6 @@ var min=100;
    var colorGradientArr=input.lightBlue;
    changeColorGradient(colorGradientArr);
    rulesForSquarePopUp(currentFileName,currentData,colorGradientArr);
-  
-
   });
 
    $(".lightGreenSquare").click(function() {  
@@ -177,8 +260,6 @@ var min=100;
    var colorGradientArr=input.darkGreen;
    changeColorGradient(colorGradientArr);
    rulesForSquarePopUp(currentFileName,currentData,colorGradientArr);
-  
-
   });
 
 
@@ -198,15 +279,28 @@ layerArray.push(layer);
 
 }
 
+var processPointData=function(data)
+{
 
-// var addLayersToMap()
-// {
-//   for(int i=0;i<radioLayerInput.length;i++)
-//   {
+var features=data['features'];
+var color=input.yellow[4];
+var geojsonMarkerOptions = {
+    radius: 6,
+    fillColor: "#ff7800",
+    color: "#ff7800",
+    weight: 1,
+    opacity: 1,
+    fillOpacity: 0.8
+};
 
-//   }
-// }
+var layer=L.geoJson(features, {
+    pointToLayer: function (feature, latlng) {
+        return L.circleMarker(latlng, geojsonMarkerOptions);
+    }
+}).addTo(map);
+layerArray.push(layer);
 
+}
 
 var getData = function( geoURL, options,fileName ) {
   console.log(layerArray.length);
@@ -217,9 +311,6 @@ var getData = function( geoURL, options,fileName ) {
   req.done( function(data) {
 
     rulesForFiles(fileName,data);
-    //processData(data, options);
-    //rulesForFiles(fileName,data);
-
   });
 };
 
@@ -290,8 +381,7 @@ var getSectionNum=function(rangeNum)
 
 var rulesForFiles=function(fileName,data)
 {
-  //processLineData
-  if(fileName=='employment_labor_Total_LaborForce.geojson')
+  if(fileType[fileName]==shape)
   {
     var property='City';
     var selectingProperty='Detroit';
@@ -300,179 +390,43 @@ var rulesForFiles=function(fileName,data)
     currentData=data;
     
     var features= data['features'];
-    var mainMappingData='Total_LaborForce';
+    var mainMappingData=squareFileQueryParameter[fileName];
     var colorGradientArr=input.lightBlue;
-    gradientValues(mainMappingData,features,colorGradientArr);
-  }
-  else if(fileName=='employment_labor_Total_Unemployed.geojson')
-  {
-    var property='City';
-    var selectingProperty='Detroit';
-    var newFeatures=queryData(data, property, selectingProperty);
-    data['features']=newFeatures;
-    currentData=data;
-    var features= data['features'];
-
-    var mainMappingData='Total_Unemployed';
-    var colorGradientArr=input.lightBlue;
-    gradientValues(mainMappingData,features,colorGradientArr);
-  }
-  else if(fileName=='minority_family_Total_HH.geojson')
-  {
-    var property='City';
-    var selectingProperty='Detroit';
-    var newFeatures=queryData(data, property, selectingProperty);
-    data['features']=newFeatures;
-    currentData=data;
-    
-    var features= data['features'];
-    var mainMappingData='Tot_HH';
-    var colorGradientArr=input.lightBlue;
-    gradientValues(mainMappingData,features,colorGradientArr);
-  }
-  else if(fileName=='minority_family_Total_MinHH.geojson')
-  {
-    var property='City';
-    var selectingProperty='Detroit';
-    var newFeatures=queryData(data, property, selectingProperty);
-    data['features']=newFeatures;
-    currentData=data;
-
-    var mainMappingData='Tot_MinHH';
-    var features= data['features'];
-    var colorGradientArr=input.lightBlue;
-    gradientValues(mainMappingData,features,colorGradientArr);
-
-  }
-   else if(fileName=='Housing_Tenure_OccHH_FreeandClear.geojson')
-  {
-    var property='City';
-    var selectingProperty='Detroit';
-
-    var newFeatures=queryData(data, property, selectingProperty);
-    data['features']=newFeatures;
-    currentData=data;
-
-    var mainMappingData='OwnOccHU_FreeandClear';
-    var features= data['features'];
-    var colorGradientArr=input.lightBlue;
-    gradientValues(mainMappingData,features,colorGradientArr);
-
-  }
-   else if(fileName=='Housing_Tenure_RenterOccHH.geojson')
-  {
-    var property='City';
-    var selectingProperty='Detroit';
-    var newFeatures=queryData(data, property, selectingProperty);
-    data['features']=newFeatures;
-    currentData=data;
-
-    //RenterOccHH
-    var mainMappingData='RenterOccHU';
-    var features= data['features'];
-    var colorGradientArr=input.lightBlue;
-    gradientValues(mainMappingData,features,colorGradientArr);
-
-  }
-   else if(fileName=='median_family.geojson')
-  {
-    var property='City';
-    var selectingProperty='Detroit';
-    var newFeatures=queryData(data, property, selectingProperty);
-    data['features']=newFeatures;
-    currentData=data;
-
-    var mainMappingData='MedHHInc_2011Adj';
-    var features= data['features'];
-    var colorGradientArr=input.lightBlue;
-    gradientValues(mainMappingData,features,colorGradientArr);
+    gradientValues(mainMappingData,features,colorGradientArr); 
   }
   else if(fileName=='census_track.geojson')
   {
+    var property='City';
+    var selectingProperty='Detroit';
+    var newFeatures=queryData(data, property, selectingProperty);
+    data['features']=newFeatures;
+    currentData=data;
     processLineData(data);
   }
-  else if(fileName=='council_district.geojson')
+  else if(fileType[fileName]==line  && fileType[fileName]!='census_track.geojson')
   {
     processLineData(data);
   }
-  else if(fileName=='grocery_stores.geojson')
+  else if(fileType[fileName]==point)
   {
-    processLineData(data);
+    processPointData(data);
   }
-  else if(fileName=='parks_landmark.geojson')
-  {
-      processLineData(data);
-  }
-
+  
 };
 
 
 var rulesForSquarePopUp=function(fileName,data,colorGradientArr,type)
 {
-  //processLineData
-    if(fileName=='employment_labor_Total_LaborForce.geojson')
-    {
-
+      if(fileType[fileName]==shape){
       var features= data['features'];
-      var mainMappingData='Total_LaborForce';
+      var mainMappingData=squareFileQueryParameter[fileName];
       gradientValues(mainMappingData,features,colorGradientArr);
     }
-    else if(fileName=='employment_labor_Total_Unemployed.geojson')
-    {
-      var features= data['features'];
-      var mainMappingData='Total_Unemployed';
-      gradientValues(mainMappingData,features,colorGradientArr);
-    }
-    else if(fileName=='minority_family_Total_HH.geojson')
-    {
-      var features= data['features'];
-      var mainMappingData='Tot_HH';
-      gradientValues(mainMappingData,features,colorGradientArr);
-    }
-    else if(fileName=='minority_family_Total_MinHH.geojson')
-    {
-      var mainMappingData='Tot_MinHH';
-      var features= data['features'];
-      gradientValues(mainMappingData,features,colorGradientArr);
-    }
-     else if(fileName=='Housing_Tenure_OccHH_FreeandClear.geojson')
-    {
-      var mainMappingData='OwnOccHU_FreeandClear';
-      var features= data['features'];
-      gradientValues(mainMappingData,features,colorGradientArr);
-
-    }
-     else if(fileName=='Housing_Tenure_RenterOccHH.geojson')
-    {
-      var mainMappingData='RenterOccHU';
-      var features= data['features'];
-      gradientValues(mainMappingData,features,colorGradientArr);
-    }
-     else if(fileName=='median_family.geojson')
-    {
-      var mainMappingData='MedHHInc_2011Adj';
-      var features= data['features'];
-      gradientValues(mainMappingData,features,colorGradientArr);
-    }
-  
 }
 var rulesForLinePopUp=function(color,fileName)
 {
-  if(fileName=='census_track.geojson')
-  {
-    resetColor(color);
-  }
-  else if(fileName=='council_district.geojson')
-  {
-    resetColor(color);
-  }
-  else if(fileName=='grocery_stores.geojson')
-  {
-    resetColor(color);
-  }
-  else if(fileName=='parks_landmark.geojson')
-  {
-      resetColor(color);
+  if(fileType[fileName]==line){
+      resetLineColor(color);
   }
 }
 
@@ -507,35 +461,30 @@ var gradientValues=function(mainMappingData,features,colorGradientArr)
         var prop=feature.properties[mainMappingData];
         if(prop>=min && prop<sectionNum)
         {
-            console.log("section 1"+" "+prop);
             color=colorGradientArr[0];
         }
         if(prop>=sectionNum && prop<(sectionNum*2))
         {
-            console.log("section 2"+" "+prop);
             color=colorGradientArr[1];
         }
         if(prop>=(sectionNum*2) && prop<(sectionNum*3))
         {
-            console.log("section 3"+" "+prop);
             color=colorGradientArr[2];
         }
         if(prop>=(sectionNum*3) && prop<(sectionNum*4))
         {
-            console.log("section 4"+" "+prop);
             color=colorGradientArr[3];
         }
         if(prop>=(sectionNum*4) && prop<=max)
         {
-            console.log("section 5"+" "+prop);
             color=colorGradientArr[4];
         }
 
       var newStyle = {
-          "fillColor": color,
+          "fillColor":color,
           "weight": 2,
           "opacity": 1,
-          "color": 'white',
+          "color": "#ffffff",
           "dashArray": '3',
           "fillOpacity": 0.7
          };
@@ -564,57 +513,107 @@ $(".radio").click( function() {
  $( "#table_dialog" ).css('display','block');
 
   var fileName=$(this).data("file");
-  currentFileName=fileName;
-
   var file = '/data/' + fileName;
   var datasetname = $(this).data("name");
   var infoOfImportance = $(this).data("property");
-  var alreadyChecked = $(".checked");
+  //var alreadyChecked = $(".checked");
   var input=$(this);
-
-  var contains=false;
   var index;
-   for(var i=0;i<radioLayerInput.length;i++)
+
+  var checked=false;
+  currentFileName=fileName;
+
+  //test if input checked
+  var checked=false;
+  for(var i=0;i<radioLayerInput.length;i++)
   {
     var thisInput=radioLayerInput[i];
     thisFileName=thisInput.data("file");
     if(thisFileName==fileName)
     {
-      contains=true;
+      checked=true;
       index=i;
     }
-
-    thisInput.addClass("checked");
-    thisInput.find("input").prop("checked", true);
   }
-  
-  
-  if(contains==true)
+
+  if(checked==true)
   {
-    thisInput.find("input").prop("checked", false);
-    thisInput.removeClass("checked");
+    console.log("checked"+" "+checked);
+
+    
+    //var input=$(this);
+
+    // make checkmark false
+    input.find("input").prop("checked", false);
+    input.removeClass("checked");
+
+    //remove input from checkbox datastructure
     radioLayerInput.splice(index,1);
-    console.log("in true");
 
+    //remove mark from priority algorthm recorder
+    changeDataPriortyRecorder(fileName,checked);
+
+    //make new layers reflecting the changes
+     clearAllLayers();
+           for(var i=0;i<radioLayerInput.length;i++)
+            {
+              var thisInput=radioLayerInput[i]
+              var fileName=thisInput.data("file");
+              var file = '/data/' + fileName;
+              var datasetname = thisInput.data("name");
+              var infoOfImportance = thisInput.data("property");
+
+                getData( file, {name: datasetname, property: infoOfImportance},fileName );
+            }
   }
-  else
+  else if(checked==false)
   {
-    radioLayerInput.push(input);
-    input.addClass("checked");
-    input.find("input").prop("checked", true);
-  }
+    console.log("checked"+" "+checked);
 
-  clearAllLayers();
- for(var i=0;i<radioLayerInput.length;i++)
-  {
-    var thisInput=radioLayerInput[i]
-    var fileName=thisInput.data("file");
-    var file = '/data/' + fileName;
-    var datasetname = thisInput.data("name");
-    var infoOfImportance = thisInput.data("property");
+    var canAddFileToLayer=dataPriorityChecker(fileName);
+    if(canAddFileToLayer==true)
+    {
+        //var input=$(this);
 
-      getData( file, {name: datasetname, property: infoOfImportance},fileName );
-  }
+      //add new value to list of inputs
+        radioLayerInput.push(input);
+
+        //add checks to all inputs in checked link
+        for(var i=0;i<radioLayerInput.length;i++)
+        {
+          var thisInput=radioLayerInput[i];
+          thisFileName=thisInput.data("file");
+          thisInput.addClass("checked");
+          thisInput.find("input").prop("checked", true);
+        }
+        //change priority recorder
+        changeDataPriortyRecorder(fileName,checked);
+
+        //need to turn on layers
+                clearAllLayers();
+               for(var i=0;i<radioLayerInput.length;i++)
+                {
+                  var thisInput=radioLayerInput[i]
+                  var fileName=thisInput.data("file");
+                  var file = '/data/' + fileName;
+                  var datasetname = thisInput.data("name");
+                  var infoOfImportance = thisInput.data("property");
+
+                    getData( file, {name: datasetname, property: infoOfImportance},fileName );
+               }
+
+    }//end of canAddfile=-true
+    else if(canAddFileToLayer==false)
+    {
+      //uncheck no layers should change
+       input.find("input").prop("checked", false);
+    }
+
+  } //end of checked ==false
+
+
+
+
 });
 
 

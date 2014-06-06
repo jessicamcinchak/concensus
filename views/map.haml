@@ -131,7 +131,7 @@
                     .radio(data-file="council_district.geojson" data-name="Council Districts" data-property="NAMELSAD10")
                       %label
                         %input(type="checkbox" name="layer_data" id="council_districts")Council Districts
-                    .radio(data-file="zip_codes.geojson" data-name="Zip Codes" data-property="NAMELSAD10")
+                    .radio(data-file="zipcodes.geojson" data-name="Zip Codes" data-property="NAMELSAD10")
                       %label
                         %input(type="checkbox" name="layer_data" id="minority_family") Zip Codes
               %h3 Demographics
@@ -188,15 +188,6 @@
               %div
                 %p
                   Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel,
-              %h3 Grandmont Rosedale CDC
-              %div
-                %p
-                  Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel,
-              %h3 Michigan Nonprofit Association
-              %div
-                %p
-                  Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel,
-
     #circle_table
       %table
         %tr
@@ -268,4 +259,5 @@
           %span(class="glyphicon glyphicon-floppy-disk")
           %span(class="glyphicon glyphicon-bullhorn")
 
+  %script{src: "javascripts/colorGradients.js"}
   %script{src: "javascripts/mapping.js"}
