@@ -9,16 +9,17 @@
     %script(src="http://code.jquery.com/jquery-1.10.2.min.js")
     %script{src: "/javascripts/uri.js"}
     %link{href: "/stylesheets/popup.css", media: "screen", rel: "stylesheet", type: "text/css"}
-    %link{href: "/stylesheets/circle_popup.css", media: "screen", rel: "stylesheet", type: "text/css"}
+    %link{href: "/stylesheets/point_popup.css", media: "screen", rel: "stylesheet", type: "text/css"}
     %link{href: "/stylesheets/square_popup.css", media: "screen", rel: "stylesheet", type: "text/css"}
+    %link{href: "/stylesheets/line_popup.css", media: "screen", rel: "stylesheet", type: "text/css"}
     %script{src: "/javascripts/jquery-1.11.1.js"}
     %script{src: "/javascripts/jquery-ui-1.10.4.custom.js"}
     %script{src: "/javascripts/accordion.js"}
+    %script{src: "/javascripts/bootstrap.min.js"}
     %link{href: "/stylesheets/accordion.css", media: "screen", rel: "stylesheet", type: "text/css"}
     %link(rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css")
     %link{href: "/stylesheets/application.css", media: "screen", rel: "stylesheet", type: "text/css"}
     %link(rel="stylesheet" href='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.css' rel='stylesheet')
-
     :css
         html,body {
           margin:0;
@@ -29,7 +30,6 @@
         .row {
           height: 90%;
         }
-
 
   %body
     %header{class: "navbar navbar-static-top bs-docs-nav", role: "banner"}
@@ -50,69 +50,8 @@
         #map
         #table_dialog
           %img{src:"images/conCensus_GlassesOnly.png", alt: "concensus logo"}
-          %h5 Choose Display Options:
-          %table
-            %tr{class: "row1"}
-              %th{class: "cornerTH"}
-              %th View as 
-              %th Date Type
-              %th Indicator Name
-            %tr{class: "row2"}
-              %th
-                .side_header D3 Data
-              %td  
-                .circle
-              %td 
-              %td Service Areas
-            %tr{class: "row3"}
-              %th
-                .side_header User Data
-              %td 
-                .rectangle
-              %td 
-              %td Question 1=yes
-        #circle_table
-          %table
-            %tr
-              %td
-                .pinkCircle
-              %td
-                .yellowCircle
-              %td
-                .darkBlueCircle
-              %td
-                .lightBlueCircle
-              %td
-                .lightGreenCircle
-              %td
-                .darkGreenCircle
-        #square_table
-          %table{id:"gradientTable"}
-            %tr
-              %td
-                .gradient1
-              %td
-                .gradient2
-              %td
-                .gradient3
-              %td
-                .gradient4
-              %td
-                .gradient5
-          %table{id:"squareTable"}
-            %tr
-              %td
-                .pinkSquare
-              %td
-                .yellowSquare
-              %td
-                .darkBlueSquare
-              %td
-                .lightBlueSquare
-              %td
-                .lightGreenSquare
-              %td
-                .darkGreenSquare  
+          #legend_intro
+            Select datasets on the right to populate the legend 
                   
       .col-md-2.legend
         .row
@@ -161,6 +100,12 @@
               %div
                 %form(role="form")
                   .form-group
+                    .radio(data-file="bus_routes.geojson" data-name="bus_routes" data-property="NAMELSAD10")    
+                      %label
+                        %input(type="checkbox" name="layer_data" id="bus_routes")Bus Routes
+                    .radio(data-file="bus_stops.geojson" data-name="bus_stops" data-property="NAMELSAD10")    
+                      %label
+                        %input(type="checkbox" name="layer_data" id="bus_stops")Bus Stops
                     .radio(data-file="parks_landmark.geojson" data-name="Parks Landmark" data-property="NAMELSAD10")
                       %label
                         %input(type="checkbox" name="layer_data" id="parks_landmarks") Parks Landmarks 
@@ -180,73 +125,21 @@
             %br
             %h4 User Data Library:
             %div{class:"accordion_user"} 
-              %h3 Focus:Hope
+              %h3 Detroit Historic Resource Survey
+              %div
+                %form(role="form")
+                  .form-group
+                    .radio(data-file="detroit_historic.geojson" data-name="Detroit Historic" data-property="NAMELSAD10")    
+                      %label
+                        %input(type="checkbox" name="layer_data" id="detroit_historic") Detroit Historic
+              %h3 Hope Village Initiative Survey
               %div
                 %p
-                  Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel,
-              %h3 Warren Connor CDC
+              %h3 Lower Eastside Action Plan Survey
               %div
                 %p
-                  Mauris mauris ante, blandit et, ultrices a, suscipit eget, quam. Integer ut neque. Vivamus nisi metus, molestie vel,
-    #circle_table
-      %table
-        %tr
-          %td
-            .pinkCircle
-          %td
-            .yellowCircle
-          %td
-            .darkBlueCircle
-          %td
-            .lightBlueCircle
-          %td
-            .lightGreenCircle
-          %td
-            .darkGreenCircle
-            
-    #square_table
-      %table
-        %tr
-          %td{id:"minimum"}
-            minimum
-          %td
-          %td
-          %td
-          %td
-          %td{id:"maximum"}
-            maximum
-        %tr
-          %td
-            .gradient1
-          %td
-            .gradient2
-          %td
-            .gradient3
-          %td
-            .gradient4
-          %td
-            .gradient5
-          %td
-        %tr
-          %td
-            .pinkSquare
-          %td
-            .yellowSquare
-          %td
-            .darkBlueSquare
-          %td
-            .lightBlueSquare
-          %td
-            .lightGreenSquare
-          %td
-            .darkGreenSquare  
+                 
     .pop-up
-      .hints-panel
-        %h4 How the community used this data
-        .accordian-closed We just uploaded addtional crime data to our neigh
-        .accordian-closed Important to remember the way crime data is coded
-        .accordian-closed Crime data + vacancy data is eyeopening, but had a
-        .accordian-closed We used street light data + crime data to talk with
     .map-footer
       .map-footer-column-main#hints
         %h4 Hints on using this data

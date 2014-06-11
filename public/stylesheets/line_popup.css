@@ -1,0 +1,64 @@
+
+.line_table
+{
+   background-color:#ffffff; 
+}
+
+.line_table table
+{
+
+width: 90%;
+  height: 50%;
+}
+
+.line_table td
+{
+
+}
+.line_table table,td,th
+{
+  border-style:none;
+}
+
+.pinkLine {
+  width: 8px;
+  height: 30px;
+  margin-right: 5px;
+  margin-left: 5px;
+  background-color:#da5027;
+}
+.yellowLine {
+  width: 8px;
+  height: 30px;
+  margin-right: 5px;
+  margin-left: 5px;
+  background:#f6a91c;
+}
+.darkBlueLine {
+  width: 8px;
+  height: 30px;
+  margin-right: 5px;
+  margin-left: 5px;
+  background:#216a8b;
+}
+.lightBlueLine {
+  width: 8px;
+  height: 30px;
+  margin-right: 5px;
+  margin-left: 5px;
+  background: #6596cf;
+}
+.lightGreenLine{
+  width: 8px;
+  height: 30px;
+  margin-right: 5px;
+  margin-left: 5px;
+  background: #87af3e;
+}
+.darkGreenLine{
+  width: 8px;
+  height: 30px;
+  margin-right: 5px;
+  margin-left: 5px;
+  background: #20592c;
+}

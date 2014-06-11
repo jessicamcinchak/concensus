@@ -1,35 +1,25 @@
-#square_table
+
+
+
+
+.shape_popup 
 {
-   background-color:#ffffff; 
-   display: none;
-   position: absolute;
-  width: 150px;
-  height: 100px;
-  top: 240px;
-  left:380px;
-  border:1px solid #707070;
+  background-color:#ffffff;
 }
 
-#circle_table table
-{
- margin-top: 12px;
- margin-left: 10px;
-width: 90%;
-  height: 50%;
-}
 
 table#gradientTable
 {
 	margin-top: 40px;
-	margin-left: 20px;
+	margin-left: 10px;
 }
 
-table#squareTable
+/*table#squareTable
 {
 	margin-top: 10px;
 	margin-left: 10px;
 
-}
+}*/
 
 table#squareTable td
 {
