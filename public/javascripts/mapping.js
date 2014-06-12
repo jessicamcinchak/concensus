@@ -67,19 +67,15 @@ var dataPriorityChecker=function(fileName)
 var changeDataPriortyRecorder=function(fileName,checked)
 {
   var thisFileType=fileType[fileName];
-  console.log("in change"+" "+thisFileType);
-  console.log("in change"+" "+checked);
   if(checked==true)
   {
     if(dataPriortyRecorder[thisFileType]>=0)
     {
-       console.log("in change"+" "+"--");
        dataPriortyRecorder[thisFileType]--;
     }
   }
   else if(checked==false)
   {
-      console.log("in change"+" "+"++");
       dataPriortyRecorder[thisFileType]++;
     
   }
@@ -148,6 +144,17 @@ var fileDataFeaturesForMap={
   "bus_routes.geojson":null
 }
 
+var shapeParameterMinMax={
+ "employment_labor_Total_Unemployed.geojson":null,
+  "employment_labor_Total_LaborForce.geojson":null,
+  "Housing_Tenure_OccHH_FreeandClear.geojson":null,
+  "Housing_Tenure_RenterOccHH.geojson":null,
+  "median_family.geojson":null,
+  "minority_family_Total_HH.geojson":null,
+  "minority_family_Total_MinHH.geojson":null
+}
+console.log(shapeParameterMinMax);
+
 
 var squareFileQueryParameter={
 
@@ -180,13 +187,11 @@ var accordion_d3=$(".accordion_d3" ).accordion();
 var accordion_user=$(".accordion_user" ).accordion();
 
     $('.circle').click(function (evt) {
-      console.log("in circle");
       $( "#circle_table" ).css('display','block');
 
     });
 
      $('.rectangle').click(function (evt) {
-      console.log("in circle");
       $( "#square_table" ).css('display','block');
       
     });
@@ -218,13 +223,11 @@ var setLineColor=function(fileName,color)
           var newFeatures=queryData(data, property, selectingProperty);
           data['features']=newFeatures;
         }
-        console.log("dont have data");
         fileDataFeaturesForMap[fileName]=data;
         processLineData(fileName,data,color);
       });
   }
   else{
-    console.log("already have data");
       var data=fileDataFeaturesForMap[fileName];
       processLineData(fileName,data,color);
   }
@@ -240,6 +243,7 @@ var features=data['features'];
     "opacity": 1,
     "color": color,
     "dashArray": '3',
+    "z-index":4,
     "fillOpacity": 0
   };
 
@@ -249,7 +253,6 @@ var features=data['features'];
     }).addTo(map);
 
 layerArray.push(layer);
-
 }
 
 var setPointColor= function( fileName,color ) {
@@ -316,10 +319,10 @@ var processShapeData=function(fileName,data,colorGradientArr)
 
       var features= data['features'];
       var mainMappingData=squareFileQueryParameter[fileName];
-      gradientValues(mainMappingData,features,colorGradientArr);
+      gradientValues(fileName,mainMappingData,features,colorGradientArr);
 }
 
-var gradientValues=function(mainMappingData,features,colorGradientArr)
+var gradientValues=function(fileName,mainMappingData,features,colorGradientArr)
 {
    var valueArr=new Array();
 
@@ -328,10 +331,9 @@ var gradientValues=function(mainMappingData,features,colorGradientArr)
         var prop=features[i].properties[mainMappingData];
         if(prop!=null)
         valueArr.push(prop);
-        //console.log(prop);
+
       }
       var numRangeArr=sortNum(valueArr);
-      console.log(numRangeArr);
 
       var rangeNum=getValueRange(numRangeArr);
 
@@ -339,8 +341,7 @@ var gradientValues=function(mainMappingData,features,colorGradientArr)
 
       var min=numRangeArr[0];
       var max=numRangeArr[1];
-      //$("#minimum").text(min);
-     // $("#maximum").text(max);
+      shapeParameterMinMax[fileName]=numRangeArr;
 
     var layer=L.geoJson(features, {
     style: function(feature)
@@ -381,7 +382,6 @@ var gradientValues=function(mainMappingData,features,colorGradientArr)
     }
     
     }).addTo(map);
-    //layer.bringToBack();
   
   layerArray.push(layer);
   
@@ -392,10 +392,8 @@ var gradientValues=function(mainMappingData,features,colorGradientArr)
 var getData = function( geoURL, options,fileName ) {
   
   var req = $.getJSON( geoURL );
-  console.log(fileName);
 
   req.done( function(data) {
-    console.log(data);
     rulesForFiles(fileName,data);
   });
 };
@@ -473,6 +471,7 @@ var rulesForFiles=function(fileName)
 
     if(currentColorArr[fileName]==null){
         colorGradientArr=input.lightBlue;
+        changeColorGradient(colorGradientArr);
     }
     else{
         var currentColor=currentColorArr[fileName];
@@ -486,7 +485,6 @@ var rulesForFiles=function(fileName)
   else if(fileType[fileName]==line)
   {
     var color;
-    console.log(currentColorArr);
     if(currentColorArr[fileName]==null){
       var color=input.lightBlue[maxColorIndex];
         
@@ -517,14 +515,26 @@ var rulesForFiles=function(fileName)
 
 var addSquarePopUp=function(fileName)
 {
+  var numRangeArr=shapeParameterMinMax[fileName];
+  var min=numRangeArr[0];
+       min=min.toFixed(1);
+  var max=numRangeArr[1];
+       max=max.toFixed(1);
   var square_table=('<div class="shape_popup">'+
     '<table id="gradientTable">'+
+     '<tr>'+
+          '<td> <div class="minValue">'+min+'</div></td>'+
+          '<td></td>'+
+          '<td></td>'+
+          '<td></td>'+
+          '<td><div class="minValue">'+max+'</div></td>'+  
+      '</tr>'+
         '<tr>'+
           '<td> <div class="gradient1" /> </td>'+
           '<td> <div class="gradient2" /> </td>'+
           '<td> <div class="gradient3" /> </td>'+
           '<td> <div class="gradient4" /> </td>'+
-          '<td> <div class="gradient5" /> </td>'+  
+          '<td><div class="gradient5" /></div></td>'+  
       '</tr>'+
     '</table>'+
     '<table id="squareTable">'+
@@ -630,6 +640,7 @@ var addColorSelectionPopup=function(fileName)
     {
         popup=addPointPopup(fileName);
     }
+    
     return popup;
 }
 
@@ -638,38 +649,48 @@ var addEventsToColorPointPopUp=function(popup,fileName)
     popup.parent().on('click', 'div.pinkCircle', function() {
            var color=input.pink[maxColorIndex];
            currentColorArr[fileName]=color;
+            var typeOfFile=fileType[fileName];
+            $("."+typeOfFile).css({"background-color": color});
            setPointColor(fileName,color);
         });
 
     popup.parent().on('click', 'div.yellowCircle', function() {
-      console.log("in yellowCircle")
            var color=input.yellow[maxColorIndex];
-           console.log(color);
            currentColorArr[fileName]=color;
+            var typeOfFile=fileType[fileName];
+            $("."+typeOfFile).css({"background-color": color});
            setPointColor(fileName,color);
       });
 
     popup.parent().on('click', 'div.darkBlueCircle', function() {
            var color=input.darkBlue[maxColorIndex];
            currentColorArr[fileName]=color;
+            var typeOfFile=fileType[fileName];
+            $("."+typeOfFile).css({"background-color": color});
            setPointColor(fileName,color);
       });
 
     popup.parent().on('click', 'div.lightBlueCircle', function() {
            var color=input.lightBlue[maxColorIndex];
            currentColorArr[fileName]=color;
+            var typeOfFile=fileType[fileName];
+            $("."+typeOfFile).css({"background-color": color});
            setPointColor(fileName,color);
       });
 
     popup.parent().on('click', 'div.lightGreenCircle', function() {
            var color=input.lightGreen[maxColorIndex];
            currentColorArr[fileName]=color;
+            var typeOfFile=fileType[fileName];
+            $("."+typeOfFile).css({"background-color": color});
            setPointColor(fileName,color);
       });
 
     popup.parent().on('click', 'div.darkGreenCircle', function() {
            var color=input.darkGreen[maxColorIndex];
            currentColorArr[fileName]=color;
+          var typeOfFile=fileType[fileName];
+            $("."+typeOfFile).css({"background-color": color});
            setPointColor(fileName,color);
       });
 
@@ -680,12 +701,16 @@ var addEventsToColorLinePopUp=function(popup,fileName)
   popup.parent().on('click', 'div.pinkLine', function() {
            var color=input.pink[maxColorIndex];
            currentColorArr[fileName]=color;
+           var typeOfFile=fileType[fileName];
+            $("."+typeOfFile).css({"background-color": color});
            setLineColor(fileName,color);
         });
 
     popup.parent().on('click', 'div.yellowLine', function() {
         var color=input.yellow[maxColorIndex];
         currentColorArr[fileName]=color;
+        var typeOfFile=fileType[fileName];
+        $("."+typeOfFile).css({"background-color": color});
           setLineColor(fileName,color);
             
         });
@@ -693,6 +718,8 @@ var addEventsToColorLinePopUp=function(popup,fileName)
      popup.parent().on('click', 'div.darkBlueLine', function() {
         var color=input.darkBlue[maxColorIndex];
         currentColorArr[fileName]=color;
+        var typeOfFile=fileType[fileName];
+        $("."+typeOfFile).css({"background-color": color});
         setLineColor(fileName,color);
            
         });
@@ -700,18 +727,24 @@ var addEventsToColorLinePopUp=function(popup,fileName)
      popup.parent().on('click', 'div.lightBlueLine', function() {
           var color=input.lightBlue[maxColorIndex];
           currentColorArr[fileName]=color;
+          var typeOfFile=fileType[fileName];
+          $("."+typeOfFile).css({"background-color": color});
           setLineColor(fileName,color);
         });
 
      popup.parent().on('click', 'div.lightGreenLine', function() {
           var color=input.lightGreen[maxColorIndex];
          currentColorArr[fileName]=color;
+         var typeOfFile=fileType[fileName];
+          $("."+typeOfFile).css({"background-color": color});
           setLineColor(fileName,color);
         });
 
      popup.parent().on('click', 'div.darkGreenLine', function() {
       var color=input.darkGreen[maxColorIndex];
       currentColorArr[fileName]=color;
+      var typeOfFile=fileType[fileName];
+      $("."+typeOfFile).css({"background-color": color});
       setLineColor(fileName,color);
       });
 }
@@ -723,6 +756,9 @@ var addEventsToColorShapePopUp=function(popup,fileName)
          
            var color=input.pink[maxColorIndex];
           currentColorArr[fileName]=color;
+
+           var typeOfFile=fileType[fileName];
+          $("."+typeOfFile).css({"background-color": color});
           setShapeColors(fileName,colorGradientArr);
         });
 
@@ -733,6 +769,8 @@ var addEventsToColorShapePopUp=function(popup,fileName)
            var color=input.yellow[maxColorIndex];
           currentColorArr[fileName]=color;
            
+          var typeOfFile=fileType[fileName];
+        $("."+typeOfFile).css({"background-color": color});
            setShapeColors(fileName,colorGradientArr); 
         });
 
@@ -743,6 +781,8 @@ var addEventsToColorShapePopUp=function(popup,fileName)
            var color=input.darkBlue[maxColorIndex];
           currentColorArr[fileName]=color;
           
+           var typeOfFile=fileType[fileName];
+          $("."+typeOfFile).css({"background-color": color});
            setShapeColors(fileName,colorGradientArr);
         });
 
@@ -752,7 +792,9 @@ var addEventsToColorShapePopUp=function(popup,fileName)
           
          var color=input.lightBlue[maxColorIndex];
          currentColorArr[fileName]=color;
-           
+         
+        var typeOfFile=fileType[fileName];
+        $("."+typeOfFile).css({"background-color": color});  
         setShapeColors(fileName,colorGradientArr);
         });
 
@@ -762,7 +804,10 @@ var addEventsToColorShapePopUp=function(popup,fileName)
           
           var color=input.lightGreen[maxColorIndex];
          currentColorArr[fileName]=color;
-         
+
+
+          var typeOfFile=fileType[fileName];
+          $("."+typeOfFile).css({"background-color": color});
           setShapeColors(fileName,colorGradientArr);
         });
 
@@ -773,6 +818,8 @@ var addEventsToColorShapePopUp=function(popup,fileName)
            var color=input.darkGreen[maxColorIndex];
          currentColorArr[fileName]=color;
           
+           var typeOfFile=fileType[fileName];
+      $("."+typeOfFile).css({"background-color": color});
           setShapeColors(fileName,colorGradientArr);
            
       });
@@ -798,7 +845,6 @@ var addEventsToColorShapePopUp=function(popup,fileName)
 var addPopUp=function(fileName)
 {
   var numOfSelectedItems=totalCheckedItems();
-  console.log("num"+" "+numOfSelectedItems);
   var typeOfFile=fileType[fileName];
   if(numOfSelectedItems==0)
   {
@@ -821,18 +867,22 @@ var addPopUp=function(fileName)
 
         if(currentColorPopup!=null)
         {
-          $(currentColorPopup).popover('hide');
+          $(currentColorPopup).popover('destroy');
         }
 
         var name="popover"+fileName;
           var popup=$("."+typeOfFile).popover({
             id:name,
+            height:"70px",
             placement: "right", 
             content:addColorSelectionPopup(fileName),
             html: true
         })
           currentColorPopup=popup;
+
         addResetColorPopUpEvents(popup,fileName);
+         var color=currentColorArr[fileName];
+        
      }); //end of click
 } //add popup
 
@@ -846,14 +896,11 @@ var name="row"+fileName;
 var table=$("table#legendTable");
 var tbody=table.children();
 var list=tbody.find('.legend_row');
-var num= list.length;
-console.log(num);
 for(var i=0;i<list.length;i++)
 {
   var item=list[i];
   var id=item.id;
   if(id==name){
-    console.log("is a match");
     item.remove();
     break;
   }
@@ -874,8 +921,41 @@ var getColorGradient=function(currentColor){
       
     }
     return null;
-}
+}  
 
+var reorderLayers=function()
+{
+  var numOfLa=layerArray.length;
+  console.log("layer num"+" "+numOfLa);
+    var shapeLayer=null;
+    var shapeIndex=null;
+    var numOfLayers=radioLayerInput.length;
+    console.log(radioLayerInput);
+    for(var i=0;i<numOfLayers;i++)
+    {
+      var thisInput=radioLayerInput[i];
+      console.log(thisInput);
+      var thisFileName=thisInput.data("file");
+      console.log(thisFileName);
+      if(fileType[thisFileName]==shape)
+      {
+        shapeIndex=i;
+        shapeLayer=thisInput;
+        break;
+      }
+    }
+
+    //swap shape into first position;
+    if(shapeLayer!=null){
+    console.log("in shape layer");
+    console.log(shapeLayer);
+    var swapLayer=radioLayerInput[0];
+    radioLayerInput[shapeIndex]=swapLayer;
+    radioLayerInput[0]=shapeLayer;
+  }
+  return radioLayerInput;
+
+} 
 // Sidebar
 // ---------
 
@@ -886,8 +966,6 @@ $(".radio").click( function() {
   var datasetname = $(this).data("name");
   var infoOfImportance = $(this).data("property");
   
-  console.log("fileName"+fileName);
-  console.log("file"+file);
   var input=$(this);
   var index;
 
@@ -909,7 +987,6 @@ $(".radio").click( function() {
 
   if(checked==true)
   {
-    console.log("checked"+" "+checked);
 
     // make checkmark false
     input.find("input").prop("checked", false);
@@ -924,7 +1001,9 @@ $(".radio").click( function() {
     removePopUp(fileName);
 
     //make new layers reflecting the changes
-     clearAllLayers();
+    clearAllLayers();
+    //make sure shape layers on bottom
+  // reorderLayers();
            for(var i=0;i<radioLayerInput.length;i++)
             {
               var thisInput=radioLayerInput[i]
@@ -938,14 +1017,11 @@ $(".radio").click( function() {
   }
   else if(checked==false)
   {
-    console.log("checked"+" "+checked);
 
     var canAddFileToLayer=dataPriorityChecker(fileName);
     if(canAddFileToLayer==true)
     {
       addPopUp(fileName);
-      console.log("yes");
-      console.log(input);
 
       //add new value to list of inputs
         radioLayerInput.push(input);
@@ -963,6 +1039,8 @@ $(".radio").click( function() {
 
         //need to turn on layers
                 clearAllLayers();
+                //radioLayerInput=reorderLayers();
+
                for(var i=0;i<radioLayerInput.length;i++)
                 {
                   var thisInput=radioLayerInput[i]

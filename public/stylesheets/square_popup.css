@@ -7,11 +7,21 @@
   background-color:#ffffff;
 }
 
+.shape_popup td
+{
+  height: 30px;
+}
+
 
 table#gradientTable
 {
-	margin-top: 40px;
-	margin-left: 10px;
+	margin-top: 10px;
+	margin-left: 5px;
+}
+
+table#gradientTable td
+{
+  margin-left: 5px;
 }
 
 /*table#squareTable
@@ -32,58 +42,69 @@ table#squareTable td
 .pinkSquare {
   width: 20px;
   height: 20px;
+  margin-right: 2px;
   background-color:#da5027;
 }
 .yellowSquare {
   width: 20px;
   height: 20px;
+  margin-right: 2px;
   background:#f6a91c;
 }
 .darkBlueSquare {
   width: 20px;
   height: 20px;
+  margin-right: 2px;
   background:#216a8b;
 }
 .lightBlueSquare {
   width: 20px;
   height: 20px;
+  margin-right: 2px;
   background: #6596cf;
 }
 .lightGreenSquare{
   width: 20px;
   height: 20px;
+  margin-right: 2px;
   background: #87af3e;
 }
 .darkGreenSquare{
   width: 20px;
   height: 20px;
+  margin-right: 0px;
   background: #20592c;
 }
 
 .gradient1 {
   width: 20px;
   height: 20px;
-  background-color:#F9E6E0;
+  margin-right: 5px;
+  background-color:#EBF1F9;
 }
 .gradient2 {
   width: 20px;
   height: 20px;
-  background:#F5D3C9;
+  margin-right: 5px;
+  background:#D3E1F1;
 }
 .gradient3 {
   width: 20px;
   height: 20px;
-  background:#ECA793;
+  margin-right: 5px;
+  background:#B2CAE7;
 }
 .gradient4 {
   width: 20px;
   height: 20px;
-  background: #E37B5D;
+  margin-right: 5px;
+  background: #8BB0DB;
 }
 .gradient5 {
   width: 20px;
   height: 20px;
-  background:#DA5027;
+  margin-right: 5px;
+  background:#6596CF;
 }
 
 
