@@ -1,0 +1,11 @@
+ img#logo{
+	height: 24px;
+	width: 200px;
+	float: left;
+	margin-right: 70px;
+	margin-top: 10px;
+}
+
+.map_container .container{
+	margin-left: 20px;
+}
