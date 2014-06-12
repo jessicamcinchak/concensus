@@ -12,6 +12,10 @@ class ConCensus < Sinatra::Base
   	haml :map, :layout => false
   end
 
+  get '/underconstruction' do
+  	haml :underconstruction
+  end
+
   # start the server if ruby file executed directly
   run! if app_file == $0
 end
