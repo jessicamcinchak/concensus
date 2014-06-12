@@ -6363,6 +6363,18 @@ h6 a {
   padding: 40px 0;
   background-color:#BFDF9F;
 }
+a#construction{
+  float:right;
+}
+a#about_project
+{
+  float:right;
+  margin-right: 20px;
+}
+.logo{
+  margin-top: 100px;
+}
+
 #portals .row {
   margin-left: -15px;
   margin-right: -15px;
