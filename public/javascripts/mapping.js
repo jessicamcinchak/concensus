@@ -891,25 +891,40 @@ var addPopUp=function(fileName)
 var removePopUp=function(fileName)
 {
 
-var table_dia_childArr=$("#table_dialog").children();
-var name="row"+fileName;
-var table=$("table#legendTable");
-var tbody=table.children();
-var list=tbody.find('.legend_row');
-for(var i=0;i<list.length;i++)
-{
-  var item=list[i];
-  var id=item.id;
-  if(id==name){
-    item.remove();
-    break;
+  var table_dia_childArr=$("#table_dialog").children();
+  var name="row"+fileName;
+  var table=$("table#legendTable");
+  var tbody=table.children();
+  var list=tbody.find('.legend_row');
+  for(var i=0;i<list.length;i++)
+  {
+    var item=list[i];
+    var id=item.id;
+    if(id==name){
+      item.remove();
+      break;
+    }
   }
-}
-if(list.length==1){
-  table.remove();
-}
+  if(list.length==1){
+    table.remove();
+  }
 
 }
+
+$(".map-footer-column-main#hints").popover({
+  height:"1000px",
+  width:"1000px",
+  content:"kkkkkkkkkkkkkkkkk",
+  placement: "top" 
+});
+
+$(".map-footer-column-main#community").popover({
+  height:"1000px",
+  width:"1000px",
+  content:"kkkkkkkkkkkkkkkkk",
+  placement: "top" 
+});
+
 
 
 var getColorGradient=function(currentColor){
