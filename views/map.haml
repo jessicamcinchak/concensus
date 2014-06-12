@@ -17,6 +17,7 @@
     %script{src: "/javascripts/accordion.js"}
     %script{src: "/javascripts/bootstrap.min.js"}
     %link{href: "/stylesheets/accordion.css", media: "screen", rel: "stylesheet", type: "text/css"}
+    %link{href: "/stylesheets/footer.css", media: "screen", rel: "stylesheet", type: "text/css"}
     %link(rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.css")
     %link{href: "/stylesheets/application.css", media: "screen", rel: "stylesheet", type: "text/css"}
     %link(rel="stylesheet" href='https://api.tiles.mapbox.com/mapbox.js/v1.6.1/mapbox.css' rel='stylesheet')
@@ -33,25 +34,28 @@
 
   %body
     %header{class: "navbar navbar-static-top bs-docs-nav", role: "banner"}
-      .container
-        .navbar-header
-          %button(class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse")
-            %span{class: "sr-only"}Toggle navigation
-            %span{class: "icon-bar"}
-            %span{class: "icon-bar"}
-            %span{class: "icon-bar"}
-          %a{href: url('/'), class: "navbar-brand"}conCensus
-        %nav{class: "collapse navbar-collapse bs-navbar-collapse", role: "navigation"}
-          %ul{class: "nav navbar-nav"}
-            %li<
-              %a{href: url('/map')}Map
+      .map_container
+        .container
+          .navbar-header
+            %img{src:"images/D3_Logo.png", alt: "d3 logo", id:"logo"}
+            %button(class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse")
+              %span{class: "sr-only"}Toggle navigation
+              %span{class: "icon-bar"}
+              %span{class: "icon-bar"}
+              %span{class: "icon-bar"}
+            %a{href: url('/'), class: "navbar-brand"}conCensus
+          %nav{class: "collapse navbar-collapse bs-navbar-collapse", role: "navigation"}
+            %ul{class: "nav navbar-nav"}
+              %li
+                %a{href: url('/map')}Map
     .row
       #main
         #map
         #table_dialog
           %img{src:"images/conCensus_GlassesOnly.png", alt: "concensus logo"}
           #legend_intro
-            Select datasets on the right to populate the legend 
+            Select datasets on the right to populate the legend
+
                   
       .col-md-2.legend
         .row
@@ -141,6 +145,7 @@
                  
     .pop-up
     .map-footer
+
       .map-footer-column-main#hints
         %h4 Hints on using this data
       .map-footer-column-main#community

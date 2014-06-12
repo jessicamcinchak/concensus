@@ -911,18 +911,23 @@ var removePopUp=function(fileName)
 
 }
 
+var html=('<h4>Under Construction</h4><p>This site is still under construction and we apologize'+
+  'for any bugs you may experience, we’re working to develop solutions.</p>');
+
 $(".map-footer-column-main#hints").popover({
   height:"1000px",
   width:"1000px",
-  content:"kkkkkkkkkkkkkkkkk",
-  placement: "top" 
+  content:html,
+  placement: "top", 
+  html:true
 });
 
 $(".map-footer-column-main#community").popover({
   height:"1000px",
   width:"1000px",
-  content:"kkkkkkkkkkkkkkkkk",
-  placement: "top" 
+  content:html,
+  placement: "top",
+  html:true
 });
 
 

@@ -1,9 +1,11 @@
 %main#masthead
 	.container
-		%a{:href => url('/underconstruction')}>Under Construction 
+		 
 		.row
 			.col-md-10
 				%h1 conCensus
+				%a{:href => url('/underconstruction'),id:"construction"}>Under Construction
+				%a{:href => url('/about'),id:"about_project"}>About Project
 #portals
 	.container
 		.row
@@ -21,5 +23,7 @@
 					%p Data Driven Detroit's Community Driven Data Portal
 #recent-activity
 	.container
+		.logo
+			%img{src:"images/D3_Logo.png", alt: "d3 logo", width:"400px", height:"33px"}
 		.row
 			.col-md-8.col-md-offset-2
