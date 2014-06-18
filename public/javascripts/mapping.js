@@ -92,6 +92,9 @@ var input = {
     "darkGreen": ['#E3EAE4','#BFCFC2','#8FAC95','#578260','#20592C']
 }
 
+// var main_url=location.href;
+// console.log(main_url);
+
 var currentColorArr={
    "census_track.geojson":null,
   "council_district.geojson":null,
@@ -126,12 +129,18 @@ var fileType={
   "bus_stops.geojson":"point",
   "bus_routes.geojson":"line",
   "detroit_historic.geojson":"shape",
+  "LEAP_Type_NA.geojson":"shape",
+"LEAP_Typo_GV.geojson":"shape",
+"LEAP_typo_Ind.geojson":"shape",
+"LEAP_Typo_Ins.geojson":"shape",
+"LEAP_Typo_NAUM.geojson":"shape"
 }
+
 var fileDataFeaturesForMap={
-  "census_track.geojson":null,
-  "council_district.geojson":null,
-  "employment_labor_Total_Unemployed.geojson":null,
-  "employment_labor_Total_LaborForce.geojson":null,
+  "census_track.geojson":"NAMELSAD10",
+  "council_district.geojson":"DistrictNu",
+  "employment_labor_Total_Unemployed.geojson":"Total_Unemployed",
+  "employment_labor_Total_LaborForce.geojson":"Total_LaborForce",
   "grocery_stores.geojson":null,
   "Housing_Tenure_OccHH_FreeandClear.geojson":null,
   "Housing_Tenure_RenterOccHH.geojson":null,
@@ -139,8 +148,25 @@ var fileDataFeaturesForMap={
   "minority_family_Total_HH.geojson":null,
   "minority_family_Total_MinHH.geojson":null,
   "parks_landmark.geojson":null,
-  "zipcodes.geojson":null,
+  "zipcodes.geojson":"ZIPCODE",
   "bus_stops.geojson":null,
+  "bus_routes.geojson":null
+}
+
+var fileDataPopup={
+  "census_track.geojson":"NAMELSAD10",
+  "council_district.geojson":"DistrictNu",
+  "employment_labor_Total_Unemployed.geojson":"Total_Unemployed",
+  "employment_labor_Total_LaborForce.geojson":"Total_LaborForce",
+  "grocery_stores.geojson":"Company",
+  "Housing_Tenure_OccHH_FreeandClear.geojson":"OwnOccHU_FreeandClear",
+  "Housing_Tenure_RenterOccHH.geojson":"RenterOccHU",
+  "median_family.geojson":"MedHHInc_2011Adj",
+  "minority_family_Total_HH.geojson":"Tot_HH",
+  "minority_family_Total_MinHH.geojson":"Tot_MinHH",
+  "parks_landmark.geojson":"FULLNAME",
+  "zipcodes.geojson":"ZIPCODE",
+  "bus_stops.geojson":"F_STOPNAME",
   "bus_routes.geojson":null
 }
 
@@ -167,7 +193,210 @@ var squareFileQueryParameter={
   "minority_family_Total_MinHH.geojson":"Tot_MinHH",
 }
 
+var relative_URI=new URI("/hello");
 
+var addToUrl=function(url,typeOfFile,nameOfFile)
+{
+  url.addSearch(typeOfFile, nameOfFile);
+  window.history.pushState("object or string", "Title",url);
+}
+
+var removeFromUrl=function(url,typeOfFile,nameOfFile)
+{
+  url.removeSearch(typeOfFile, nameOfFile);
+  window.history.pushState("object or string", "Title",url);
+}
+
+// addToUrl(relative_URI,"shape","afile");
+// removeFromUrl(relative_URI,"shape","afile");
+// console.log("relative"+" "+relative_URI);
+
+
+
+// function DataItem () {
+//     this.name
+//     this.min_max
+//     this.type
+//     this.uri_para
+//     this.currentColor
+//     this.popup_value
+//     this.fileName
+//     this.data_source
+//     this.bucket
+// }
+
+// var createDataArr=function()
+// {
+//   var dataArr=new Array();
+
+//    var dataItem2=new DataItem();
+//    dataItem2.name="Total Number of Minority Households";
+//    dataItem2.type="shape";
+//    dataItem2.query_parameter="Total_MinHH"
+//    dataItem2.currentColor
+//    dataItem2.uri_para="totalMinHH";
+//    dataItem2.fileName="minority_family_Total_MinHH.geojson";
+//    dataItem2.bucket="demographics";
+//    dataItem2.data_source="d3";
+
+//   var dataItem3=new DataItem();
+//    dataItem3.name="Total Number of Households";
+//    dataItem3.type="shape";
+//    dataItem3.query_parameter="Total_HH"
+//    dataItem3.currentColor
+//    dataItem3.uri_para="totalHH";
+//    dataItem3.fileName="minority_family_Total_HH.geojson";
+//    dataItem3.bucket="demographics";
+//    dataItem3.data_source="d3";
+
+//   var dataItem4=new DataItem();
+//    dataItem4.name="Housing Tenure, Number of Renter Occupied Households";
+//    dataItem4.type="shape";
+//    dataItem4.query_parameter="RenterOccHH";
+//    dataItem4.currentColor
+//    dataItem3.uri_para="RenterOccHH";
+//    dataItem4.fileName="Housing_Tenure_RenterOccHH.geojson";
+//    dataItem4.bucket="demographics";
+//    dataItem4.data_source="d3";
+
+//   var dataItem7=new DataItem();
+//    dataItem7.name="Housing Tenure, Number of Renter Occupied Households";
+//    dataItem7.type="shape";
+//    dataItem7.query_parameter="RenterOccHH";
+//    dataItem7.currentColor
+//    dataItem7.uri_para="RenterOccHH";
+//    dataItem7.fileName="Housing_Tenure_RenterOccHH.geojson";
+//    dataItem7.bucket="demographics";
+//    dataItem7.data_source="d3";
+
+// var dataItem5=new DataItem();
+//    dataItem5.name="Municipal Parks and Landmarks";
+//    dataItem5.type="shape";
+//    dataItem5.query_parameter="parks";
+//    dataItem5.currentColor
+//    dataItem5.uri_para="parks";
+//    dataItem5.fileName="parks_landmark.geojson";
+//    dataItem5.bucket="city systems";
+//    dataItem5.data_source="d3";
+
+
+// var dataItem6=new DataItem();
+//    dataItem6.name="Labor Force Participation, Number of People 16+";
+//    dataItem6.type="shape";
+//    dataItem6.query_parameter="Total_LaborForce";
+//    dataItem6.currentColor
+//    dataItem6.uri_para="totalLaborForce";
+//    dataItem6.fileName="employment_labor_Total_LaborForce.geojson";
+//    dataItem6.bucket="Economy";
+//    dataItem6.data_source="d3";
+
+// var dataItem7=new DataItem();
+//    dataItem7.name="Unemployed, Number of People in Labor Force 16+";
+//    dataItem7.type="shape";
+//    dataItem7.query_parameter="Total_Unemployed";
+//    dataItem7.currentColor
+//    dataItem7.uri_para="totalUemployed";
+//    dataItem7.fileName="employment_labor_Total_Unemployed.geojson";
+//    dataItem7.bucket="Economy";
+//    dataItem7.data_source="d3";
+
+// var dataItem8=new DataItem();
+//    dataItem8.name="Housing Tenure, Number of Owner Occupied Households without a Mortgage, Free and Clear";
+//    dataItem8.type="shape";
+//    dataItem8.query_parameter="OccHH_FreeandClear";
+//    dataItem8.currentColor
+//    dataItem8.uri_para="OccHHFreeandClear";
+//    dataItem8.fileName="Housing_Tenure_OccHH_FreeandClear.geojson";
+//    dataItem8.bucket="demographics";
+//    dataItem8.data_source="d3";
+
+// var dataItem9=new DataItem();
+//    dataItem9.name="Census Tracts";
+//    dataItem9.type="line";
+//    dataItem9.query_parameter;
+//    dataItem9.uri_para="censustracks";
+//    dataItem9.fileName="census_track.geojson";
+//    dataItem9.bucket="Geographies";
+//    dataItem9.data_source="d3";
+
+// var dataItem10=new DataItem();
+//    dataItem10.name="Zip Codes";
+//    dataItem10.type="line";
+//    dataItem10.query_parameter="zipcodes";
+//    dataItem10.uri_para="zipcodes";
+//    dataItem10.currentColor
+//    dataItem10.fileName="zipcodes.geojson";
+//    dataItem10.bucket="Geographies";
+//    dataItem10.data_source="d3";
+
+// var dataItem11=new DataItem();
+//    dataItem11.name="Detroit Council Districts";
+//    dataItem11.type="line";
+//    dataItem11.uri_para="councildistrict";
+//    dataItem11.currentColor
+//    dataItem11.fileName="council_district.geojson";
+//    dataItem11.bucket="Geographies";
+//    dataItem11.data_source="d3";
+
+
+// var dataItem12=new DataItem();
+//    dataItem12.name="Bus Routes, Detroit Department of Transportation";
+//    dataItem12.type="line";
+//    dataItem12.uri_para="busroutes";
+//    dataItem12.fileName="Bus Routes, Detroit Department of Transportation";
+//    dataItem12.bucket="bus_routes.geojson";
+//    dataItem12.data_source="d3";
+
+// var dataItem13=new DataItem();
+//    dataItem13.name="Bus Stops, Detroit Department of Transportation";
+//    dataItem13.type="point";
+//    dataItem13.uri_para="busstop";
+//    dataItem13.fileName="bus_stops.geojson";
+//    dataItem13.bucket="demographics";
+//    dataItem13.data_source="d3";
+
+// var dataItem14=new DataItem();
+//    dataItem14.name="Grocery Stores";
+//    dataItem14.type="point";
+//    dataItem13.uri_para="grocerystore";
+//    dataItem14.fileName="grocery_stores.geojson";
+//    dataItem14.bucket="Economy";
+//    dataItem14.data_source="d3";
+
+// var dataItem15=new DataItem();
+//    dataItem15.name="Median Household Income (Adjusted 2011 Dollars)";
+//    dataItem15.type="shape";
+//    dataItem15.uri_para="medianincome";
+//    dataItem15.fileName="median_family.geojson";
+//    dataItem15.bucket="Economy";
+//    dataItem15.data_source="d3";
+//    dataItem15.query_parameter="MedHHInc_2011Adj"
+
+//  dataArr.push(dataItem2);
+//  dataArr.push(dataItem3);
+//  dataArr.push(dataItem4);
+//  dataArr.push(dataItem5);
+//  dataArr.push(dataItem6);
+//  dataArr.push(dataItem7); 
+//  dataArr.push(dataItem8);
+//  dataArr.push(dataItem9);
+//  dataArr.push(dataItem10);
+//  dataArr.push(dataItem11); 
+//  dataArr.push(dataItem12);
+//  dataArr.push(dataItem13);
+//  dataArr.push(dataItem14);
+//  dataArr.push(dataItem15);
+
+//  return dataArr;
+
+// }
+
+var dataArr=createDataArr();
+
+console.log(dataArr);
+
+var node=_.where(dataArr,{name:"Median Household Income (Adjusted 2011 Dollars)"});
+console.log(node);
 
 var map = L.map('map', {
                         center: [42.3540, -83.0523],
@@ -250,7 +479,7 @@ var features=data['features'];
   var layer=L.geoJson(features, {
     style: newStyle
       
-    }).addTo(map);
+    }).bindPopup("hello").addTo(map);
 
 layerArray.push(layer);
 }
@@ -266,11 +495,11 @@ var setPointColor= function( fileName,color ) {
    }
    else{
        var data=fileDataFeaturesForMap[fileName];
-       processPointData(data,color);
+       processPointData(fileName,data,color);
    }
 };
 
-var processPointData=function(data,color)
+var processPointData=function(fileName,data,color)
 {
 
 var features=data['features'];
@@ -285,7 +514,7 @@ var geojsonMarkerOptions = {
 
 var layer=L.geoJson(features, {
     pointToLayer: function (feature, latlng) {
-        return L.circleMarker(latlng, geojsonMarkerOptions);
+        return L.circleMarker(latlng, geojsonMarkerOptions).bindPopup();
     }
 }).addTo(map);
 layerArray.push(layer);
@@ -319,6 +548,10 @@ var processShapeData=function(fileName,data,colorGradientArr)
 
       var features= data['features'];
       var mainMappingData=squareFileQueryParameter[fileName];
+      if(mainMappingData==null)
+      {
+        console.log("null mapping data");
+      }
       gradientValues(fileName,mainMappingData,features,colorGradientArr);
 }
 
@@ -342,7 +575,7 @@ var gradientValues=function(fileName,mainMappingData,features,colorGradientArr)
       var min=numRangeArr[0];
       var max=numRangeArr[1];
       shapeParameterMinMax[fileName]=numRangeArr;
-
+        var popupProp=fileDataPopup[fileName];
     var layer=L.geoJson(features, {
     style: function(feature)
     {
@@ -376,17 +609,23 @@ var gradientValues=function(fileName,mainMappingData,features,colorGradientArr)
           "color": "#ffffff",
           "dashArray": '3',
           "fillOpacity": 0.7
-         };
+         }
       
       return newStyle;
-    }
-    
+    },
+  onEachFeature: function (feature, layer) {
+      var value=feature.properties[popupProp];
+       console.log(value);
+      if(value!=null){
+         fixedValue=value.toFixed(0);
+        layer.bindPopup(fixedValue);
+      }
+      }
+
     }).addTo(map);
   
   layerArray.push(layer);
   
-
-
 }
 
 var getData = function( geoURL, options,fileName ) {
@@ -985,6 +1224,8 @@ $(".radio").click( function() {
   var file = '/data/' + fileName;
   var datasetname = $(this).data("name");
   var infoOfImportance = $(this).data("property");
+
+
   
   var input=$(this);
   var index;
@@ -1080,9 +1321,6 @@ $(".radio").click( function() {
     }
 
   } //end of checked ==false
-
-
-
 
 });
 
