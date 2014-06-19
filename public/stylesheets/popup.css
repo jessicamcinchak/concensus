@@ -35,6 +35,10 @@ font-size: x-small;
 top: -10;
 }
 
+#legendTable
+{
+  width:50px;
+}
 
 table#legendTable
 {
@@ -48,6 +52,7 @@ table#legendTable
   position: absolute;
   top:40px;
   margin-left: 5px;
+  width:50px;
 }
 
 .row1
@@ -75,6 +80,7 @@ table#legendTable
       height: 60px;
       font-size:x-small;
       background-color:#ffffff;
+      word-wrap:break-word;
     }
 
 

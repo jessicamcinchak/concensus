@@ -9,3 +9,7 @@
 .map_container .container{
 	margin-left: 20px;
 }
+
+.map-footer{
+	clear: both;
+}

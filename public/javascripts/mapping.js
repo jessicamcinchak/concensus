@@ -1,9 +1,6 @@
 // Set up the page
 // ---------
 
-var currentLayer;
-var currentData;
-var currentFileName;
 var contentRowCounter=1;
 var radioLayerInput=new Array();
 var shape="shape";
@@ -26,9 +23,9 @@ var totalCheckedItems=function()
   return totalItems;
 }
 
-var dataPriorityChecker=function(fileName)
+var dataPriorityChecker=function(dataItem)
 {
-  var thisFileType=fileType[fileName];
+  var thisFileType=dataItem.fileName;
   var canAdd=false;
   var numOfShape=dataPriortyRecorder[shape];
   var numOfLine=dataPriortyRecorder[line];
@@ -64,9 +61,9 @@ var dataPriorityChecker=function(fileName)
 
 }
 
-var changeDataPriortyRecorder=function(fileName,checked)
+var changeDataPriortyRecorder=function(dataItem,checked)
 {
-  var thisFileType=fileType[fileName];
+  var thisFileType=dataItem.type;
   if(checked==true)
   {
     if(dataPriortyRecorder[thisFileType]>=0)
@@ -92,107 +89,6 @@ var input = {
     "darkGreen": ['#E3EAE4','#BFCFC2','#8FAC95','#578260','#20592C']
 }
 
-// var main_url=location.href;
-// console.log(main_url);
-
-var currentColorArr={
-   "census_track.geojson":null,
-  "council_district.geojson":null,
-  "employment_labor_Total_Unemployed.geojson":null,
-  "employment_labor_Total_LaborForce.geojson":null,
-  "grocery_stores.geojson":null,
-  "Housing_Tenure_OccHH_FreeandClear.geojson":null,
-  "Housing_Tenure_RenterOccHH.geojson":null,
-  "median_family.geojson":null,
-  "minority_family_Total_HH.geojson":null,
-  "minority_family_Total_MinHH.geojson":null,
-  "parks_landmark.geojson":null,
-  "zipcodes.geojson":null,
-  "bus_stops.geojson":null,
-  "bus_routes.geojson":null,
-}
-
-
-var fileType={
-  "census_track.geojson":"line",
-  "council_district.geojson":"line",
-  "employment_labor_Total_Unemployed.geojson":"shape",
-  "employment_labor_Total_LaborForce.geojson":"shape",
-  "grocery_stores.geojson":"point",
-  "Housing_Tenure_OccHH_FreeandClear.geojson":"shape",
-  "Housing_Tenure_RenterOccHH.geojson":"shape",
-  "median_family.geojson":"shape",
-  "minority_family_Total_HH.geojson":"shape",
-  "minority_family_Total_MinHH.geojson":"shape",
-  "parks_landmark.geojson":"point",
-  "zipcodes.geojson":"line",
-  "bus_stops.geojson":"point",
-  "bus_routes.geojson":"line",
-  "detroit_historic.geojson":"shape",
-  "LEAP_Type_NA.geojson":"shape",
-"LEAP_Typo_GV.geojson":"shape",
-"LEAP_typo_Ind.geojson":"shape",
-"LEAP_Typo_Ins.geojson":"shape",
-"LEAP_Typo_NAUM.geojson":"shape"
-}
-
-var fileDataFeaturesForMap={
-  "census_track.geojson":"NAMELSAD10",
-  "council_district.geojson":"DistrictNu",
-  "employment_labor_Total_Unemployed.geojson":"Total_Unemployed",
-  "employment_labor_Total_LaborForce.geojson":"Total_LaborForce",
-  "grocery_stores.geojson":null,
-  "Housing_Tenure_OccHH_FreeandClear.geojson":null,
-  "Housing_Tenure_RenterOccHH.geojson":null,
-  "median_family.geojson":null,
-  "minority_family_Total_HH.geojson":null,
-  "minority_family_Total_MinHH.geojson":null,
-  "parks_landmark.geojson":null,
-  "zipcodes.geojson":"ZIPCODE",
-  "bus_stops.geojson":null,
-  "bus_routes.geojson":null
-}
-
-var fileDataPopup={
-  "census_track.geojson":"NAMELSAD10",
-  "council_district.geojson":"DistrictNu",
-  "employment_labor_Total_Unemployed.geojson":"Total_Unemployed",
-  "employment_labor_Total_LaborForce.geojson":"Total_LaborForce",
-  "grocery_stores.geojson":"Company",
-  "Housing_Tenure_OccHH_FreeandClear.geojson":"OwnOccHU_FreeandClear",
-  "Housing_Tenure_RenterOccHH.geojson":"RenterOccHU",
-  "median_family.geojson":"MedHHInc_2011Adj",
-  "minority_family_Total_HH.geojson":"Tot_HH",
-  "minority_family_Total_MinHH.geojson":"Tot_MinHH",
-  "parks_landmark.geojson":"FULLNAME",
-  "zipcodes.geojson":"ZIPCODE",
-  "bus_stops.geojson":"F_STOPNAME",
-  "bus_routes.geojson":null
-}
-
-var shapeParameterMinMax={
- "employment_labor_Total_Unemployed.geojson":null,
-  "employment_labor_Total_LaborForce.geojson":null,
-  "Housing_Tenure_OccHH_FreeandClear.geojson":null,
-  "Housing_Tenure_RenterOccHH.geojson":null,
-  "median_family.geojson":null,
-  "minority_family_Total_HH.geojson":null,
-  "minority_family_Total_MinHH.geojson":null
-}
-console.log(shapeParameterMinMax);
-
-
-var squareFileQueryParameter={
-
-  "employment_labor_Total_Unemployed.geojson":"Total_Unemployed",
-  "employment_labor_Total_LaborForce.geojson":"Total_LaborForce",
-  "Housing_Tenure_OccHH_FreeandClear.geojson":"OwnOccHU_FreeandClear",
-  "Housing_Tenure_RenterOccHH.geojson":"RenterOccHU",
-  "median_family.geojson":"MedHHInc_2011Adj",
-  "minority_family_Total_HH.geojson":"Tot_HH",
-  "minority_family_Total_MinHH.geojson":"Tot_MinHH",
-}
-
 var relative_URI=new URI("/hello");
 
 var addToUrl=function(url,typeOfFile,nameOfFile)
@@ -212,191 +108,9 @@ var removeFromUrl=function(url,typeOfFile,nameOfFile)
 // console.log("relative"+" "+relative_URI);
 
 
-
-// function DataItem () {
-//     this.name
-//     this.min_max
-//     this.type
-//     this.uri_para
-//     this.currentColor
-//     this.popup_value
-//     this.fileName
-//     this.data_source
-//     this.bucket
-// }
-
-// var createDataArr=function()
-// {
-//   var dataArr=new Array();
-
-//    var dataItem2=new DataItem();
-//    dataItem2.name="Total Number of Minority Households";
-//    dataItem2.type="shape";
-//    dataItem2.query_parameter="Total_MinHH"
-//    dataItem2.currentColor
-//    dataItem2.uri_para="totalMinHH";
-//    dataItem2.fileName="minority_family_Total_MinHH.geojson";
-//    dataItem2.bucket="demographics";
-//    dataItem2.data_source="d3";
-
-//   var dataItem3=new DataItem();
-//    dataItem3.name="Total Number of Households";
-//    dataItem3.type="shape";
-//    dataItem3.query_parameter="Total_HH"
-//    dataItem3.currentColor
-//    dataItem3.uri_para="totalHH";
-//    dataItem3.fileName="minority_family_Total_HH.geojson";
-//    dataItem3.bucket="demographics";
-//    dataItem3.data_source="d3";
-
-//   var dataItem4=new DataItem();
-//    dataItem4.name="Housing Tenure, Number of Renter Occupied Households";
-//    dataItem4.type="shape";
-//    dataItem4.query_parameter="RenterOccHH";
-//    dataItem4.currentColor
-//    dataItem3.uri_para="RenterOccHH";
-//    dataItem4.fileName="Housing_Tenure_RenterOccHH.geojson";
-//    dataItem4.bucket="demographics";
-//    dataItem4.data_source="d3";
-
-//   var dataItem7=new DataItem();
-//    dataItem7.name="Housing Tenure, Number of Renter Occupied Households";
-//    dataItem7.type="shape";
-//    dataItem7.query_parameter="RenterOccHH";
-//    dataItem7.currentColor
-//    dataItem7.uri_para="RenterOccHH";
-//    dataItem7.fileName="Housing_Tenure_RenterOccHH.geojson";
-//    dataItem7.bucket="demographics";
-//    dataItem7.data_source="d3";
-
-// var dataItem5=new DataItem();
-//    dataItem5.name="Municipal Parks and Landmarks";
-//    dataItem5.type="shape";
-//    dataItem5.query_parameter="parks";
-//    dataItem5.currentColor
-//    dataItem5.uri_para="parks";
-//    dataItem5.fileName="parks_landmark.geojson";
-//    dataItem5.bucket="city systems";
-//    dataItem5.data_source="d3";
-
-
-// var dataItem6=new DataItem();
-//    dataItem6.name="Labor Force Participation, Number of People 16+";
-//    dataItem6.type="shape";
-//    dataItem6.query_parameter="Total_LaborForce";
-//    dataItem6.currentColor
-//    dataItem6.uri_para="totalLaborForce";
-//    dataItem6.fileName="employment_labor_Total_LaborForce.geojson";
-//    dataItem6.bucket="Economy";
-//    dataItem6.data_source="d3";
-
-// var dataItem7=new DataItem();
-//    dataItem7.name="Unemployed, Number of People in Labor Force 16+";
-//    dataItem7.type="shape";
-//    dataItem7.query_parameter="Total_Unemployed";
-//    dataItem7.currentColor
-//    dataItem7.uri_para="totalUemployed";
-//    dataItem7.fileName="employment_labor_Total_Unemployed.geojson";
-//    dataItem7.bucket="Economy";
-//    dataItem7.data_source="d3";
-
-// var dataItem8=new DataItem();
-//    dataItem8.name="Housing Tenure, Number of Owner Occupied Households without a Mortgage, Free and Clear";
-//    dataItem8.type="shape";
-//    dataItem8.query_parameter="OccHH_FreeandClear";
-//    dataItem8.currentColor
-//    dataItem8.uri_para="OccHHFreeandClear";
-//    dataItem8.fileName="Housing_Tenure_OccHH_FreeandClear.geojson";
-//    dataItem8.bucket="demographics";
-//    dataItem8.data_source="d3";
-
-// var dataItem9=new DataItem();
-//    dataItem9.name="Census Tracts";
-//    dataItem9.type="line";
-//    dataItem9.query_parameter;
-//    dataItem9.uri_para="censustracks";
-//    dataItem9.fileName="census_track.geojson";
-//    dataItem9.bucket="Geographies";
-//    dataItem9.data_source="d3";
-
-// var dataItem10=new DataItem();
-//    dataItem10.name="Zip Codes";
-//    dataItem10.type="line";
-//    dataItem10.query_parameter="zipcodes";
-//    dataItem10.uri_para="zipcodes";
-//    dataItem10.currentColor
-//    dataItem10.fileName="zipcodes.geojson";
-//    dataItem10.bucket="Geographies";
-//    dataItem10.data_source="d3";
-
-// var dataItem11=new DataItem();
-//    dataItem11.name="Detroit Council Districts";
-//    dataItem11.type="line";
-//    dataItem11.uri_para="councildistrict";
-//    dataItem11.currentColor
-//    dataItem11.fileName="council_district.geojson";
-//    dataItem11.bucket="Geographies";
-//    dataItem11.data_source="d3";
-
-
-// var dataItem12=new DataItem();
-//    dataItem12.name="Bus Routes, Detroit Department of Transportation";
-//    dataItem12.type="line";
-//    dataItem12.uri_para="busroutes";
-//    dataItem12.fileName="Bus Routes, Detroit Department of Transportation";
-//    dataItem12.bucket="bus_routes.geojson";
-//    dataItem12.data_source="d3";
-
-// var dataItem13=new DataItem();
-//    dataItem13.name="Bus Stops, Detroit Department of Transportation";
-//    dataItem13.type="point";
-//    dataItem13.uri_para="busstop";
-//    dataItem13.fileName="bus_stops.geojson";
-//    dataItem13.bucket="demographics";
-//    dataItem13.data_source="d3";
-
-// var dataItem14=new DataItem();
-//    dataItem14.name="Grocery Stores";
-//    dataItem14.type="point";
-//    dataItem13.uri_para="grocerystore";
-//    dataItem14.fileName="grocery_stores.geojson";
-//    dataItem14.bucket="Economy";
-//    dataItem14.data_source="d3";
-
-// var dataItem15=new DataItem();
-//    dataItem15.name="Median Household Income (Adjusted 2011 Dollars)";
-//    dataItem15.type="shape";
-//    dataItem15.uri_para="medianincome";
-//    dataItem15.fileName="median_family.geojson";
-//    dataItem15.bucket="Economy";
-//    dataItem15.data_source="d3";
-//    dataItem15.query_parameter="MedHHInc_2011Adj"
-
-//  dataArr.push(dataItem2);
-//  dataArr.push(dataItem3);
-//  dataArr.push(dataItem4);
-//  dataArr.push(dataItem5);
-//  dataArr.push(dataItem6);
-//  dataArr.push(dataItem7); 
-//  dataArr.push(dataItem8);
-//  dataArr.push(dataItem9);
-//  dataArr.push(dataItem10);
-//  dataArr.push(dataItem11); 
-//  dataArr.push(dataItem12);
-//  dataArr.push(dataItem13);
-//  dataArr.push(dataItem14);
-//  dataArr.push(dataItem15);
-
-//  return dataArr;
-
-// }
-
 var dataArr=createDataArr();
 
-console.log(dataArr);
-
-var node=_.where(dataArr,{name:"Median Household Income (Adjusted 2011 Dollars)"});
-console.log(node);
+//console.log(dataArr);
 
 var map = L.map('map', {
                         center: [42.3540, -83.0523],
@@ -438,11 +152,13 @@ var accordion_user=$(".accordion_user" ).accordion();
   }
 
 
-var setLineColor=function(fileName,color)
+var setLineColor=function(dataItem,color)
 {
 
+  var fileName=dataItem.fileName;
   var file="/data/"+fileName;
-  if(fileDataFeaturesForMap[fileName]==null){
+
+  if(dataItem.layer_data==null){
     var req = $.getJSON( file );
       req.done( function(data) {
         if(fileName=='census_track.geojson')
@@ -452,18 +168,18 @@ var setLineColor=function(fileName,color)
           var newFeatures=queryData(data, property, selectingProperty);
           data['features']=newFeatures;
         }
-        fileDataFeaturesForMap[fileName]=data;
+        dataItem.layer_data=data;
         processLineData(fileName,data,color);
       });
+   }
+   else{
+       var data=dataItem.layer_data;
+      processLineData(dataItem,data,color);
   }
-  else{
-      var data=fileDataFeaturesForMap[fileName];
-      processLineData(fileName,data,color);
-  }
-}
+ }
 
 
-var processLineData=function(fileName,data,color)
+var processLineData=function(dataItem,data,color)
 {
   
 var features=data['features'];
@@ -484,22 +200,23 @@ var features=data['features'];
 layerArray.push(layer);
 }
 
-var setPointColor= function( fileName,color ) {
+var setPointColor= function(dataItem,color) {
+     var fileName=dataItem.fileName;
      var file="/data/"+fileName;
-   if(fileDataFeaturesForMap[fileName]==null){
+   if(dataItem.layer_data==null){
      var req = $.getJSON( file );
        req.done( function(data) {
-         fileDataFeaturesForMap[fileName]=data;
-         processPointData(data,color);
+         dataItem.layer_data=data;
+         processPointData(dataItem,data,color);
        });
    }
    else{
-       var data=fileDataFeaturesForMap[fileName];
-       processPointData(fileName,data,color);
+       var data=dataItem.layer_data;
+       processPointData(dataItem,data,color);
    }
 };
 
-var processPointData=function(fileName,data,color)
+var processPointData=function(dataItem,data,color)
 {
 
 var features=data['features'];
@@ -514,48 +231,50 @@ var geojsonMarkerOptions = {
 
 var layer=L.geoJson(features, {
     pointToLayer: function (feature, latlng) {
-        return L.circleMarker(latlng, geojsonMarkerOptions).bindPopup();
+        return L.circleMarker(latlng, geojsonMarkerOptions);
     }
 }).addTo(map);
 layerArray.push(layer);
 
 }
 
-var setShapeColors=function(fileName,colorGradientArr)
+var setShapeColors=function(dataItem,colorGradientArr)
 {
+      var fileName=dataItem.fileName;
       var file="/data/"+fileName;
       var property='City';
       var selectingProperty='Detroit';
 
-      if(fileDataFeaturesForMap[fileName]==null){
+      if(dataItem.layer_data==null){
       var req = $.getJSON( file );
             req.done( function(data) {
         
           var newFeatures=queryData(data, property, selectingProperty);
           data['features']=newFeatures;
 
-            fileDataFeaturesForMap[fileName]=data;
-          processShapeData(fileName,data,colorGradientArr);
+           dataItem.layer_data=data;
+          processShapeData(dataItem,data,colorGradientArr);
        });
    }
    else{
-       var data=fileDataFeaturesForMap[fileName];
-       processShapeData(fileName,data,colorGradientArr);
+       var data=dataItem.layer_data;
+       processShapeData(dataItem,data,colorGradientArr);
    }
 }
-var processShapeData=function(fileName,data,colorGradientArr)
+var processShapeData=function(dataItem,data,colorGradientArr)
 {
 
       var features= data['features'];
-      var mainMappingData=squareFileQueryParameter[fileName];
+      var query_parameter=dataItem.query_parameter;
+      var mainMappingData=query_parameter;
       if(mainMappingData==null)
       {
-        console.log("null mapping data");
+        
       }
-      gradientValues(fileName,mainMappingData,features,colorGradientArr);
+      gradientValues(dataItem,mainMappingData,features,colorGradientArr);
 }
 
-var gradientValues=function(fileName,mainMappingData,features,colorGradientArr)
+var gradientValues=function(dataItem,mainMappingData,features,colorGradientArr)
 {
    var valueArr=new Array();
 
@@ -574,8 +293,9 @@ var gradientValues=function(fileName,mainMappingData,features,colorGradientArr)
 
       var min=numRangeArr[0];
       var max=numRangeArr[1];
-      shapeParameterMinMax[fileName]=numRangeArr;
-        var popupProp=fileDataPopup[fileName];
+      dataItem.min_max=numRangeArr;
+
+    //var popupProp=dataItem.popup_value;
     var layer=L.geoJson(features, {
     style: function(feature)
     {
@@ -612,28 +332,20 @@ var gradientValues=function(fileName,mainMappingData,features,colorGradientArr)
          }
       
       return newStyle;
-    },
-  onEachFeature: function (feature, layer) {
-      var value=feature.properties[popupProp];
-       console.log(value);
-      if(value!=null){
-         fixedValue=value.toFixed(0);
-        layer.bindPopup(fixedValue);
-      }
-      }
-
-    }).addTo(map);
+    }}).addTo(map);
   
   layerArray.push(layer);
   
 }
 
-var getData = function( geoURL, options,fileName ) {
-  
+var getData = function(dataItem) {
+  var fileName=dataItem.fileName;
+  var geoURL="/data/"+fileName;
+
   var req = $.getJSON( geoURL );
 
   req.done( function(data) {
-    rulesForFiles(fileName,data);
+    rulesForFiles(dataItem,data);
   });
 };
 
@@ -702,59 +414,60 @@ var getSectionNum=function(rangeNum)
   return sectionNum;
 }
 
-var rulesForFiles=function(fileName)
+var rulesForFiles=function(dataItem)
 {
-  if(fileType[fileName]==shape)
+  var type=dataItem.type;
+  var dataItemCurrentColor=dataItem.currentColor;
+  if(type==shape)
   {
     var colorGradientArr;
 
-    if(currentColorArr[fileName]==null){
+    if(dataItemCurrentColor==null){
         colorGradientArr=input.lightBlue;
         changeColorGradient(colorGradientArr);
     }
     else{
-        var currentColor=currentColorArr[fileName];
-        colorGradientArr=getColorGradient(currentColor)
+        var currentColor=dataItem.currentColor;
+        colorGradientArr=getColorGradient(currentColor);
     }
 
-    currentColorArr[fileName]=colorGradientArr[maxColorIndex];
-    setShapeColors(fileName,colorGradientArr);
+    dataItem.currentColor=colorGradientArr[maxColorIndex];
+    setShapeColors(dataItem,colorGradientArr);
   }
 
-  else if(fileType[fileName]==line)
+  else if(type==line)
   {
     var color;
-    if(currentColorArr[fileName]==null){
+    if(dataItemCurrentColor==null){
       var color=input.lightBlue[maxColorIndex];
-        
     }
     else{
-      var color=currentColorArr[fileName]
+      var color=dataItem.currentColor;
     }
 
-    currentColorArr[fileName]=color;
-    setLineColor(fileName,color);
+    dataItem.currentColor=color;
+    setLineColor(dataItem,color);
     
   }
-  else if(fileType[fileName]==point)
+  else if(type==point)
   {
     var color;
-    if(currentColorArr[fileName]==null){
+    if(dataItem.currentColor==null){
       var color=input.lightBlue[maxColorIndex];
         
     }
     else{
-      var color=currentColorArr[fileName]
+      var color=dataItem.currentColor;
     }
-    currentColorArr[fileName]=color;
-    setPointColor(fileName,color);
+    dataItem.currentColor=color;
+    setPointColor(dataItem,color);
   }
   
 };
 
-var addSquarePopUp=function(fileName)
+var addSquarePopUp=function(dataItem)
 {
-  var numRangeArr=shapeParameterMinMax[fileName];
+  var numRangeArr=dataItem.min_max;
   var min=numRangeArr[0];
        min=min.toFixed(1);
   var max=numRangeArr[1];
@@ -792,7 +505,7 @@ var addSquarePopUp=function(fileName)
     
 }
 
-var addLinePopUp=function(fileName)
+var addLinePopUp=function()
 {
   var line_table=('<div class="line_table">'+
     '<table>'+
@@ -822,28 +535,28 @@ var addLinePopUp=function(fileName)
          return line_table;
 }
 
-addPointPopup=function(fileName)
+addPointPopup=function()
 {
   var point_table=('<div class="point_table">'+
     '<table>'+
             '<tr>'+
               '<td>'+ 
-                '<div class="pinkCircle" id="pinkLine'+fileName+'"></div>'+
+                '<div class="pinkCircle"></div>'+
               '</td>'+
               '<td>'+
-                '<div class="yellowCircle" id="yellowLine'+fileName+'"></div>'+
+                '<div class="yellowCircle"></div>'+
               '</td>'+
               '<td>'+
-                '<div class="darkBlueCircle" id="darkBlueLine'+fileName+'"></div>'+
+                '<div class="darkBlueCircle"></div>'+
               '</td>'+ 
               '<td>'+
-                '<div class="lightBlueCircle" id="lightBlueLine'+fileName+'"></div>'+
+                '<div class="lightBlueCircle"></div>'+
               '</td>'+ 
               '<td>'+
-                '<div class="lightGreenCircle" id="lightGreenLine'+fileName+'"></div>'+
+                '<div class="lightGreenCircle"></div>'+
               '</td>'+ 
               '<td>'+
-                '<div class="darkGreenCircle" id="darkGreenLine'+fileName+'"></div>'+
+                '<div class="darkGreenCircle"></div>'+
               '</td>'+  
             '</tr>'+
         '</table>'+
@@ -853,152 +566,154 @@ addPointPopup=function(fileName)
 }
 
 
-addLegendRow=function(fileName)
+addLegendRow=function(dataItem)
 {
-  var typeOfFile=fileType[fileName];
+  var typeOfFile=dataItem.type;
+  var fileName=dataItem.fileName;
+  var name=dataItem.name;
   var rowName="row"+fileName;
   
-  var row=('<tr class="legend_row" id="'+rowName+'"><th> <div class="side_header">D3 Data</div></th><td>'+fileName+'</td><td><div class="'+typeOfFile+'"/></td></tr>');
+  var row=('<tr class="legend_row" id="'+rowName+'"><th> <div class="side_header">D3 Data</div></th><td>'+name+'</td><td><div class="'+typeOfFile+'"/></td></tr>');
   return row;
 }
 
 
-var addColorSelectionPopup=function(fileName)
+var addColorSelectionPopup=function(dataItem)
 {
- var typeOfFile=fileType[fileName];
+ var typeOfFile=dataItem.type;
  var popup;
    if(typeOfFile==line)
     {
-        popup=addLinePopUp(fileName);
+        popup=addLinePopUp();
     }
     else if(typeOfFile==shape)
     {
-        popup=addSquarePopUp(fileName);
+        popup=addSquarePopUp(dataItem);
     }
     else if(typeOfFile==point)
     {
-        popup=addPointPopup(fileName);
+        popup=addPointPopup();
     }
     
     return popup;
 }
 
-var addEventsToColorPointPopUp=function(popup,fileName)
+var addEventsToColorPointPopUp=function(popup,dataItem)
 {
     popup.parent().on('click', 'div.pinkCircle', function() {
            var color=input.pink[maxColorIndex];
-           currentColorArr[fileName]=color;
-            var typeOfFile=fileType[fileName];
+           dataItem.currentColor=color;
+            var typeOfFile=dataItem.type;
             $("."+typeOfFile).css({"background-color": color});
-           setPointColor(fileName,color);
+           setPointColor(dataItem,color);
         });
 
     popup.parent().on('click', 'div.yellowCircle', function() {
            var color=input.yellow[maxColorIndex];
-           currentColorArr[fileName]=color;
-            var typeOfFile=fileType[fileName];
+           dataItem.currentColor=color;
+            var typeOfFile=dataItem.type;
             $("."+typeOfFile).css({"background-color": color});
-           setPointColor(fileName,color);
+           setPointColor(dataItem,color);
       });
 
     popup.parent().on('click', 'div.darkBlueCircle', function() {
            var color=input.darkBlue[maxColorIndex];
-           currentColorArr[fileName]=color;
-            var typeOfFile=fileType[fileName];
+           dataItem.currentColor=color;
+            var typeOfFile=dataItem.type;
             $("."+typeOfFile).css({"background-color": color});
-           setPointColor(fileName,color);
+           setPointColor(dataItem,color);
       });
 
     popup.parent().on('click', 'div.lightBlueCircle', function() {
            var color=input.lightBlue[maxColorIndex];
-           currentColorArr[fileName]=color;
+           dataItem.currentColor=color;
             var typeOfFile=fileType[fileName];
             $("."+typeOfFile).css({"background-color": color});
-           setPointColor(fileName,color);
+           setPointColor(dataItem,color);
       });
 
     popup.parent().on('click', 'div.lightGreenCircle', function() {
            var color=input.lightGreen[maxColorIndex];
-           currentColorArr[fileName]=color;
-            var typeOfFile=fileType[fileName];
+           dataItem.currentColor=color;
+            var typeOfFile=dataItem.type;
             $("."+typeOfFile).css({"background-color": color});
-           setPointColor(fileName,color);
+           setPointColor(dataItem,color);
       });
 
     popup.parent().on('click', 'div.darkGreenCircle', function() {
            var color=input.darkGreen[maxColorIndex];
-           currentColorArr[fileName]=color;
-          var typeOfFile=fileType[fileName];
+           dataItem.currentColor=color;
+          var typeOfFile=dataItem.type;
             $("."+typeOfFile).css({"background-color": color});
-           setPointColor(fileName,color);
+           setPointColor(dataItem,color);
       });
 
 }
 
-var addEventsToColorLinePopUp=function(popup,fileName)
+var addEventsToColorLinePopUp=function(popup,dataItem)
 { 
   popup.parent().on('click', 'div.pinkLine', function() {
            var color=input.pink[maxColorIndex];
-           currentColorArr[fileName]=color;
-           var typeOfFile=fileType[fileName];
+           dataItem.currentColor=color;
+           var typeOfFile=dataItem.type;
             $("."+typeOfFile).css({"background-color": color});
-           setLineColor(fileName,color);
+           setLineColor(dataItem,color);
         });
 
     popup.parent().on('click', 'div.yellowLine', function() {
         var color=input.yellow[maxColorIndex];
-        currentColorArr[fileName]=color;
-        var typeOfFile=fileType[fileName];
+        dataItem.currentColor=color;
+        var typeOfFile=dataItem.type;
         $("."+typeOfFile).css({"background-color": color});
-          setLineColor(fileName,color);
+          setLineColor(dataItem,color);
             
         });
 
      popup.parent().on('click', 'div.darkBlueLine', function() {
         var color=input.darkBlue[maxColorIndex];
-        currentColorArr[fileName]=color;
-        var typeOfFile=fileType[fileName];
+        dataItem.currentColor=color;
+        var typeOfFile=dataItem.type;
         $("."+typeOfFile).css({"background-color": color});
-        setLineColor(fileName,color);
+        setLineColor(dataItem,color);
            
         });
 
      popup.parent().on('click', 'div.lightBlueLine', function() {
           var color=input.lightBlue[maxColorIndex];
-          currentColorArr[fileName]=color;
-          var typeOfFile=fileType[fileName];
+          dataItem.currentColor=color;
+          var typeOfFile=dataItem.type;
           $("."+typeOfFile).css({"background-color": color});
-          setLineColor(fileName,color);
+          setLineColor(dataItem,color);
         });
 
      popup.parent().on('click', 'div.lightGreenLine', function() {
           var color=input.lightGreen[maxColorIndex];
-         currentColorArr[fileName]=color;
-         var typeOfFile=fileType[fileName];
+         dataItem.currentColor=color;
+         var typeOfFile=dataItem.type;
           $("."+typeOfFile).css({"background-color": color});
-          setLineColor(fileName,color);
+          setLineColor(dataItem,color);
         });
 
      popup.parent().on('click', 'div.darkGreenLine', function() {
       var color=input.darkGreen[maxColorIndex];
-      currentColorArr[fileName]=color;
-      var typeOfFile=fileType[fileName];
+      dataItem.currentColor=color;
+      var typeOfFile=dataItem.type;
       $("."+typeOfFile).css({"background-color": color});
-      setLineColor(fileName,color);
+      setLineColor(dataItem,color);
       });
 }
-var addEventsToColorShapePopUp=function(popup,fileName)
+var addEventsToColorShapePopUp=function(popup,dataItem)
 { 
   popup.parent().on('click', 'div.pinkSquare', function() {
           var colorGradientArr=input.pink;
           changeColorGradient(colorGradientArr);
          
            var color=input.pink[maxColorIndex];
-          currentColorArr[fileName]=color;
+          dataItem.currentColor=color;
 
-           var typeOfFile=fileType[fileName];
+           var typeOfFile=dataItem.type;
           $("."+typeOfFile).css({"background-color": color});
-          setShapeColors(fileName,colorGradientArr);
+          setShapeColors(dataItem,colorGradientArr);
         });
 
     popup.parent().on('click', 'div.yellowSquare', function() {
@@ -1006,11 +721,11 @@ var addEventsToColorShapePopUp=function(popup,fileName)
           changeColorGradient(colorGradientArr);
 
            var color=input.yellow[maxColorIndex];
-          currentColorArr[fileName]=color;
+          dataItem.currentColor=color;
            
-          var typeOfFile=fileType[fileName];
+          var typeOfFile=dataItem.type;
         $("."+typeOfFile).css({"background-color": color});
-           setShapeColors(fileName,colorGradientArr); 
+           setShapeColors(dataItem,colorGradientArr); 
         });
 
      popup.parent().on('click', 'div.darkBlueSquare', function() {
@@ -1018,11 +733,11 @@ var addEventsToColorShapePopUp=function(popup,fileName)
           changeColorGradient(colorGradientArr);
           
            var color=input.darkBlue[maxColorIndex];
-          currentColorArr[fileName]=color;
+          dataItem.currentColor=color;
           
-           var typeOfFile=fileType[fileName];
+           var typeOfFile=dataItem.type;
           $("."+typeOfFile).css({"background-color": color});
-           setShapeColors(fileName,colorGradientArr);
+           setShapeColors(dataItem,colorGradientArr);
         });
 
      popup.parent().on('click', 'div.lightBlueSquare', function() {
@@ -1030,11 +745,11 @@ var addEventsToColorShapePopUp=function(popup,fileName)
           changeColorGradient(colorGradientArr);
           
          var color=input.lightBlue[maxColorIndex];
-         currentColorArr[fileName]=color;
+         dataItem.currentColor=color;
          
-        var typeOfFile=fileType[fileName];
+        var typeOfFile=dataItem.type;
         $("."+typeOfFile).css({"background-color": color});  
-        setShapeColors(fileName,colorGradientArr);
+        setShapeColors(dataItem,colorGradientArr);
         });
 
      popup.parent().on('click', 'div.lightGreenSquare', function() {
@@ -1042,49 +757,59 @@ var addEventsToColorShapePopUp=function(popup,fileName)
           changeColorGradient(colorGradientArr);
           
           var color=input.lightGreen[maxColorIndex];
-         currentColorArr[fileName]=color;
+         dataItem.currentColor=color;
 
 
-          var typeOfFile=fileType[fileName];
+          var typeOfFile=dataItem.type;
           $("."+typeOfFile).css({"background-color": color});
-          setShapeColors(fileName,colorGradientArr);
+          setShapeColors(dataItem,colorGradientArr);
         });
 
      popup.parent().on('click', 'div.darkGreenSquare', function() {
           var colorGradientArr=input.darkGreen;
           changeColorGradient(colorGradientArr);
           
-           var color=input.darkGreen[maxColorIndex];
-         currentColorArr[fileName]=color;
+          var color=input.darkGreen[maxColorIndex];
+         dataItem.currentColor=color;
           
-           var typeOfFile=fileType[fileName];
+           var typeOfFile=dataItem.type;
       $("."+typeOfFile).css({"background-color": color});
-          setShapeColors(fileName,colorGradientArr);
+          setShapeColors(dataItem,colorGradientArr);
            
       });
 }
 
- var addResetColorPopUpEvents=function(popup,fileName)
- {    var typeOfFile=fileType[fileName];
+var getItem=function(dataArr,selector)
+{
+  var dataItemArr=_.where(dataArr,selector);
+  var dataItem=dataItemArr[0];
+  return dataItem;
+}
+
+ var addResetColorPopUpEvents=function(popup,dataItem)
+ {    var typeOfFile=dataItem.type;
       if(typeOfFile==shape)
       {
-        addEventsToColorShapePopUp(popup,fileName);
+        addEventsToColorShapePopUp(popup,dataItem);
       }
       else if(typeOfFile==line)
       {
-        addEventsToColorLinePopUp(popup,fileName);
+        addEventsToColorLinePopUp(popup,dataItem);
       }
       else if(typeOfFile==point)
       {
-        addEventsToColorPointPopUp(popup,fileName);
+        addEventsToColorPointPopUp(popup,dataItem);
       }
 
  }
 
-var addPopUp=function(fileName)
+var addPopUp=function(dataItem)
 {
   var numOfSelectedItems=totalCheckedItems();
-  var typeOfFile=fileType[fileName];
+  console.log(dataItem);
+  var typeOfFile=dataItem.type;
+  var fileName=dataItem.fileName;
+  console.log(fileName);
   if(numOfSelectedItems==0)
   {
     
@@ -1099,7 +824,7 @@ var addPopUp=function(fileName)
     table.append(header_row);
   }
        contentRowCounter++;
-      var row=addLegendRow(fileName);
+      var row=addLegendRow(dataItem);
       $("#legendTable").append(row);
 
       $("."+typeOfFile).click(function(){
@@ -1114,22 +839,22 @@ var addPopUp=function(fileName)
             id:name,
             height:"70px",
             placement: "right", 
-            content:addColorSelectionPopup(fileName),
+            content:addColorSelectionPopup(dataItem),
             html: true
         })
           currentColorPopup=popup;
 
-        addResetColorPopUpEvents(popup,fileName);
-         var color=currentColorArr[fileName];
+        addResetColorPopUpEvents(popup,dataItem);
         
      }); //end of click
 } //add popup
 
 
 
-var removePopUp=function(fileName)
+var removePopUp=function(dataItem)
 {
 
+  var fileName=dataItem.fileName;
   var table_dia_childArr=$("#table_dialog").children();
   var name="row"+fileName;
   var table=$("table#legendTable");
@@ -1182,41 +907,6 @@ var getColorGradient=function(currentColor){
     return null;
 }  
 
-var reorderLayers=function()
-{
-  var numOfLa=layerArray.length;
-  console.log("layer num"+" "+numOfLa);
-    var shapeLayer=null;
-    var shapeIndex=null;
-    var numOfLayers=radioLayerInput.length;
-    console.log(radioLayerInput);
-    for(var i=0;i<numOfLayers;i++)
-    {
-      var thisInput=radioLayerInput[i];
-      console.log(thisInput);
-      var thisFileName=thisInput.data("file");
-      console.log(thisFileName);
-      if(fileType[thisFileName]==shape)
-      {
-        shapeIndex=i;
-        shapeLayer=thisInput;
-        break;
-      }
-    }
-
-    //swap shape into first position;
-    if(shapeLayer!=null){
-    console.log("in shape layer");
-    console.log(shapeLayer);
-    var swapLayer=radioLayerInput[0];
-    radioLayerInput[shapeIndex]=swapLayer;
-    radioLayerInput[0]=shapeLayer;
-  }
-  return radioLayerInput;
-
-} 
-// Sidebar
-// ---------
 
 $(".radio").click( function() {
 
@@ -1225,15 +915,16 @@ $(".radio").click( function() {
   var datasetname = $(this).data("name");
   var infoOfImportance = $(this).data("property");
 
-
-  
+ 
+  var dataItem=getItem(dataArr,{fileName:fileName});
+  console.log("dataItem");
+  console.log(dataItem);
+ 
   var input=$(this);
   var index;
 
   var checked=false;
-  currentFileName=fileName;
 
-  //test if input checked
   var checked=false;
   for(var i=0;i<radioLayerInput.length;i++)
   {
@@ -1257,9 +948,9 @@ $(".radio").click( function() {
     radioLayerInput.splice(index,1);
 
     //remove mark from priority algorthm recorder
-    changeDataPriortyRecorder(fileName,checked);
+    changeDataPriortyRecorder(dataItem,checked);
 
-    removePopUp(fileName);
+    removePopUp(dataItem);
 
     //make new layers reflecting the changes
     clearAllLayers();
@@ -1272,8 +963,9 @@ $(".radio").click( function() {
               var file = '/data/' + fileName;
               var datasetname = thisInput.data("name");
               var infoOfImportance = thisInput.data("property");
+              var dataItem=getItem(dataArr,{fileName:fileName});
 
-                getData( file, {name: datasetname, property: infoOfImportance},fileName );
+              getData(dataItem);
             }
   }
   else if(checked==false)
@@ -1282,7 +974,7 @@ $(".radio").click( function() {
     var canAddFileToLayer=dataPriorityChecker(fileName);
     if(canAddFileToLayer==true)
     {
-      addPopUp(fileName);
+      addPopUp(dataItem);
 
       //add new value to list of inputs
         radioLayerInput.push(input);
@@ -1296,7 +988,7 @@ $(".radio").click( function() {
           thisInput.find("input").prop("checked", true);
         }//for
         //change priority recorder
-        changeDataPriortyRecorder(fileName,checked);
+        changeDataPriortyRecorder(dataItem,checked);
 
         //need to turn on layers
                 clearAllLayers();
@@ -1304,13 +996,13 @@ $(".radio").click( function() {
 
                for(var i=0;i<radioLayerInput.length;i++)
                 {
-                  var thisInput=radioLayerInput[i]
+                  var thisInput=radioLayerInput[i];
                   var fileName=thisInput.data("file");
                   var file = '/data/' + fileName;
                   var datasetname = thisInput.data("name");
                   var infoOfImportance = thisInput.data("property");
-
-                    getData( file, {name: datasetname, property: infoOfImportance},fileName );
+                  var dataItem=getItem(dataArr,{fileName:fileName});
+                    getData(dataItem);
                }//fpr
 
     }//end of canAddfile=-true

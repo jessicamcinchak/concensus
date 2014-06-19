@@ -9,7 +9,7 @@ img{
   position: relative;
   margin-top: 1px;
   zoom: 1;
-  font-size: .8em;
+  font-size: .7em;
   padding:.5em;
 }
 
@@ -48,6 +48,7 @@ div.accordion_user .ui-accordion-header{
   margin-top: -2px;
   position: relative;
   top: 1px;
+  font-size: .7em;
   margin-bottom: 2px;
   overflow: auto;
   display: none;
