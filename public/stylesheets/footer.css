@@ -10,6 +10,19 @@
 	margin-left: 20px;
 }
 
+
 .map-footer{
 	clear: both;
+}
+
+img#save_disk{
+	height: 30px;
+	width: 30px;	
+}
+
+img#expand{
+	margin-left: 10px;
+	margin-right: 20px;
+	height: 30px;
+	width: 30px;	
 }

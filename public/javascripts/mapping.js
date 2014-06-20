@@ -564,7 +564,26 @@ addPointPopup=function()
 
          return point_table;
 }
+$("img#save_disk").click( function() {
 
+  var jsonStr="";
+  var json = $.getJSON("/data/council_district.geojson",function(data){
+    var aStr=JSON.stringify(data); 
+    jsonStr.concat(aStr);
+  }).success
+  console.log(jsonStr);
+
+ //  function( json ) {
+ //  console.log( "JSON Data: " + json.users[ 3 ].name );
+ // });
+
+ //  var string= JSON.parse(json.responseText);
+ //  console.log(string);
+ //  console.log("in save disk");
+  //var blob = new Blob(["Hello, world!"], {type: "text/plain;charset=utf-8"});
+  //saveAs(blob, "hello world.txt");
+
+});
 
 addLegendRow=function(dataItem)
 {

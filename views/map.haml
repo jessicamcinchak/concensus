@@ -13,6 +13,7 @@
     %link{href: "/stylesheets/square_popup.css", media: "screen", rel: "stylesheet", type: "text/css"}
     %link{href: "/stylesheets/line_popup.css", media: "screen", rel: "stylesheet", type: "text/css"}
     %script{src: "/javascripts/jquery-1.11.1.js"}
+    %script{src: "/javascripts/FileSaver.js"}
     %script{src: "/javascripts/jquery-ui-1.10.4.custom.js"}
     %script{src: "/javascripts/dataItems.js"}
     %script{src: "/javascripts/underscore.js"}
@@ -164,15 +165,22 @@
     .map-footer
 
       .map-footer-column-main#hints
+        %img{src:"images/conCensus_Expand.png", alt: "d3 logo", id:"expand", width:"50px", height:"50px"}
         %h4 Hints on using this data
       .map-footer-column-main#community
+        %img{src:"images/conCensus_Expand.png", alt: "d3 logo", id:"expand", width:"50px", height:"50px"}
         %h4 How the community used this data
       .map-footer-column-tools#tools
         %h4
-          %span(class="glyphicon glyphicon-arrow-down")
-          %span(class="glyphicon glyphicon-chat")
-          %span(class="glyphicon glyphicon-floppy-disk")
-          %span(class="glyphicon glyphicon-bullhorn")
+          %img{src:"images/conCensus_TalkBubble.png", alt: "talk bubble", id:"save_disk", width:"50px", height:"50px"}
+          %img{src:"images/conCensus_DownloadArrom.png", alt: "d3 logo", id:"save_disk", width:"50px", height:"50px"}
+          %a{ href:"#", download:"data/council_district.geojson"}
+            %img{src:"images/conCensus_SaveDisk.png", alt: "save disk", id:"save_disk", width:"50px", height:"50px"}
+
+          / %span(class="glyphicon glyphicon-arrow-down")
+          / %span(class="glyphicon glyphicon-chat")
+          / %span(class="glyphicon glyphicon-floppy-disk")
+          / %span(class="glyphicon glyphicon-bullhorn")
 
   %script{src: "javascripts/colorGradients.js"}
   %script{src: "javascripts/mapping.js"}

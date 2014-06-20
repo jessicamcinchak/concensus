@@ -6524,24 +6524,26 @@ a#about_project
   position: absolute;
   bottom: 0;
   height: 10%;
-  width: 100%;
+
+  width: 80%;
   margin-top: 0;
   padding: 0;
-  border-top: 1px solid #a7a9ab;
 }
+
+
 .map-footer h4 {
   display: inline;
 }
 
 .map-footer-column-main {
-  border-left: 1px solid #a7a9ab;
-  border-right: 1px solid #a7a9ab;
-  height: 100%;
-  padding-top: 20px;
+  border: 1px solid #a7a9ab;
+  height: 60px;
   position: relative;
   min-height: 1px;
+  padding-top:20px;
   padding-left: 16px;
 }
+
 @media (min-width: 992px) {
   .map-footer-column-main {
     float: left;
@@ -6550,11 +6552,12 @@ a#about_project
 }
 
 .map-footer-column-tools {
-  height: 100%;
-  padding-top: 20px;
+  height: 60px;
+  padding-top: 10px;
   position: relative;
   min-height: 1px;
   padding-left: 16px;
+  border: 1px solid #a7a9ab;
 }
 @media (min-width: 992px) {
   .map-footer-column-tools {
