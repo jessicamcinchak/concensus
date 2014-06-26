@@ -241,6 +241,14 @@ var getInputItems=function(dataItem)
 
 var setUpInitialMap=function(initialMapArr){
 
+   var test=$("input#tracts2010");
+   test.checked=true;
+   console.log(test);
+
+   var testInput=test.find("input");
+   console.log(testInput);
+   testInput.prop("checked", true);
+   
 
     var valuesForMapArr=getValuesForMap(initialMapArr);
 
@@ -268,6 +276,11 @@ var setUpInitialMap=function(initialMapArr){
     for(var i=0;i<getDataItems.length;i++)
     {
       var dataItem=getDataItems[i];
+      var uri_parameter=dataItem.uri_para;
+      var inputName="input#"+uri_parameter;
+      console.log(inputName);
+      $(inputName).attr('checked',true)
+
       addPopUp(dataItem);
       var checked=true;
       changeDataPriortyRecorder(dataItem,checked);
@@ -739,6 +752,9 @@ addPointPopup=function()
 }
 $("img#save_disk").click( function() {
 
+  $("input#tracts2010").attr('checked',true)
+
+
   // var jsonStr="";
   // var json = $.getJSON("/data/council_district.geojson",function(data){
   //   var aStr=JSON.stringify(data); 
@@ -1101,6 +1117,10 @@ setUpInitialMap(initialMapArr);
 
 $(".radio").click( function() {
 
+  //var test=$("input#tracts2010");
+   //test.checked=true;
+  // console.log(test);
+
   var fileName=$(this).data("file");
   var file = '/data/' + fileName;
   var datasetname = $(this).data("name");
@@ -1117,7 +1137,7 @@ $(".radio").click( function() {
   for(var i=0;i<radioLayerInput.length;i++)
   {
     var thisInput=radioLayerInput[i];
-    thisFileName=thisInput.data("file");
+    var thisFileName=thisInput.data("file");
     if(thisFileName==fileName)
     {
       checked=true;
@@ -1181,8 +1201,11 @@ $(".radio").click( function() {
         for(var i=0;i<radioLayerInput.length;i++)
         {
           var thisInput=radioLayerInput[i];
-          thisFileName=thisInput.data("file");
+          console.log(thisInput);
+          //thisFileName=thisInput.data("file");
           thisInput.addClass("checked");
+          var fileInput=thisInput.find("input");
+          console.log(fileInput);
           thisInput.find("input").prop("checked", true);
         }//for
         //change priority recorder

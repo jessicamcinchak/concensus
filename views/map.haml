@@ -73,62 +73,62 @@
                   .form-group
                     .radio(data-file="census_track.geojson" name="Census Tracts (2010)" data-property="NAMELSAD10")
                       %label
-                        %input(type="checkbox" name="layer_data" id="tracts2010") Census Tracts 
+                        %input(type="checkbox" name="layer_data" id="censustracks") Census Tracts 
                     .radio(data-file="council_district.geojson" data-name="Council Districts" data-property="NAMELSAD10")
                       %label
-                        %input(type="checkbox" name="layer_data" id="council_districts")Detroit Council Districts
+                        %input(type="checkbox" name="layer_data" id="councildistrict")Detroit Council Districts
                     .radio(data-file="zipcodes.geojson" data-name="Zip Codes" data-property="NAMELSAD10")
                       %label
-                        %input(type="checkbox" name="layer_data" id="minority_family") Zip Codes
+                        %input(type="checkbox" name="layer_data" id="zipcodes") Zip Codes
               %h3 Demographics
               %div
                 %form(role="form")
                   .form-group
                     .radio(data-file="median_family.geojson" data-name="Median Family" data-property="NAMELSAD10")
                       %label
-                        %input(type="checkbox" name="layer_data" id="median_family") Median Household Income (Adjusted 2011 Dollars)
+                        %input(type="checkbox" name="layer_data" id="medianincome") Median Household Income (Adjusted 2011 Dollars)
                     .radio(data-file="minority_family_Total_HH.geojson" data-name="minority_family_total_hh" data-property="NAMELSAD10")
                       %label
-                        %input(type="checkbox" name="layer_data" id="minority_family_total_hh") Total Number of Households
+                        %input(type="checkbox" name="layer_data" id="totalHH") Total Number of Households
                     .radio(data-file="minority_family_Total_MinHH.geojson" data-name="minority_family_total_minHH" data-property="NAMELSAD10")
                       %label
-                        %input(type="checkbox" name="layer_data" id="minority_family_total_minHH")Total Number of Minority Households
+                        %input(type="checkbox" name="layer_data" id="totalMinHH")Total Number of Minority Households
               %h3 Housing
               %div
                 %form(role="form")
                   .form-group
                     .radio(data-file="Housing_Tenure_OccHH_FreeandClear.geojson" data-name="Housing_Free" data-property="NAMELSAD10")
                       %label
-                        %input(type="checkbox" name="layer_data" id="housing_free") Housing Tenure, Number of Owner Occupied Households without a Mortgage, Free & Clear
+                        %input(type="checkbox" name="layer_data" id="OccHHFreeandClear") Housing Tenure, Number of Owner Occupied Households without a Mortgage, Free & Clear
                     .radio(data-file="Housing_Tenure_RenterOccHH.geojson" data-name="Housing_Tenure" data-property="NAMELSAD10")
                       %label
-                        %input(type="checkbox" name="layer_data" id="housing_tenure") Housing Tenure, Number of Renter Occupied Households
+                        %input(type="checkbox" name="layer_data" id="RenterOccHH") Housing Tenure, Number of Renter Occupied Households
               %h3 City System
               %div
                 %form(role="form")
                   .form-group
                     .radio(data-file="bus_routes.geojson" data-name="bus_routes" data-property="NAMELSAD10")    
                       %label
-                        %input(type="checkbox" name="layer_data" id="bus_routes")Bus Routes, Detroit Department of Transportation
+                        %input(type="checkbox" name="layer_data" id="busroutes")Bus Routes, Detroit Department of Transportation
                     .radio(data-file="bus_stops.geojson" data-name="bus_stops" data-property="NAMELSAD10")    
                       %label
-                        %input(type="checkbox" name="layer_data" id="bus_stops")Bus Stops, Detroit Department of Transportation
+                        %input(type="checkbox" name="layer_data" id="busstop")Bus Stops, Detroit Department of Transportation
                     .radio(data-file="parks_landmark.geojson" data-name="Parks Landmark" data-property="NAMELSAD10")
                       %label
-                        %input(type="checkbox" name="layer_data" id="parks_landmarks") Parks Landmarks 
+                        %input(type="checkbox" name="layer_data" id="parks") Parks Landmarks 
               %h3 Economy
               %div
                 %form(role="form")
                   .form-group
                     .radio(data-file="grocery_stores.geojson" data-name="Grocery Stores" data-property="NAMELSAD10")    
                       %label
-                        %input(type="checkbox" name="layer_data" id="grocery_store") Grocery Stores
+                        %input(type="checkbox" name="layer_data" id="grocerystore") Grocery Stores
                     .radio(data-file="employment_labor_Total_LaborForce.geojson" data-name="employment_labor_total" data-property="NAMELSAD10")    
                       %label
-                        %input(type="checkbox" name="layer_data" id="employment_labor_total") Labor Force Participation, Number of People 16
+                        %input(type="checkbox" name="layer_data" id="totalLaborForce") Labor Force Participation, Number of People 16
                     .radio(data-file="employment_labor_Total_Unemployed.geojson" data-name="employment_labor_unemployment" data-property="NAMELSAD10")  
                       %label
-                        %input(type="checkbox" name="layer_data" id="employment_labor_unemployment") nemployed, Number of People in Labor Force 16+
+                        %input(type="checkbox" name="layer_data" id="totalUemployed") nemployed, Number of People in Labor Force 16+
             %br
             %h4 User Data Library:
             %div{class:"accordion_user"} 
