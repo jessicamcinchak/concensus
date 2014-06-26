@@ -23,6 +23,7 @@ var totalCheckedItems=function()
   return totalItems;
 }
 
+
 var dataPriorityChecker=function(dataItem)
 {
   var thisFileType=dataItem.fileName;
@@ -79,6 +80,65 @@ var changeDataPriortyRecorder=function(dataItem,checked)
 }
 
 
+var handleInitialMap=function()
+{
+var initial_url=location.href;
+var typeValueGroupArr=new Array();
+
+var results=URI.parse(initial_url);
+  if(results.query!=null){
+      var queryResults=results.query;
+      var splitQuery=queryResults.split('&');
+      
+      var count=0;
+      
+      var typeValueArr=new Array();
+      for(var i=0;i<splitQuery.length;i++)
+      {
+        getCount=count;
+         
+          if(getCount<1)
+          {
+              count++;
+              var thisSplitQuery=splitQuery[i];
+              typeValueArr.push(thisSplitQuery);
+          }
+          else if(getCount==1){
+            var thisSplitQuery=splitQuery[i];
+            typeValueArr.push(thisSplitQuery);
+
+            var thisTypeValueArr=typeValueArr;
+            typeValueGroupArr.push(thisTypeValueArr);
+            typeValueArr=new Array();
+            count=0;
+          }
+       }
+
+  }
+  else
+  {
+    console.log("is null");
+  }
+
+  return typeValueGroupArr;
+
+}
+
+var initialMapArr=handleInitialMap();
+
+
+// if(initialMapArr.length>0)
+// {
+//   console.log("We must make a map!");
+//   initialMap(initialMapArr);
+// }
+
+// var initialMap=function(initialMapArr)
+// {
+
+// }
+
+window.history.pushState("object or string", "Title","/map");
 
 var input = { 
     "pink": ["#F9E6E0","#F5D3C9","#ECA793", "#E37B5D", "#DA5027"],
@@ -89,28 +149,133 @@ var input = {
     "darkGreen": ['#E3EAE4','#BFCFC2','#8FAC95','#578260','#20592C']
 }
 
-var relative_URI=new URI("/hello");
 
-var addToUrl=function(url,typeOfFile,nameOfFile)
+var findColorKey=function(color)
 {
-  url.addSearch(typeOfFile, nameOfFile);
-  window.history.pushState("object or string", "Title",url);
+  var keyColor;
+   _.each(input,function(colorArr,key){
+      var bool=_.contains(colorArr,color);
+      if(bool==true){
+      keyColor=key;
+      }
+  });
+    return keyColor;
 }
 
-var removeFromUrl=function(url,typeOfFile,nameOfFile)
+var relative_URI=new URI("");
+
+
+var addToUrl=function(url,key,value)
 {
-  url.removeSearch(typeOfFile, nameOfFile);
-  window.history.pushState("object or string", "Title",url);
+  url.addSearch( key,value);
 }
 
-// addToUrl(relative_URI,"shape","afile");
-// removeFromUrl(relative_URI,"shape","afile");
-// console.log("relative"+" "+relative_URI);
+var pushStateToUrl=function(url)
+{
+  window.history.pushState("object or string", "Title",relative_URI);
+}
 
+var removeFromUrl=function(url,key,value)
+{
+  url.removeSearch(key, value);
+}
 
 var dataArr=createDataArr();
 
-//console.log(dataArr);
+var divrad=$("div.radio");
+var getValuesForMap=function(initialMapArr)
+{
+    var valuesForMapArr=new Array();
+      for(var i=0;i<initialMapArr.length;i++)
+      {
+
+        var valuesForMap=new Array();
+
+        var thisInitialMappVar=initialMapArr[i];
+        var uri_para_arr=thisInitialMappVar[0];
+        var uri_para_split=uri_para_arr.split('=');
+        var uri_para=uri_para_split[1];
+
+        var color_arr=thisInitialMappVar[1];
+        var color_split=color_arr.split('=');
+        var color=color_split[1];
+
+        valuesForMap.push(uri_para);
+        valuesForMap.push(color);
+        valuesForMapArr.push(valuesForMap);
+      }
+
+      return valuesForMapArr;
+}
+
+var getDataItemsForMap=function(valuesForMapArr)
+{
+   var getDataItems=new Array();
+      _.each(valuesForMapArr,function(valuesForMap, index){
+
+        var thisUri_Para=valuesForMap[0];
+        var color=valuesForMap[1];
+
+        var dataItem=_.where(dataArr, {uri_para: thisUri_Para});
+        dataItem.currentColor=color;
+        getDataItems.push(dataItem[0]);
+      });
+
+      return getDataItems;
+}
+
+var getInputItems=function(dataItem)
+{
+    var fName=dataItem.fileName;
+
+      var filterInputList = _.filter(divrad, function(input){ 
+          var testInputFileName=$(input).attr("data-file");
+         
+            if(testInputFileName==fName){
+              return input;
+            }
+        });// filterList
+      return filterInputList[0];
+}
+
+
+var setUpInitialMap=function(initialMapArr){
+
+
+    var valuesForMapArr=getValuesForMap(initialMapArr);
+
+    var getDataItems=getDataItemsForMap(valuesForMapArr);
+    
+    var inputList=new Array();
+    _.each(getDataItems,function(dataItem){
+      var filteredInput = getInputItems(dataItem);
+      inputList.push(filteredInput);
+     }); //each
+
+    //console.log(inputList);
+    for(var i=0;i<inputList.length;i++)
+    {
+      console.log(i);
+      var inp=inputList[i];
+      console.log(inp);
+      //var findInput=inp.find("input");
+      //console.log("findInput");
+      //console.log(findInput);
+      //inp.find("input").prop("checked", true);
+      radioLayerInput.push(inp);
+    }
+
+    for(var i=0;i<getDataItems.length;i++)
+    {
+      var dataItem=getDataItems[i];
+      addPopUp(dataItem);
+      var checked=true;
+      changeDataPriortyRecorder(dataItem,checked);
+      getData(dataItem);
+    }
+}
+
+
 
 var map = L.map('map', {
                         center: [42.3540, -83.0523],
@@ -178,10 +343,12 @@ var setLineColor=function(dataItem,color)
   }
  }
 
+ 
+
 
 var processLineData=function(dataItem,data,color)
 {
-  
+
 var features=data['features'];
  var newStyle = {
     "weight": 2,
@@ -431,7 +598,6 @@ var rulesForFiles=function(dataItem)
         colorGradientArr=getColorGradient(currentColor);
     }
 
-    dataItem.currentColor=colorGradientArr[maxColorIndex];
     setShapeColors(dataItem,colorGradientArr);
   }
 
@@ -462,7 +628,14 @@ var rulesForFiles=function(dataItem)
     dataItem.currentColor=color;
     setPointColor(dataItem,color);
   }
-  
+      var type=dataItem.type;
+      var colorValue=dataItem.currentColor;
+       var colorKey=findColorKey(colorValue);
+      var uri_para=dataItem.uri_para
+      addToUrl(relative_URI,type,uri_para);
+      addToUrl(relative_URI,type,colorKey);
+      pushStateToUrl(relative_URI);
+      pushStateToUrl("");
 };
 
 var addSquarePopUp=function(dataItem)
@@ -566,12 +739,12 @@ addPointPopup=function()
 }
 $("img#save_disk").click( function() {
 
-  var jsonStr="";
-  var json = $.getJSON("/data/council_district.geojson",function(data){
-    var aStr=JSON.stringify(data); 
-    jsonStr.concat(aStr);
-  }).success
-  console.log(jsonStr);
+  // var jsonStr="";
+  // var json = $.getJSON("/data/council_district.geojson",function(data){
+  //   var aStr=JSON.stringify(data); 
+  //   jsonStr.concat(aStr);
+  // }).success
+  // console.log(jsonStr);
 
  //  function( json ) {
  //  console.log( "JSON Data: " + json.users[ 3 ].name );
@@ -825,10 +998,8 @@ var getItem=function(dataArr,selector)
 var addPopUp=function(dataItem)
 {
   var numOfSelectedItems=totalCheckedItems();
-  console.log(dataItem);
   var typeOfFile=dataItem.type;
   var fileName=dataItem.fileName;
-  console.log(fileName);
   if(numOfSelectedItems==0)
   {
     
@@ -926,6 +1097,7 @@ var getColorGradient=function(currentColor){
     return null;
 }  
 
+setUpInitialMap(initialMapArr);
 
 $(".radio").click( function() {
 
@@ -934,15 +1106,12 @@ $(".radio").click( function() {
   var datasetname = $(this).data("name");
   var infoOfImportance = $(this).data("property");
 
- 
   var dataItem=getItem(dataArr,{fileName:fileName});
-  console.log("dataItem");
-  console.log(dataItem);
+
  
   var input=$(this);
   var index;
 
-  var checked=false;
 
   var checked=false;
   for(var i=0;i<radioLayerInput.length;i++)
@@ -960,8 +1129,17 @@ $(".radio").click( function() {
   {
 
     // make checkmark false
+  
     input.find("input").prop("checked", false);
     input.removeClass("checked");
+
+    var type=dataItem.type;
+    var currentColor=dataItem.currentColor;
+    var colorKey=findColorKey(currentColor);
+    var uri_para=dataItem.uri_para;
+
+    removeFromUrl(relative_URI,type,uri_para);
+    removeFromUrl(relative_URI,type,colorKey);
 
     //remove input from checkbox datastructure
     radioLayerInput.splice(index,1);
@@ -982,9 +1160,9 @@ $(".radio").click( function() {
               var file = '/data/' + fileName;
               var datasetname = thisInput.data("name");
               var infoOfImportance = thisInput.data("property");
-              var dataItem=getItem(dataArr,{fileName:fileName});
+              var thisDataItem=getItem(dataArr,{fileName:fileName});
 
-              getData(dataItem);
+              getData(thisDataItem);
             }
   }
   else if(checked==false)
@@ -994,6 +1172,7 @@ $(".radio").click( function() {
     if(canAddFileToLayer==true)
     {
       addPopUp(dataItem);
+
 
       //add new value to list of inputs
         radioLayerInput.push(input);
@@ -1009,6 +1188,8 @@ $(".radio").click( function() {
         //change priority recorder
         changeDataPriortyRecorder(dataItem,checked);
 
+      
+
         //need to turn on layers
                 clearAllLayers();
                 //radioLayerInput=reorderLayers();
@@ -1016,12 +1197,12 @@ $(".radio").click( function() {
                for(var i=0;i<radioLayerInput.length;i++)
                 {
                   var thisInput=radioLayerInput[i];
-                  var fileName=thisInput.data("file");
-                  var file = '/data/' + fileName;
-                  var datasetname = thisInput.data("name");
-                  var infoOfImportance = thisInput.data("property");
-                  var dataItem=getItem(dataArr,{fileName:fileName});
-                    getData(dataItem);
+                  //var fileName=thisInput.data("file");
+                  //var file = '/data/' + fileName;
+                  //var datasetname = thisInput.data("name");
+                  //var infoOfImportance = thisInput.data("property");
+                  var thisDataItem=getItem(dataArr,{fileName:fileName});
+                    getData(thisDataItem);
                }//fpr
 
     }//end of canAddfile=-true
