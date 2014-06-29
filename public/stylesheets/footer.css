@@ -19,6 +19,14 @@ img#save_disk{
 	height: 30px;
 	width: 30px;	
 }
+img#bull_horn{
+	height: 30px;
+	width: 30px;
+}
+
+div.popover-content{
+font-size: 12px;		
+}
 
 img#expand{
 	margin-left: 10px;

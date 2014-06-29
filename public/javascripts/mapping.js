@@ -2,7 +2,7 @@
 // ---------
 
 var contentRowCounter=1;
-var radioLayerInput=new Array();
+//var radioLayerInput=new Array();
 var shape="shape";
 var line="line";
 var point="point";
@@ -23,10 +23,12 @@ var totalCheckedItems=function()
   return totalItems;
 }
 
+var LayerId=new Array();
+
 
 var dataPriorityChecker=function(dataItem)
 {
-  var thisFileType=dataItem.fileName;
+  var thisFileType=dataItem.type;
   var canAdd=false;
   var numOfShape=dataPriortyRecorder[shape];
   var numOfLine=dataPriortyRecorder[line];
@@ -125,18 +127,6 @@ var results=URI.parse(initial_url);
 }
 
 var initialMapArr=handleInitialMap();
-
-
-// if(initialMapArr.length>0)
-// {
-//   console.log("We must make a map!");
-//   initialMap(initialMapArr);
-// }
-
-// var initialMap=function(initialMapArr)
-// {
-
-// }
 
 window.history.pushState("object or string", "Title","/map");
 
@@ -243,10 +233,8 @@ var setUpInitialMap=function(initialMapArr){
 
    var test=$("input#tracts2010");
    test.checked=true;
-   console.log(test);
 
    var testInput=test.find("input");
-   console.log(testInput);
    testInput.prop("checked", true);
    
 
@@ -260,25 +248,11 @@ var setUpInitialMap=function(initialMapArr){
       inputList.push(filteredInput);
      }); //each
 
-    //console.log(inputList);
-    for(var i=0;i<inputList.length;i++)
-    {
-      console.log(i);
-      var inp=inputList[i];
-      console.log(inp);
-      //var findInput=inp.find("input");
-      //console.log("findInput");
-      //console.log(findInput);
-      //inp.find("input").prop("checked", true);
-      radioLayerInput.push(inp);
-    }
-
     for(var i=0;i<getDataItems.length;i++)
     {
       var dataItem=getDataItems[i];
       var uri_parameter=dataItem.uri_para;
       var inputName="input#"+uri_parameter;
-      console.log(inputName);
       $(inputName).attr('checked',true)
 
       addPopUp(dataItem);
@@ -288,8 +262,6 @@ var setUpInitialMap=function(initialMapArr){
     }
 }
 
-
-
 var map = L.map('map', {
                         center: [42.3540, -83.0523],
                         zoom: 11,
@@ -297,11 +269,13 @@ var map = L.map('map', {
                         }
                 );
 
-var layerArray=new Array();
-
 var baseMap=L.tileLayer('http://api.tiles.mapbox.com/v3/rcackerman.h6ofgio1/{z}/{x}/{y}.png', {
             attribution: 'Made pretty by Mapbox'
           }).addTo(map);
+var overLayLayerGroup=new L.layerGroup;
+overLayLayerGroup.addTo(map);
+
+
 
 var accordion_d3=$(".accordion_d3" ).accordion();
 
@@ -329,10 +303,33 @@ var accordion_user=$(".accordion_user" ).accordion();
        $( ".gradient5" ).css('background-color',colorGradArr[4]);
   }
 
+  var addLayerInfo=function(dataItem,layer)
+  {
+    var fileName=dataItem.fileName;
+    var id=layer._leaflet_id;
+    var keyValue={"fileName":fileName,"id":id};
+
+    LayerId.push(keyValue);
+  }
+
+  var removeLayer=function(dataItem)
+  {
+
+    var fileName=dataItem.fileName;
+    var arrIndex=_.findWhere(LayerId, {"fileName":fileName});
+    var removeId=arrIndex.id;
+
+    var index=_.indexOf(LayerId, arrIndex);
+
+    LayerId.splice(index,1);
+    overLayLayerGroup.removeLayer(removeId);
+    console.log(LayerId);
+  }
+
 
 var setLineColor=function(dataItem,color)
 {
-
+  
   var fileName=dataItem.fileName;
   var file="/data/"+fileName;
 
@@ -347,7 +344,7 @@ var setLineColor=function(dataItem,color)
           data['features']=newFeatures;
         }
         dataItem.layer_data=data;
-        processLineData(fileName,data,color);
+        processLineData(dataItem,data,color);
       });
    }
    else{
@@ -362,6 +359,9 @@ var setLineColor=function(dataItem,color)
 var processLineData=function(dataItem,data,color)
 {
 
+var popup_para=dataItem.popup_value;
+ 
+
 var features=data['features'];
  var newStyle = {
     "weight": 2,
@@ -373,11 +373,16 @@ var features=data['features'];
   };
 
   var layer=L.geoJson(features, {
-    style: newStyle
-      
-    }).bindPopup("hello").addTo(map);
+    style: newStyle,
+    onEachFeature: function (feature, myLayer) {
+      var popup_value=feature.properties[popup_para];
+      if(popup_value!=null){
+       myLayer.bindPopup(popup_value);
+      }
+  }});
 
-layerArray.push(layer);
+  overLayLayerGroup.addLayer(layer);
+  addLayerInfo(dataItem,layer);
 }
 
 var setPointColor= function(dataItem,color) {
@@ -399,6 +404,7 @@ var setPointColor= function(dataItem,color) {
 var processPointData=function(dataItem,data,color)
 {
 
+var popup_para=dataItem.popup_value;
 var features=data['features'];
 var geojsonMarkerOptions = {
     radius: 3,
@@ -412,11 +418,18 @@ var geojsonMarkerOptions = {
 var layer=L.geoJson(features, {
     pointToLayer: function (feature, latlng) {
         return L.circleMarker(latlng, geojsonMarkerOptions);
-    }
-}).addTo(map);
-layerArray.push(layer);
+    },
+    onEachFeature: function (feature, myLayer) {
+      var popup_value=feature.properties[popup_para];
+     myLayer.bindPopup(popup_value);
+  }
+});
+
+overLayLayerGroup.addLayer(layer);
+addLayerInfo(dataItem,layer);
 
 }
+
 
 var setShapeColors=function(dataItem,colorGradientArr)
 {
@@ -475,7 +488,6 @@ var gradientValues=function(dataItem,mainMappingData,features,colorGradientArr)
       var max=numRangeArr[1];
       dataItem.min_max=numRangeArr;
 
-    //var popupProp=dataItem.popup_value;
     var layer=L.geoJson(features, {
     style: function(feature)
     {
@@ -508,17 +520,21 @@ var gradientValues=function(dataItem,mainMappingData,features,colorGradientArr)
           "opacity": 1,
           "color": "#ffffff",
           "dashArray": '3',
-          "fillOpacity": 0.7
+          "fillOpacity":1
          }
       
       return newStyle;
     }}).addTo(map);
+
+  overLayLayerGroup.addLayer(layer);
+  addLayerInfo(dataItem,layer);
   
-  layerArray.push(layer);
   
 }
 
+    
 var getData = function(dataItem) {
+
   var fileName=dataItem.fileName;
   var geoURL="/data/"+fileName;
 
@@ -534,21 +550,12 @@ var removeData = function(layer) {
   map.removeLayer(layer);
 };
 
-var clearAllLayers=function()
-{
-  for (var i=0;i<layerArray.length;i++)
-  {
-    var layer=layerArray[i];
-    removeData(layer);
-  }
-}
-
 
 var queryData=function(data, property, selectingProperty){
   var features=data['features'];
   var newFeatures=new Array();
     for (var i = 0; i < features.length ;i++) {
-        var prop=features[i].properties[property]
+        var prop=features[i].properties[property];
         if(prop==selectingProperty)
         {
           newFeatures.push(features[i]);
@@ -641,14 +648,14 @@ var rulesForFiles=function(dataItem)
     dataItem.currentColor=color;
     setPointColor(dataItem,color);
   }
-      var type=dataItem.type;
-      var colorValue=dataItem.currentColor;
-       var colorKey=findColorKey(colorValue);
-      var uri_para=dataItem.uri_para
-      addToUrl(relative_URI,type,uri_para);
-      addToUrl(relative_URI,type,colorKey);
-      pushStateToUrl(relative_URI);
-      pushStateToUrl("");
+      //var type=dataItem.type;
+      //var colorValue=dataItem.currentColor;
+      // var colorKey=findColorKey(colorValue);
+      // var uri_para=dataItem.uri_para
+      // addToUrl(relative_URI,type,uri_para);
+      // addToUrl(relative_URI,type,colorKey);
+      // pushStateToUrl(relative_URI);
+      // pushStateToUrl("");
 };
 
 var addSquarePopUp=function(dataItem)
@@ -750,9 +757,48 @@ addPointPopup=function()
 
          return point_table;
 }
+
+$("img#bull_horn").click( function() {
+console.log("in bull horn");
+
+_.each(LayerId,function(layerEle){
+  var afileName=layerEle.fileName;
+  var dataItem=getItem(dataArr,{fileName:afileName});
+  var type=dataItem.type;
+  var colorValue=dataItem.currentColor;
+  var colorKey=findColorKey(colorValue);
+  var uri_para=dataItem.uri_para
+  addToUrl(relative_URI,type,uri_para);
+  addToUrl(relative_URI,type,colorKey);
+});
+
+var currentUrl=window.location.href;
+var newUrl=currentUrl+relative_URI;
+console.log(newUrl);  
+
+if(LayerId.length>0){
+    
+    var html=('<h4>Share url</h4><p>'+newUrl+'</p>');
+
+    $("img#bull_horn").popover({
+      height:"1000px",
+      width:"1000px",
+      content:html,
+      placement: "top", 
+      html:true
+    });
+}
+
+});
+
 $("img#save_disk").click( function() {
 
-  $("input#tracts2010").attr('checked',true)
+
+console.log(map);
+  //  overlayLayerGroup.eachLayer(function(layer){
+  //     console.log(layer);
+  //       layer.bringToFront();
+  // });
 
 
   // var jsonStr="";
@@ -812,6 +858,7 @@ var addEventsToColorPointPopUp=function(popup,dataItem)
            var color=input.pink[maxColorIndex];
            dataItem.currentColor=color;
             var typeOfFile=dataItem.type;
+             removeLayer(dataItem);
             $("."+typeOfFile).css({"background-color": color});
            setPointColor(dataItem,color);
         });
@@ -820,6 +867,7 @@ var addEventsToColorPointPopUp=function(popup,dataItem)
            var color=input.yellow[maxColorIndex];
            dataItem.currentColor=color;
             var typeOfFile=dataItem.type;
+             removeLayer(dataItem);
             $("."+typeOfFile).css({"background-color": color});
            setPointColor(dataItem,color);
       });
@@ -828,6 +876,7 @@ var addEventsToColorPointPopUp=function(popup,dataItem)
            var color=input.darkBlue[maxColorIndex];
            dataItem.currentColor=color;
             var typeOfFile=dataItem.type;
+             removeLayer(dataItem);
             $("."+typeOfFile).css({"background-color": color});
            setPointColor(dataItem,color);
       });
@@ -836,6 +885,7 @@ var addEventsToColorPointPopUp=function(popup,dataItem)
            var color=input.lightBlue[maxColorIndex];
            dataItem.currentColor=color;
             var typeOfFile=fileType[fileName];
+             removeLayer(dataItem);
             $("."+typeOfFile).css({"background-color": color});
            setPointColor(dataItem,color);
       });
@@ -844,6 +894,7 @@ var addEventsToColorPointPopUp=function(popup,dataItem)
            var color=input.lightGreen[maxColorIndex];
            dataItem.currentColor=color;
             var typeOfFile=dataItem.type;
+             removeLayer(dataItem);
             $("."+typeOfFile).css({"background-color": color});
            setPointColor(dataItem,color);
       });
@@ -852,6 +903,7 @@ var addEventsToColorPointPopUp=function(popup,dataItem)
            var color=input.darkGreen[maxColorIndex];
            dataItem.currentColor=color;
           var typeOfFile=dataItem.type;
+           removeLayer(dataItem);
             $("."+typeOfFile).css({"background-color": color});
            setPointColor(dataItem,color);
       });
@@ -864,6 +916,7 @@ var addEventsToColorLinePopUp=function(popup,dataItem)
            var color=input.pink[maxColorIndex];
            dataItem.currentColor=color;
            var typeOfFile=dataItem.type;
+           removeLayer(dataItem);
             $("."+typeOfFile).css({"background-color": color});
            setLineColor(dataItem,color);
         });
@@ -871,6 +924,7 @@ var addEventsToColorLinePopUp=function(popup,dataItem)
     popup.parent().on('click', 'div.yellowLine', function() {
         var color=input.yellow[maxColorIndex];
         dataItem.currentColor=color;
+        removeLayer(dataItem);
         var typeOfFile=dataItem.type;
         $("."+typeOfFile).css({"background-color": color});
           setLineColor(dataItem,color);
@@ -881,6 +935,7 @@ var addEventsToColorLinePopUp=function(popup,dataItem)
         var color=input.darkBlue[maxColorIndex];
         dataItem.currentColor=color;
         var typeOfFile=dataItem.type;
+         removeLayer(dataItem);
         $("."+typeOfFile).css({"background-color": color});
         setLineColor(dataItem,color);
            
@@ -890,6 +945,7 @@ var addEventsToColorLinePopUp=function(popup,dataItem)
           var color=input.lightBlue[maxColorIndex];
           dataItem.currentColor=color;
           var typeOfFile=dataItem.type;
+           removeLayer(dataItem);
           $("."+typeOfFile).css({"background-color": color});
           setLineColor(dataItem,color);
         });
@@ -898,6 +954,7 @@ var addEventsToColorLinePopUp=function(popup,dataItem)
           var color=input.lightGreen[maxColorIndex];
          dataItem.currentColor=color;
          var typeOfFile=dataItem.type;
+          removeLayer(dataItem);
           $("."+typeOfFile).css({"background-color": color});
           setLineColor(dataItem,color);
         });
@@ -906,6 +963,7 @@ var addEventsToColorLinePopUp=function(popup,dataItem)
       var color=input.darkGreen[maxColorIndex];
       dataItem.currentColor=color;
       var typeOfFile=dataItem.type;
+       removeLayer(dataItem);
       $("."+typeOfFile).css({"background-color": color});
       setLineColor(dataItem,color);
       });
@@ -920,6 +978,7 @@ var addEventsToColorShapePopUp=function(popup,dataItem)
           dataItem.currentColor=color;
 
            var typeOfFile=dataItem.type;
+            removeLayer(dataItem);
           $("."+typeOfFile).css({"background-color": color});
           setShapeColors(dataItem,colorGradientArr);
         });
@@ -932,6 +991,7 @@ var addEventsToColorShapePopUp=function(popup,dataItem)
           dataItem.currentColor=color;
            
           var typeOfFile=dataItem.type;
+           removeLayer(dataItem);
         $("."+typeOfFile).css({"background-color": color});
            setShapeColors(dataItem,colorGradientArr); 
         });
@@ -944,6 +1004,7 @@ var addEventsToColorShapePopUp=function(popup,dataItem)
           dataItem.currentColor=color;
           
            var typeOfFile=dataItem.type;
+            removeLayer(dataItem);
           $("."+typeOfFile).css({"background-color": color});
            setShapeColors(dataItem,colorGradientArr);
         });
@@ -956,6 +1017,7 @@ var addEventsToColorShapePopUp=function(popup,dataItem)
          dataItem.currentColor=color;
          
         var typeOfFile=dataItem.type;
+         removeLayer(dataItem);
         $("."+typeOfFile).css({"background-color": color});  
         setShapeColors(dataItem,colorGradientArr);
         });
@@ -969,6 +1031,7 @@ var addEventsToColorShapePopUp=function(popup,dataItem)
 
 
           var typeOfFile=dataItem.type;
+           removeLayer(dataItem);
           $("."+typeOfFile).css({"background-color": color});
           setShapeColors(dataItem,colorGradientArr);
         });
@@ -981,6 +1044,7 @@ var addEventsToColorShapePopUp=function(popup,dataItem)
          dataItem.currentColor=color;
           
            var typeOfFile=dataItem.type;
+            removeLayer(dataItem);
       $("."+typeOfFile).css({"background-color": color});
           setShapeColors(dataItem,colorGradientArr);
            
@@ -1117,9 +1181,7 @@ setUpInitialMap(initialMapArr);
 
 $(".radio").click( function() {
 
-  //var test=$("input#tracts2010");
-   //test.checked=true;
-  // console.log(test);
+ 
 
   var fileName=$(this).data("file");
   var file = '/data/' + fileName;
@@ -1130,19 +1192,19 @@ $(".radio").click( function() {
 
  
   var input=$(this);
-  var index;
-
-
+  
   var checked=false;
-  for(var i=0;i<radioLayerInput.length;i++)
-  {
-    var thisInput=radioLayerInput[i];
-    var thisFileName=thisInput.data("file");
-    if(thisFileName==fileName)
+
+
+    for(var i=0;i<LayerId.length;i++)
     {
-      checked=true;
-      index=i;
-    }//if
+    var result=_.findWhere(LayerId, {"fileName":fileName});
+    
+      if(result!=undefined)
+      {
+        checked=true;
+        
+      }//if
   }//for
 
   if(checked==true)
@@ -1158,75 +1220,28 @@ $(".radio").click( function() {
     var colorKey=findColorKey(currentColor);
     var uri_para=dataItem.uri_para;
 
-    removeFromUrl(relative_URI,type,uri_para);
-    removeFromUrl(relative_URI,type,colorKey);
+    //removeFromUrl(relative_URI,type,uri_para);
+    //removeFromUrl(relative_URI,type,colorKey);
 
-    //remove input from checkbox datastructure
-    radioLayerInput.splice(index,1);
+    removeLayer(dataItem);
 
     //remove mark from priority algorthm recorder
     changeDataPriortyRecorder(dataItem,checked);
 
     removePopUp(dataItem);
 
-    //make new layers reflecting the changes
-    clearAllLayers();
-    //make sure shape layers on bottom
-  // reorderLayers();
-           for(var i=0;i<radioLayerInput.length;i++)
-            {
-              var thisInput=radioLayerInput[i]
-              var fileName=thisInput.data("file");
-              var file = '/data/' + fileName;
-              var datasetname = thisInput.data("name");
-              var infoOfImportance = thisInput.data("property");
-              var thisDataItem=getItem(dataArr,{fileName:fileName});
-
-              getData(thisDataItem);
-            }
   }
   else if(checked==false)
   {
-
-    var canAddFileToLayer=dataPriorityChecker(fileName);
+ 
+    var canAddFileToLayer=dataPriorityChecker(dataItem);
     if(canAddFileToLayer==true)
     {
       addPopUp(dataItem);
 
 
-      //add new value to list of inputs
-        radioLayerInput.push(input);
-
-        //add checks to all inputs in checked link
-        for(var i=0;i<radioLayerInput.length;i++)
-        {
-          var thisInput=radioLayerInput[i];
-          console.log(thisInput);
-          //thisFileName=thisInput.data("file");
-          thisInput.addClass("checked");
-          var fileInput=thisInput.find("input");
-          console.log(fileInput);
-          thisInput.find("input").prop("checked", true);
-        }//for
-        //change priority recorder
-        changeDataPriortyRecorder(dataItem,checked);
-
-      
-
-        //need to turn on layers
-                clearAllLayers();
-                //radioLayerInput=reorderLayers();
-
-               for(var i=0;i<radioLayerInput.length;i++)
-                {
-                  var thisInput=radioLayerInput[i];
-                  //var fileName=thisInput.data("file");
-                  //var file = '/data/' + fileName;
-                  //var datasetname = thisInput.data("name");
-                  //var infoOfImportance = thisInput.data("property");
-                  var thisDataItem=getItem(dataArr,{fileName:fileName});
-                    getData(thisDataItem);
-               }//fpr
+    changeDataPriortyRecorder(dataItem,checked);
+    getData(dataItem);
 
     }//end of canAddfile=-true
     else if(canAddFileToLayer==false)
