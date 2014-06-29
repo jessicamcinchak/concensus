@@ -35,10 +35,7 @@ font-size: x-small;
 top: -10;
 }
 
-#legendTable
-{
-  width:50px;
-}
+
 
 table#legendTable
 {
@@ -52,7 +49,15 @@ table#legendTable
   position: absolute;
   top:40px;
   margin-left: 5px;
-  width:50px;
+  width:200px;
+  table-layout: fixed
+
+}
+
+col#colName
+{
+ width: 60%; 
+ word-wrap: break-word;
 }
 
 .row1
@@ -78,9 +83,15 @@ table#legendTable
     }
     .legend_row td{
       height: 60px;
+      width: 30px;
       font-size:x-small;
       background-color:#ffffff;
-      word-wrap:break-word;
+    }
+
+    td.fileName{
+      width: 60%;
+     word-wrap: break-word;
+     white-space:normal;
     }
 
 

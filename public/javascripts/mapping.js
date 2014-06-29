@@ -792,32 +792,12 @@ if(LayerId.length>0){
 });
 
 $("img#save_disk").click( function() {
-
-
-console.log(map);
-  //  overlayLayerGroup.eachLayer(function(layer){
-  //     console.log(layer);
-  //       layer.bringToFront();
-  // });
-
-
-  // var jsonStr="";
-  // var json = $.getJSON("/data/council_district.geojson",function(data){
-  //   var aStr=JSON.stringify(data); 
-  //   jsonStr.concat(aStr);
-  // }).success
-  // console.log(jsonStr);
-
- //  function( json ) {
- //  console.log( "JSON Data: " + json.users[ 3 ].name );
- // });
-
- //  var string= JSON.parse(json.responseText);
- //  console.log(string);
- //  console.log("in save disk");
-  //var blob = new Blob(["Hello, world!"], {type: "text/plain;charset=utf-8"});
-  //saveAs(blob, "hello world.txt");
-
+  _.each(LayerId,function(layerEle){
+    var afileName=layerEle.fileName;
+    var file='/data/'+afileName; 
+    $.fileDownload(file);
+  });
+ 
 });
 
 addLegendRow=function(dataItem)
@@ -827,7 +807,7 @@ addLegendRow=function(dataItem)
   var name=dataItem.name;
   var rowName="row"+fileName;
   
-  var row=('<tr class="legend_row" id="'+rowName+'"><th> <div class="side_header">D3 Data</div></th><td>'+name+'</td><td><div class="'+typeOfFile+'"/></td></tr>');
+  var row=('<tr class="legend_row" id="'+rowName+'"><th> <div class="side_header">D3 Data</div></th><td class="fileName">'+name+'</td><td><div class="'+typeOfFile+'"/></td></tr>');
   return row;
 }
 
@@ -1084,7 +1064,7 @@ var addPopUp=function(dataItem)
   {
     
     $("#legend_intro").remove();
-     var table = $("<table id='legendTable'></table>");
+     var table = $("<table id='legendTable'><col/><col id='colName'/><col/></table>");
 
     var header_row=('<tr class="row1"><th>View as</th><th>Indicator Name</th> <th>Data Type</th> </tr>');
     table_dialog=$("#table_dialog");

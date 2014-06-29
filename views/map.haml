@@ -6,7 +6,7 @@
     %title conCensus
     %script(src="http://cdn.leafletjs.com/leaflet-0.7.2/leaflet.js")
     %script(src="//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.0.0/leaflet-omnivore.min.js")
-    %script(src="http://code.jquery.com/jquery-1.10.2.min.js")
+    %script(src="http://code.jquery.com/jquery-1.10.2.min.js")%script(src="http://code.jquery.com/jquery-1.10.2.min.js")
     %script{src: "/javascripts/uri.js"}
     %link{href: "/stylesheets/popup.css", media: "screen", rel: "stylesheet", type: "text/css"}
     %link{href: "/stylesheets/point_popup.css", media: "screen", rel: "stylesheet", type: "text/css"}
@@ -14,6 +14,7 @@
     %link{href: "/stylesheets/line_popup.css", media: "screen", rel: "stylesheet", type: "text/css"}
     %script{src: "/javascripts/jquery-1.11.1.js"}
     %script{src: "/javascripts/FileSaver.js"}
+    %script{src: "/javascripts/jquery.fileDownload.js"}
     %script{src: "/javascripts/jquery-ui-1.10.4.custom.js"}
     %script{src: "/javascripts/dataItems.js"}
     %script{src: "/javascripts/underscore.js"}
@@ -175,8 +176,9 @@
           %img{src:"images/conCensus_TalkBubble.png", alt: "talk bubble", id:"save_disk", width:"50px", height:"50px"}
           %img{src:"images/conCensus_DownloadArrom.png", alt: "d3 logo", id:"save_disk", width:"50px", height:"50px"}
           %img{src:"images/conCensus_ShareBullhorn.png", alt: "d3 logo", id:"bull_horn", width:"50px", height:"50px"}
-          %a{ href:"#", download:"data/council_district.geojson"}
-            %img{src:"images/conCensus_SaveDisk.png", alt: "save disk", id:"save_disk", width:"50px", height:"50px"}
+          %img{src:"images/conCensus_SaveDisk.png", alt: "save disk", id:"save_disk", width:"50px", height:"50px"}
+          / %a{ href:"#", download:"data/council_district.geojson"}
+          /   %img{src:"images/conCensus_SaveDisk.png", alt: "save disk", id:"save_disk", width:"50px", height:"50px"}
 
           / %span(class="glyphicon glyphicon-arrow-down")
           / %span(class="glyphicon glyphicon-chat")
