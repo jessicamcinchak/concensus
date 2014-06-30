@@ -1,7 +1,7 @@
 // Set up the page
 // ---------
 
-var contentRowCounter=1;
+var contentLegendRowCounter=0;
 //var radioLayerInput=new Array();
 var shape="shape";
 var line="line";
@@ -1068,13 +1068,23 @@ var addPopUp=function(dataItem)
 
     var header_row=('<tr class="row1"><th>View as</th><th>Indicator Name</th> <th>Data Type</th> </tr>');
     table_dialog=$("#table_dialog");
-    table_dialog.css("width","230px");
-    table_dialog.css("height","150px");
+    table_dialog.css("width","215px");
+    table_dialog.css("height","90px");
     $("#table_dialog").append(table);
     table.append(header_row);
   }
-       contentRowCounter++;
+   var currentHeight = $("#table_dialog").css("height");
+   console.log("currentHeight"+" "+currentHeight);
+   var currentHeightValue = currentHeight.replace('px', '');
+   var currentHeightInt=parseInt(currentHeightValue);
+   var newHeight=currentHeightInt+70;
+   $("#table_dialog").css("height",newHeight+"px");
+   
+
+      contentLegendRowCounter++;
+
       var row=addLegendRow(dataItem);
+
       $("#legendTable").append(row);
 
       $("."+typeOfFile).click(function(){
@@ -1122,6 +1132,15 @@ var removePopUp=function(dataItem)
   if(list.length==1){
     table.remove();
   }
+
+  contentLegendRowCounter--;
+   var currentHeight = $("#table_dialog").css("height");
+   console.log("currentHeight"+" "+currentHeight);
+   var currentHeightValue = currentHeight.replace('px', '');
+   var currentHeightInt=parseInt(currentHeightValue);
+   var newHeight=currentHeightInt-70;
+   $("#table_dialog").css("height",newHeight+"px");
+  table_dialog.css("height","150px");
 
 }
 
