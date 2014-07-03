@@ -208,6 +208,7 @@ var getDataItemsForMap=function(valuesForMapArr)
 
         var dataItem=_.where(dataArr, {uri_para: thisUri_Para});
         dataItem.currentColor=color;
+        console.log(color);
         getDataItems.push(dataItem[0]);
       });
 
@@ -231,11 +232,6 @@ var getInputItems=function(dataItem)
 
 var setUpInitialMap=function(initialMapArr){
 
-   var test=$("input#tracts2010");
-   test.checked=true;
-
-   var testInput=test.find("input");
-   testInput.prop("checked", true);
    
 
     var valuesForMapArr=getValuesForMap(initialMapArr);
@@ -322,8 +318,6 @@ var accordion_user=$(".accordion_user" ).accordion();
     var index=_.indexOf(LayerId, arrIndex);
 
     LayerId.splice(index,1);
-    overLayLayerGroup.removeLayer(removeId);
-    console.log(LayerId);
   }
 
 
@@ -456,7 +450,6 @@ var setShapeColors=function(dataItem,colorGradientArr)
 }
 var processShapeData=function(dataItem,data,colorGradientArr)
 {
-
       var features= data['features'];
       var query_parameter=dataItem.query_parameter;
       var mainMappingData=query_parameter;
@@ -469,7 +462,9 @@ var processShapeData=function(dataItem,data,colorGradientArr)
 
 var gradientValues=function(dataItem,mainMappingData,features,colorGradientArr)
 {
+
    var valueArr=new Array();
+   var popup_para=dataItem.popup_value;
 
 
     for (var i = 0; i < features.length ;i++) {
@@ -479,6 +474,7 @@ var gradientValues=function(dataItem,mainMappingData,features,colorGradientArr)
 
       }
       var numRangeArr=sortNum(valueArr);
+
 
       var rangeNum=getValueRange(numRangeArr);
 
@@ -524,7 +520,14 @@ var gradientValues=function(dataItem,mainMappingData,features,colorGradientArr)
          }
       
       return newStyle;
-    }}).addTo(map);
+    },
+  onEachFeature: function (feature, myLayer) {
+      var popup_value=feature.properties[popup_para];
+      if(popup_value!=null){
+       myLayer.bindPopup(popup_value);
+      }
+    }
+  }).addTo(map);
 
   overLayLayerGroup.addLayer(layer);
   addLayerInfo(dataItem,layer);
@@ -638,6 +641,7 @@ var rulesForFiles=function(dataItem)
   else if(type==point)
   {
     var color;
+
     if(dataItem.currentColor==null){
       var color=input.lightBlue[maxColorIndex];
         
@@ -645,6 +649,7 @@ var rulesForFiles=function(dataItem)
     else{
       var color=dataItem.currentColor;
     }
+     console.log("in point"+" "+color);
     dataItem.currentColor=color;
     setPointColor(dataItem,color);
   }
@@ -759,7 +764,7 @@ addPointPopup=function()
 }
 
 $("img#bull_horn").click( function() {
-console.log("in bull horn");
+
 
 _.each(LayerId,function(layerEle){
   var afileName=layerEle.fileName;
@@ -774,7 +779,6 @@ _.each(LayerId,function(layerEle){
 
 var currentUrl=window.location.href;
 var newUrl=currentUrl+relative_URI;
-console.log(newUrl);  
 
 if(LayerId.length>0){
     
@@ -1074,7 +1078,6 @@ var addPopUp=function(dataItem)
     table.append(header_row);
   }
    var currentHeight = $("#table_dialog").css("height");
-   console.log("currentHeight"+" "+currentHeight);
    var currentHeightValue = currentHeight.replace('px', '');
    var currentHeightInt=parseInt(currentHeightValue);
    var newHeight=currentHeightInt+70;
@@ -1135,7 +1138,6 @@ var removePopUp=function(dataItem)
 
   contentLegendRowCounter--;
    var currentHeight = $("#table_dialog").css("height");
-   console.log("currentHeight"+" "+currentHeight);
    var currentHeightValue = currentHeight.replace('px', '');
    var currentHeightInt=parseInt(currentHeightValue);
    var newHeight=currentHeightInt-70;
