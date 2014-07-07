@@ -248,14 +248,16 @@ var setUpInitialMap=function(initialMapArr){
     for(var i=0;i<getDataItems.length;i++)
     {
       var dataItem=getDataItems[i];
+      var currentColor=dataItem.currentColor
+      var typeOfFile=dataItem.type;
       var uri_parameter=dataItem.uri_para;
       var inputName="input#"+uri_parameter;
       $(inputName).attr('checked',true)
 
       addPopUp(dataItem);
+       $("."+typeOfFile).css({"background-color": currentColor});
       var checked=true;
       changeDataPriortyRecorder(dataItem,checked);
-      console.log("father in init"+" "+dataItem.currentColor);
       getData(dataItem);
     }
 }
@@ -1219,8 +1221,6 @@ $(".radio").click( function() {
     var colorKey=findColorKey(currentColor);
     var uri_para=dataItem.uri_para;
 
-    //removeFromUrl(relative_URI,type,uri_para);
-    //removeFromUrl(relative_URI,type,colorKey);
 
     removeLayer(dataItem);
 
