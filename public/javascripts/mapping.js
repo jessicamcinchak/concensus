@@ -2,7 +2,6 @@
 // ---------
 
 var contentLegendRowCounter=0;
-//var radioLayerInput=new Array();
 var shape="shape";
 var line="line";
 var point="point";
@@ -138,7 +137,7 @@ var input = {
     "lightGreen": ['#F0F5E6','#DCE8C7','#C3D79E','#A5C36E','#87AF3E'],
     "darkGreen": ['#E3EAE4','#BFCFC2','#8FAC95','#578260','#20592C']
 }
-
+var maxColorIndex=4;
 
 var findColorKey=function(color)
 {
@@ -204,12 +203,13 @@ var getDataItemsForMap=function(valuesForMapArr)
       _.each(valuesForMapArr,function(valuesForMap, index){
 
         var thisUri_Para=valuesForMap[0];
-        var color=valuesForMap[1];
+        var thisColorKey=valuesForMap[1];
+        var colorArr=input[thisColorKey];
+        var colorValue=colorArr[maxColorIndex]
 
-        var dataItem=_.where(dataArr, {uri_para: thisUri_Para});
-        dataItem.currentColor=color;
-        console.log(color);
-        getDataItems.push(dataItem[0]);
+        dataItem=_.findWhere(dataArr, {uri_para: thisUri_Para});
+        dataItem.currentColor=colorValue;
+        getDataItems.push(dataItem);
       });
 
       return getDataItems;
@@ -237,6 +237,7 @@ var setUpInitialMap=function(initialMapArr){
     var valuesForMapArr=getValuesForMap(initialMapArr);
 
     var getDataItems=getDataItemsForMap(valuesForMapArr);
+    console.log(getDataItems);
     
     var inputList=new Array();
     _.each(getDataItems,function(dataItem){
@@ -254,6 +255,7 @@ var setUpInitialMap=function(initialMapArr){
       addPopUp(dataItem);
       var checked=true;
       changeDataPriortyRecorder(dataItem,checked);
+      console.log("father in init"+" "+dataItem.currentColor);
       getData(dataItem);
     }
 }
@@ -287,7 +289,7 @@ var accordion_user=$(".accordion_user" ).accordion();
       
     });
 
-  var maxColorIndex=4;
+  
   var currentColorPopup=null;
 
   function changeColorGradient(colorGradArr)
@@ -371,7 +373,7 @@ var features=data['features'];
     onEachFeature: function (feature, myLayer) {
       var popup_value=feature.properties[popup_para];
       if(popup_value!=null){
-       myLayer.bindPopup(popup_value);
+       myLayer.bindPopup(popup_value.toString());
       }
   }});
 
@@ -524,7 +526,10 @@ var gradientValues=function(dataItem,mainMappingData,features,colorGradientArr)
   onEachFeature: function (feature, myLayer) {
       var popup_value=feature.properties[popup_para];
       if(popup_value!=null){
-       myLayer.bindPopup(popup_value);
+       myLayer.bindPopup(popup_value.toString());
+      }
+      else{
+        console.log("yo null");
       }
     }
   }).addTo(map);
@@ -653,14 +658,7 @@ var rulesForFiles=function(dataItem)
     dataItem.currentColor=color;
     setPointColor(dataItem,color);
   }
-      //var type=dataItem.type;
-      //var colorValue=dataItem.currentColor;
-      // var colorKey=findColorKey(colorValue);
-      // var uri_para=dataItem.uri_para
-      // addToUrl(relative_URI,type,uri_para);
-      // addToUrl(relative_URI,type,colorKey);
-      // pushStateToUrl(relative_URI);
-      // pushStateToUrl("");
+     
 };
 
 var addSquarePopUp=function(dataItem)
